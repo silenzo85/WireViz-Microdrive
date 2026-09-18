@@ -1,0 +1,15 @@
+# STREFA: zasilanie petli pradowej 4...20 mA (P149 -> listwa XT1)
+cables:
+  WZ:
+    type: Zasilanie petli
+    gauge: 1 mm2
+    colors:
+    - RD
+    length: 1.5
+connections:
+- - X1:
+    - P149
+  - WZ:
+    - 1
+  - XT1:
+    - 1

@@ -1,0 +1,37 @@
+# Zlacza graniczne - widoczne na kilku arkuszach naraz.
+# hide_disconnected_pins sprawia, ze arkusz strefowy pokazuje tylko swoje piny.
+connectors:
+  X1:
+    type: HY-TTC 510
+    subtype: petla pradowa 4...20 mA
+    notes: Wejscia 2-Mode 10 V w trybie pradowym 0...25 mA - bez bocznikow zewnetrznych
+    pins:
+    - P149
+    - P108
+    - P132
+    - P109
+    - P133
+    - P110
+    - P134
+    pinlabels:
+    - +24V petla 4-20mA
+    - BP1 petla A
+    - BP2 petla B
+    - BP3 lapa C1
+    - BP4 lapa C2
+    - BP5 lapa C3
+    - BP6 lapa C4
+    hide_disconnected_pins: true
+  XT1:
+    type: Listwa rozdzielcza
+    subtype: rozgalezienie zasilania petli
+    pincount: 7
+    pinlabels:
+    - we +24V
+    - BP1
+    - BP2
+    - BP3
+    - BP4
+    - BP5
+    - BP6
+    hide_disconnected_pins: true

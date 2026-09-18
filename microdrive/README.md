@@ -15,6 +15,7 @@ Fork: https://github.com/silenzo85/WireViz-Microdrive, gałąź `microdrive`
 | **Eksport DXF** (format `d`) | `src/wireviz/wv_dxf.py` (nowy), `Harness.py`, `wv_cli.py` | Cała dokumentacja rysunkowa projektu żyje w DXF/DWG i jest sprawdzana przez `schematy/_generator/audit.py`. Natywne wyjścia WireViz (gv/svg/png/html/tsv) do tego obiegu nie wchodzą. |
 | **Polskie skróty kolorów żył** — tryby `POL` i `POLFULL` | `src/wireviz/wv_colors.py` | Dokumentacja projektu jest po polsku. Bez znaków diakrytycznych, bo tekst trafia do DXF. |
 | **Polskie nagłówki listy materiałowej** | `src/wireviz/wv_bom.py` | j.w. Wyłącznik: `WIREVIZ_LANG=en` przywraca oryginał. |
+| **Scalanie arkuszy strefowych** | `microdrive/zloz.py` (narzędzie, poza pakietem) | natywne `-p/--prepend` w WireViz składa pliki **jako tekst** — powtórzona sekcja `connectors:` nadpisuje poprzednią **bez ostrzeżenia**. Sprawdzone: sklejenie dwóch plików po 1 złączu daje 1 złącze. |
 | **`ezdxf` jako zależność** | `requirements.txt`, `setup.py` | potrzebny do eksportu DXF |
 
 Nic poza tym nie ruszane — merge ze zmianami upstreamu pozostaje możliwy.

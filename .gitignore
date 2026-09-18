@@ -17,3 +17,5 @@ temp/
 # fork Microdrive: katalogi wynikowe
 _test/
 rysunki/
+_probe/
+build/
