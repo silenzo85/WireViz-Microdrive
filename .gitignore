@@ -13,3 +13,7 @@ venv/
 desktop.ini
 thumbs.db
 temp/
+
+# fork Microdrive: katalogi wynikowe
+_test/
+rysunki/

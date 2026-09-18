@@ -113,6 +113,41 @@ _color_ger = {
     "GD": "au",  # Gold
 }
 
+# Fork Microdrive: polskie skroty kolorow zyl.
+# Bez znakow diakrytycznych - tekst trafia do DXF i do dokumentacji projektu,
+# ktora z zalozenia jest ASCII-safe w nazwach i etykietach.
+_color_pol = {
+    "BK": "cz",  # czarny
+    "WH": "bi",  # bialy
+    "GY": "sz",  # szary
+    "PK": "ro",  # rozowy
+    "RD": "cr",  # czerwony
+    "OG": "po",  # pomaranczowy
+    "YE": "zo",  # zolty
+    "OL": "ol",  # oliwkowy
+    "GN": "zi",  # zielony
+    "TQ": "tu",  # turkusowy
+    "LB": "jn",  # jasnoniebieski
+    "BU": "nb",  # niebieski
+    "VT": "fi",  # fioletowy
+    "BN": "br",  # brazowy
+    "BG": "be",  # bezowy
+    "IV": "ks",  # kosc sloniowa
+    "SL": "lu",  # lupkowy
+    "CU": "md",  # miedz
+    "SN": "cy",  # cyna
+    "SR": "sr",  # srebrny
+    "GD": "zt",  # zloty
+}
+
+_color_pol_full = {
+    "BK": "czarny", "WH": "bialy", "GY": "szary", "PK": "rozowy",
+    "RD": "czerwony", "OG": "pomaranczowy", "YE": "zolty", "OL": "oliwkowy",
+    "GN": "zielony", "TQ": "turkusowy", "LB": "jasnoniebieski", "BU": "niebieski",
+    "VT": "fioletowy", "BN": "brazowy", "BG": "bezowy", "IV": "kosc sloniowa",
+    "SL": "lupkowy", "CU": "miedz", "SN": "cyna", "SR": "srebrny", "GD": "zloty",
+}
+
 
 color_default = "#ffffff"
 
@@ -123,7 +158,7 @@ _hex_digits = set("0123456789abcdefABCDEF")
 Color = str  # Two-letter color name = Literal[_color_hex.keys()]
 Colors = str  # One or more two-letter color names (Color) concatenated into one string
 ColorMode = (
-    str  # = Literal['full', 'FULL', 'hex', 'HEX', 'short', 'SHORT', 'ger', 'GER']
+    str  # 'full'|'hex'|'short'|'ger'|'pol'|'polfull' (+ warianty UPPER)
 )
 ColorScheme = str  # Color scheme name = Literal[COLOR_CODES.keys()]
 
@@ -191,6 +226,10 @@ def translate_color(input: Colors, color_mode: ColorMode) -> str:
         output = ":".join(get_color_hex(input, pad=False))
     elif color_mode == "ger":
         output = "".join(get_color_translation(_color_ger, input))
+    elif color_mode == "pol":  # fork Microdrive
+        output = "".join(get_color_translation(_color_pol, input))
+    elif color_mode == "polfull":  # fork Microdrive
+        output = "/".join(get_color_translation(_color_pol_full, input))
     elif color_mode == "short":
         output = input
     else:

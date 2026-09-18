@@ -13,7 +13,31 @@ BOM_COLUMNS_ALWAYS = ("id", "description", "qty", "unit", "designators")
 BOM_COLUMNS_OPTIONAL = ("pn", "manufacturer", "mpn", "supplier", "spn")
 BOM_COLUMNS_IN_KEY = ("description", "unit") + BOM_COLUMNS_OPTIONAL
 
-HEADER_PN = "P/N"
+# Fork Microdrive: dokumentacja projektu jest po polsku.
+# Ustaw WIREVIZ_LANG=en, zeby wrocic do naglowkow oryginalnych.
+import os
+
+_PL = os.environ.get("WIREVIZ_LANG", "pl").lower() == "pl"
+
+BOM_HEADERS_PL = {
+    "id": "Lp.",
+    "description": "Opis",
+    "qty": "Ilosc",
+    "unit": "J.m.",
+    "designators": "Oznaczenia",
+    "manufacturer": "Producent",
+    "supplier": "Dostawca",
+}
+
+HEADER_PN = "Nr kat." if _PL else "P/N"
+
+# Nazwy typow pozycji w LM
+T_CONNECTOR = "Zlacze" if _PL else "Connector"
+T_CABLE = "Kabel" if _PL else "Cable"
+T_WIRE = "Zyla" if _PL else "Wire"
+T_SHIELD = "Ekran" if _PL else "Shield"
+T_PINS = "pin." if _PL else "pins"
+T_ADDITIONAL = "Elementy dodatkowe" if _PL else "Additional components"
 HEADER_MPN = "MPN"
 HEADER_SPN = "SPN"
 
@@ -34,7 +58,7 @@ def get_additional_component_table(
     """Return a list of diagram node table row strings with additional components."""
     rows = []
     if component.additional_components:
-        rows.append(["Additional components"])
+        rows.append([T_ADDITIONAL])
         # Ignore components that have qty 0
         for part in [
             part
@@ -104,10 +128,10 @@ def generate_bom(harness: "Harness") -> List[BOMEntry]:
     for connector in harness.connectors.values():
         if not connector.ignore_in_bom:
             description = (
-                "Connector"
+                T_CONNECTOR
                 + (f", {connector.type}" if connector.type else "")
                 + (f", {connector.subtype}" if connector.subtype else "")
-                + (f", {connector.pincount} pins" if connector.show_pincount else "")
+                + (f", {connector.pincount} {T_PINS}" if connector.show_pincount else "")
                 + (
                     f", {translate_color(connector.color, harness.options.color_mode)}"
                     if connector.color
@@ -132,7 +156,7 @@ def generate_bom(harness: "Harness") -> List[BOMEntry]:
             if cable.category != "bundle":
                 # process cable as a single entity
                 description = (
-                    "Cable"
+                    T_CABLE
                     + (f", {cable.type}" if cable.type else "")
                     + (f", {cable.wirecount}")
                     + (
@@ -160,7 +184,7 @@ def generate_bom(harness: "Harness") -> List[BOMEntry]:
                 # add each wire from the bundle to the bom
                 for index, color in enumerate(cable.colors):
                     description = (
-                        "Wire"
+                        T_WIRE
                         + (f", {cable.type}" if cable.type else "")
                         + (f", {cable.gauge} {cable.gauge_unit}" if cable.gauge else "")
                         + (
@@ -237,6 +261,8 @@ def bom_list(bom: List[BOMEntry]) -> List[List[str]]:
         "mpn": HEADER_MPN,
         "spn": HEADER_SPN,
     }
+    if _PL:
+        bom_headings = {**BOM_HEADERS_PL, **bom_headings}
     return [
         [bom_headings.get(k, k.capitalize()) for k in keys]
     ] + [  # Create header row with key names

@@ -15,6 +15,7 @@ from wireviz.wv_helper import file_read_text
 
 format_codes = {
     # "c": "csv",
+    "d": "dxf",  # fork Microdrive
     "g": "gv",
     "h": "html",
     "p": "png",

@@ -21,6 +21,7 @@ from wireviz.DataClasses import (
 )
 from wireviz.svgembed import embed_svg_images, embed_svg_images_file
 from wireviz.wv_bom import (
+    T_SHIELD,
     HEADER_MPN,
     HEADER_PN,
     HEADER_SPN,
@@ -49,6 +50,7 @@ from wireviz.wv_helper import (
     mm2_equiv,
     tuplelist2tsv,
 )
+from wireviz.wv_dxf import export_dxf
 from wireviz.wv_html import generate_html_output
 
 OLD_CONNECTOR_ATTR = {
@@ -421,7 +423,7 @@ class Harness:
                 wirehtml.append("   <tr><td>&nbsp;</td></tr>")  # spacer
                 wirehtml.append("   <tr>")
                 wirehtml.append("    <td><!-- s_in --></td>")
-                wirehtml.append("    <td>Shield</td>")
+                wirehtml.append(f"    <td>{T_SHIELD}</td>")
                 wirehtml.append("    <td><!-- s_out --></td>")
                 wirehtml.append("   </tr>")
                 if isinstance(cable.shield, str):
@@ -692,6 +694,9 @@ class Harness:
         bomlist = bom_list(self.bom())
         if "tsv" in fmt:
             file_write_text(f"{filename}.bom.tsv", tuplelist2tsv(bomlist))
+        # DXF output (fork Microdrive) - wiazka do obiegu CAD projektu
+        if "dxf" in fmt:
+            export_dxf(self, filename, bomlist)
         if "csv" in fmt:
             # TODO: implement CSV output (preferrably using CSV library)
             print("CSV output is not yet supported")

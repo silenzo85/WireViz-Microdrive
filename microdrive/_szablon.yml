@@ -1,0 +1,16 @@
+# Szablon wspolny dla wiazek projektu Mercedes Microdrive.
+# Dolaczany do kazdego rysunku przez:  wireviz -p microdrive/_szablon.yml <plik.yml>
+#
+# Trzyma konwencje rysunkowe w JEDNYM miejscu - pojedyncze pliki wiazek
+# opisuja tylko swoja tresc.
+
+options:
+  color_mode: POL        # polskie skroty kolorow zyl (fork Microdrive)
+  fontname: arial
+  bgcolor: WH
+  mini_bom_mode: true
+
+metadata:
+  company: DEMARKO
+  project: Mercedes AROCS 8x8 - microdrive
+  controller: HY-TTC 510 (CODESYS Safety SIL2)
