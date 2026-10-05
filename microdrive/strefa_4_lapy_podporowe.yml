@@ -1,0 +1,389 @@
+# PLIK GENEROWANY - nie edytowac recznie.
+# Zrodlo: docs/45_wireviz/*.csv  ->  microdrive/z_csv.py
+# STREFA 4: lapy podporowe
+connectors:
+  BP3:
+    type: Przetwornik cisnienia 0..600 bar, 4..20 mA, 2-przewodowy
+    pins:
+    - 1
+    - 2
+    pinlabels:
+    - Signal + (zasilanie petli)
+    - Signal - (wyjscie pradowe)
+    subtype: HYDAC HPT 144S-A-0600-000 (mat. 929389)
+    notes: BP1 P108, BP2 P132, BP3 P109, BP4 P133, BP5 P110, BP6 P134 (tryb pradowy
+      0..25 mA). Zasilanie petli (+24 V) - TODO_HARDWARE (P149 opisany tylko dla BT1/BT2).
+  BP4:
+    type: Przetwornik cisnienia 0..600 bar, 4..20 mA, 2-przewodowy
+    pins:
+    - 1
+    - 2
+    pinlabels:
+    - Signal + (zasilanie petli)
+    - Signal - (wyjscie pradowe)
+    subtype: HYDAC HPT 144S-A-0600-000 (mat. 929389)
+    notes: BP1 P108, BP2 P132, BP3 P109, BP4 P133, BP5 P110, BP6 P134 (tryb pradowy
+      0..25 mA). Zasilanie petli (+24 V) - TODO_HARDWARE (P149 opisany tylko dla BT1/BT2).
+  BP5:
+    type: Przetwornik cisnienia 0..600 bar, 4..20 mA, 2-przewodowy
+    pins:
+    - 1
+    - 2
+    pinlabels:
+    - Signal + (zasilanie petli)
+    - Signal - (wyjscie pradowe)
+    subtype: HYDAC HPT 144S-A-0600-000 (mat. 929389)
+    notes: BP1 P108, BP2 P132, BP3 P109, BP4 P133, BP5 P110, BP6 P134 (tryb pradowy
+      0..25 mA). Zasilanie petli (+24 V) - TODO_HARDWARE (P149 opisany tylko dla BT1/BT2).
+  BP6:
+    type: Przetwornik cisnienia 0..600 bar, 4..20 mA, 2-przewodowy
+    pins:
+    - 1
+    - 2
+    pinlabels:
+    - Signal + (zasilanie petli)
+    - Signal - (wyjscie pradowe)
+    subtype: HYDAC HPT 144S-A-0600-000 (mat. 929389)
+    notes: BP1 P108, BP2 P132, BP3 P109, BP4 P133, BP5 P110, BP6 P134 (tryb pradowy
+      0..25 mA). Zasilanie petli (+24 V) - TODO_HARDWARE (P149 opisany tylko dla BT1/BT2).
+  YV1a:
+    type: Cewki rozdzielacza podpor Walvoil Q45/4/F1S(N150)/103-A1-D41
+    pins:
+    - 1
+    pinlabels:
+    - lapa 1 wysuw
+    subtype: Walvoil, cewka 4SLG111400 (D41, 24 VDC, 52 W, IP65)
+    notes: 'Drugi zacisk kazdej cewki na szyne 0 V -&gt; BAT-. Bez dodatkowych diod.
+      Strona a/b = wysuw: TODO (orurowanie). Cewki -20 °C (WET -30) - otwarte.'
+  YV1b:
+    type: Cewki rozdzielacza podpor Walvoil Q45/4/F1S(N150)/103-A1-D41
+    pins:
+    - 1
+    pinlabels:
+    - lapa 1 wsuw
+    subtype: Walvoil, cewka 4SLG111400 (D41, 24 VDC, 52 W, IP65)
+    notes: 'Drugi zacisk kazdej cewki na szyne 0 V -&gt; BAT-. Bez dodatkowych diod.
+      Strona a/b = wysuw: TODO (orurowanie). Cewki -20 °C (WET -30) - otwarte.'
+  YV2a:
+    type: Cewki rozdzielacza podpor Walvoil Q45/4/F1S(N150)/103-A1-D41
+    pins:
+    - 1
+    pinlabels:
+    - lapa 2 wysuw
+    subtype: Walvoil, cewka 4SLG111400 (D41, 24 VDC, 52 W, IP65)
+    notes: 'Drugi zacisk kazdej cewki na szyne 0 V -&gt; BAT-. Bez dodatkowych diod.
+      Strona a/b = wysuw: TODO (orurowanie). Cewki -20 °C (WET -30) - otwarte.'
+  YV2b:
+    type: Cewki rozdzielacza podpor Walvoil Q45/4/F1S(N150)/103-A1-D41
+    pins:
+    - 1
+    pinlabels:
+    - lapa 2 wsuw
+    subtype: Walvoil, cewka 4SLG111400 (D41, 24 VDC, 52 W, IP65)
+    notes: 'Drugi zacisk kazdej cewki na szyne 0 V -&gt; BAT-. Bez dodatkowych diod.
+      Strona a/b = wysuw: TODO (orurowanie). Cewki -20 °C (WET -30) - otwarte.'
+  YV3a:
+    type: Cewki rozdzielacza podpor Walvoil Q45/4/F1S(N150)/103-A1-D41
+    pins:
+    - 1
+    pinlabels:
+    - lapa 3 wysuw
+    subtype: Walvoil, cewka 4SLG111400 (D41, 24 VDC, 52 W, IP65)
+    notes: 'Drugi zacisk kazdej cewki na szyne 0 V -&gt; BAT-. Bez dodatkowych diod.
+      Strona a/b = wysuw: TODO (orurowanie). Cewki -20 °C (WET -30) - otwarte.'
+  YV3b:
+    type: Cewki rozdzielacza podpor Walvoil Q45/4/F1S(N150)/103-A1-D41
+    pins:
+    - 1
+    pinlabels:
+    - lapa 3 wsuw
+    subtype: Walvoil, cewka 4SLG111400 (D41, 24 VDC, 52 W, IP65)
+    notes: 'Drugi zacisk kazdej cewki na szyne 0 V -&gt; BAT-. Bez dodatkowych diod.
+      Strona a/b = wysuw: TODO (orurowanie). Cewki -20 °C (WET -30) - otwarte.'
+  YV4a:
+    type: Cewki rozdzielacza podpor Walvoil Q45/4/F1S(N150)/103-A1-D41
+    pins:
+    - 1
+    pinlabels:
+    - lapa 4 wysuw
+    subtype: Walvoil, cewka 4SLG111400 (D41, 24 VDC, 52 W, IP65)
+    notes: 'Drugi zacisk kazdej cewki na szyne 0 V -&gt; BAT-. Bez dodatkowych diod.
+      Strona a/b = wysuw: TODO (orurowanie). Cewki -20 °C (WET -30) - otwarte.'
+  YV4b:
+    type: Cewki rozdzielacza podpor Walvoil Q45/4/F1S(N150)/103-A1-D41
+    pins:
+    - 1
+    pinlabels:
+    - lapa 4 wsuw
+    subtype: Walvoil, cewka 4SLG111400 (D41, 24 VDC, 52 W, IP65)
+    notes: 'Drugi zacisk kazdej cewki na szyne 0 V -&gt; BAT-. Bez dodatkowych diod.
+      Strona a/b = wysuw: TODO (orurowanie). Cewki -20 °C (WET -30) - otwarte.'
+  YLF:
+    type: Regulator przeplywu podpor HYDAC PWK12120WP-01-C-V-P80-0
+    pins:
+    - 1?
+    - 2?
+    pinlabels:
+    - cewka +
+    - cewka -
+    subtype: HYDAC, cewka 40-1836 (24 V = 8,8 Ohm, max 1,05 A)
+    notes: Koncowka -0 = cewka niewyspecyfikowana. Otoczenie od -20 °C.
+  K_PTO2:
+    type: Przekaznik zadania zalaczenia PTO2 (N2E) - rownolegle do wla
+    pins:
+    - A1
+    - A2
+    - styk
+    pinlabels:
+    - cewka +
+    - cewka -
+    - rownolegle do wlacznika PTO N2
+    subtype: nie dobrany
+    notes: 'Wariant sterowania N2E otwarty. Styk przekaznika w obwodzie wlacznika
+      PTO pojazdu: TODO_HARDWARE.'
+cables:
+  W_BP3:
+    type: wiazka BP3
+    wirecount: 2
+    colors:
+    - GY
+    - GY
+    wirelabels:
+    - Signal + (zasilanie petl
+    - Signal - (wyjscie pradow
+    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+  W_BP4:
+    type: wiazka BP4
+    wirecount: 2
+    colors:
+    - GY
+    - GY
+    wirelabels:
+    - Signal + (zasilanie petl
+    - Signal - (wyjscie pradow
+    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+  W_BP5:
+    type: wiazka BP5
+    wirecount: 2
+    colors:
+    - GY
+    - GY
+    wirelabels:
+    - Signal + (zasilanie petl
+    - Signal - (wyjscie pradow
+    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+  W_BP6:
+    type: wiazka BP6
+    wirecount: 2
+    colors:
+    - GY
+    - GY
+    wirelabels:
+    - Signal + (zasilanie petl
+    - Signal - (wyjscie pradow
+    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+  W_YV1a:
+    type: wiazka YV1a
+    wirecount: 1
+    colors:
+    - GY
+    wirelabels:
+    - lapa 1 wysuw
+    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+  W_YV1b:
+    type: wiazka YV1b
+    wirecount: 1
+    colors:
+    - GY
+    wirelabels:
+    - lapa 1 wsuw
+    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+  W_YV2a:
+    type: wiazka YV2a
+    wirecount: 1
+    colors:
+    - GY
+    wirelabels:
+    - lapa 2 wysuw
+    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+  W_YV2b:
+    type: wiazka YV2b
+    wirecount: 1
+    colors:
+    - GY
+    wirelabels:
+    - lapa 2 wsuw
+    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+  W_YV3a:
+    type: wiazka YV3a
+    wirecount: 1
+    colors:
+    - GY
+    wirelabels:
+    - lapa 3 wysuw
+    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+  W_YV3b:
+    type: wiazka YV3b
+    wirecount: 1
+    colors:
+    - GY
+    wirelabels:
+    - lapa 3 wsuw
+    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+  W_YV4a:
+    type: wiazka YV4a
+    wirecount: 1
+    colors:
+    - GY
+    wirelabels:
+    - lapa 4 wysuw
+    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+  W_YV4b:
+    type: wiazka YV4b
+    wirecount: 1
+    colors:
+    - GY
+    wirelabels:
+    - lapa 4 wsuw
+    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+  W_YLF:
+    type: wiazka YLF
+    wirecount: 2
+    colors:
+    - GY
+    - GY
+    wirelabels:
+    - cewka +
+    - cewka -
+    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+  W_K_PTO2:
+    type: wiazka K_PTO2
+    wirecount: 2
+    colors:
+    - GY
+    - GY
+    wirelabels:
+    - cewka +
+    - cewka -
+    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+connections:
+- - BP3:
+    - 1
+  - W_BP3:
+    - 1
+  - X1:
+    - P149
+- - BP3:
+    - 2
+  - W_BP3:
+    - 2
+  - X1:
+    - P109
+- - BP4:
+    - 1
+  - W_BP4:
+    - 1
+  - X1:
+    - P149
+- - BP4:
+    - 2
+  - W_BP4:
+    - 2
+  - X1:
+    - P133
+- - BP5:
+    - 1
+  - W_BP5:
+    - 1
+  - X1:
+    - P149
+- - BP5:
+    - 2
+  - W_BP5:
+    - 2
+  - X1:
+    - P110
+- - BP6:
+    - 1
+  - W_BP6:
+    - 1
+  - X1:
+    - P149
+- - BP6:
+    - 2
+  - W_BP6:
+    - 2
+  - X1:
+    - P134
+- - YV1a:
+    - 1
+  - W_YV1a:
+    - 1
+  - X1:
+    - P153
+- - YV1b:
+    - 1
+  - W_YV1b:
+    - 1
+  - X1:
+    - P177
+- - YV2a:
+    - 1
+  - W_YV2a:
+    - 1
+  - X1:
+    - P156
+- - YV2b:
+    - 1
+  - W_YV2b:
+    - 1
+  - X1:
+    - P180
+- - YV3a:
+    - 1
+  - W_YV3a:
+    - 1
+  - X1:
+    - P159
+- - YV3b:
+    - 1
+  - W_YV3b:
+    - 1
+  - X1:
+    - P183
+- - YV4a:
+    - 1
+  - W_YV4a:
+    - 1
+  - X1:
+    - P186
+- - YV4b:
+    - 1
+  - W_YV4b:
+    - 1
+  - X1:
+    - P162
+- - YLF:
+    - 1?
+  - W_YLF:
+    - 1
+  - X1:
+    - P184
+- - YLF:
+    - 2?
+  - W_YLF:
+    - 2
+  - XB_GND:
+    - 3
+- - K_PTO2:
+    - A1
+  - W_K_PTO2:
+    - 1
+  - X1:
+    - P176
+- - K_PTO2:
+    - A2
+  - W_K_PTO2:
+    - 2
+  - XB_GND:
+    - 11

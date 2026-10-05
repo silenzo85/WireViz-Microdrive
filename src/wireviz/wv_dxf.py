@@ -192,8 +192,21 @@ def _layout(harness, sizes: Dict[str, Tuple[float, float]]) -> Dict[str, Tuple[f
 # --- rysowanie --------------------------------------------------------------
 
 
+ENCJE = (("&lt;", "<"), ("&gt;", ">"), ("&amp;", "&"))
+
+
+def _odkoduj(t):
+    """Encje HTML wracaja na znaki - w DXF nie ma markupu."""
+    t = str(t)
+    for a, b in ENCJE:
+        t = t.replace(a, b)
+    return t
+
+
 def _add_text(msp, text, x, y, height, layer, align_right=False):
     from ezdxf.enums import TextEntityAlignment
+
+    text = _odkoduj(text)
 
     if not text:
         return
@@ -242,7 +255,15 @@ def _draw_connector(msp, connector, x, y, w, h):
             (x + COL_PIN, cy + ROW_H / 2),
             dxfattribs={"layer": "WV_ZLACZE"},
         )
-        _add_text(msp, pin, x + COL_PIN - PAD, cy, TXT_H, "WV_OPIS", align_right=True)
+        _add_text(
+            msp,
+            _fit(pin, COL_PIN - 2 * PAD, TXT_H),
+            x + COL_PIN - PAD,
+            cy,
+            TXT_H,
+            "WV_OPIS",
+            align_right=True,
+        )
         _add_text(
             msp,
             _fit(label, w - COL_PIN - 2 * PAD, TXT_H),

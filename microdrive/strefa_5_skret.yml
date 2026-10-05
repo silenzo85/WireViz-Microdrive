@@ -1,0 +1,116 @@
+# PLIK GENEROWANY - nie edytowac recznie.
+# Zrodlo: docs/45_wireviz/*.csv  ->  microdrive/z_csv.py
+# STREFA 5: skret
+connectors:
+  M2:
+    type: Silnik skretu Novanta/KOCO LMDCA573C (CANopen, Node 0x41, do
+    pins:
+    - P1:1
+    - P1:2
+    - P1:3
+    - P1:4
+    - P3:1
+    - P3:2
+    - P3:3
+    - P3:4
+    - P3:5
+    - P2:1
+    - P2:2
+    - P2:3
+    - P2:4
+    - P2:5
+    - P2:6
+    - P2:7
+    - P2:8
+    - P2:9
+    - P2:10
+    - P2:11
+    - P2:12
+    pinlabels:
+    - +V (12..60 V, max 3,5 A)
+    - GND
+    - AUX (12/24 V, 200 mA)
+    - GND
+    - CAN_SHLD
+    - CAN_V+
+    - CAN_GND
+    - CAN_H
+    - CAN_L
+    - IN4
+    - IN2
+    - IN_REF
+    - IN1 / CAPTURE
+    - IN3
+    - AIN
+    - LOGIC_GND
+    - SIG_OUT_EMITTER
+    - SIG_OUT_COLLECTOR
+    - OUT1+
+    - OUT2+
+    - OUT1-
+    subtype: Novanta IMS
+    notes: 'Zrodlo zasilania P1 i AUX: TODO_HARDWARE. P2 niewykorzystane w projekcie.'
+cables:
+  W_M2:
+    type: wiazka M2
+    wirecount: 7
+    colors:
+    - GY
+    - GY
+    - GY
+    - GY
+    - GY
+    - GY
+    - GY
+    wirelabels:
+    - +V (12..60 V, max 3,5 A)
+    - GND
+    - GND
+    - CAN_SHLD
+    - CAN_GND
+    - CAN_H
+    - CAN_L
+    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+connections:
+- - M2:
+    - P1:1
+  - W_M2:
+    - 1
+  - X2:
+    - P253
+- - M2:
+    - P1:2
+  - W_M2:
+    - 2
+  - XB_GND:
+    - 9
+- - M2:
+    - P1:4
+  - W_M2:
+    - 3
+  - XB_GND:
+    - 9
+- - M2:
+    - P3:1
+  - W_M2:
+    - 4
+  - XB_CAN0:
+    - 6
+- - M2:
+    - P3:3
+  - W_M2:
+    - 5
+  - XB_GND:
+    - 9
+- - M2:
+    - P3:4
+  - W_M2:
+    - 6
+  - XB_CAN0:
+    - 7
+- - M2:
+    - P3:5
+  - W_M2:
+    - 7
+  - XB_CAN0:
+    - 8

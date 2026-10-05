@@ -1,37 +1,356 @@
-# Zlacza graniczne - widoczne na kilku arkuszach naraz.
-# hide_disconnected_pins sprawia, ze arkusz strefowy pokazuje tylko swoje piny.
+# PLIK GENEROWANY - nie edytowac recznie.
+# Zrodlo: docs/45_wireviz/*.csv  ->  microdrive/z_csv.py
+# Zlacza TTC510 + szyny zbiorcze (CAN, masy), widoczne na kazdym arkuszu.
 connectors:
   X1:
     type: HY-TTC 510
-    subtype: petla pradowa 4...20 mA
-    notes: Wejscia 2-Mode 10 V w trybie pradowym 0...25 mA - bez bocznikow zewnetrznych
+    subtype: czesc X1, 96-pin (lewa), styki KOSTAL MLK 1.2
     pins:
-    - P149
+    - P101
+    - P102
+    - P103
+    - P104
+    - P105
+    - P106
+    - P107
     - P108
-    - P132
     - P109
-    - P133
     - P110
+    - P111
+    - P112
+    - P113
+    - P114
+    - P115
+    - P116
+    - P117
+    - P118
+    - P119
+    - P120
+    - P121
+    - P122
+    - P123
+    - P124
+    - P125
+    - P126
+    - P127
+    - P128
+    - P129
+    - P130
+    - P131
+    - P132
+    - P133
     - P134
+    - P135
+    - P136
+    - P137
+    - P138
+    - P139
+    - P140
+    - P141
+    - P142
+    - P143
+    - P144
+    - P145
+    - P146
+    - P147
+    - P148
+    - P149
+    - P150
+    - P151
+    - P152
+    - P153
+    - P154
+    - P155
+    - P156
+    - P157
+    - P158
+    - P159
+    - P160
+    - P161
+    - P162
+    - P163
+    - P164
+    - P167
+    - P170
+    - P173
+    - P174
+    - P175
+    - P176
+    - P177
+    - P178
+    - P179
+    - P180
+    - P181
+    - P182
+    - P183
+    - P184
+    - P185
+    - P186
+    - P187
+    - P188
+    - P191
+    - P194
     pinlabels:
-    - +24V petla 4-20mA
-    - BP1 petla A
-    - BP2 petla B
-    - BP3 lapa C1
-    - BP4 lapa C2
-    - BP5 lapa C3
-    - BP6 lapa C4
-    hide_disconnected_pins: true
-  XT1:
-    type: Listwa rozdzielcza
-    subtype: rozgalezienie zasilania petli
-    pincount: 7
-    pinlabels:
-    - we +24V
+    - SB2 ESTOP_EXT1
+    - SB3 ESTOP_EXT2
+    - BT1
+    - SL1
+    - SP1
+    - BT2
+    - BG1 (rezerwa)
     - BP1
-    - BP2
     - BP3
-    - BP4
     - BP5
+    - HOLD1
+    - SB1 ESTOP A0
+    - SB1 ESTOP B0
+    - PTO2_ACK
+    - WOLNY
+    - WOLNY
+    - BQ3
+    - BAT-
+    - BAT-
+    - BAT-
+    - BAT-
+    - SQ3
+    - SQ1
+    - SQ2
+    - B-SLEW1
+    - B-SLEW2
+    - BRAKE_POS
+    - SP2
+    - WOLNY
+    - WOLNY
+    - WOLNY
+    - BP2
+    - BP4
     - BP6
+    - HOLD2
+    - SB1 ESTOP A1
+    - SB1 ESTOP B1
+    - PARK_DI
+    - WOLNY
+    - WOLNY
+    - BQ4
+    - BAT-
+    - BAT-
+    - BAT-
+    - BAT-
+    - WOLNY
+    - WOLNY
+    - WOLNY
+    - SUP_LOOP
+    - WOLNY
+    - WOLNY
+    - SUP_CREEP
+    - YV1a
+    - S1
+    - SUP_CAN0
+    - YV2a
+    - (YCL - stary)
+    - K15_HOLD
+    - YV3a
+    - Y2C
+    - YCL
+    - YV4b
+    - WOLNY
+    - WOLNY
+    - WOLNY
+    - WOLNY
+    - KM1
+    - WOLNY
+    - WOLNY
+    - PTO2_REQ
+    - YV1b
+    - S2
+    - HA1 BEACON
+    - YV2b
+    - YBP
+    - HA2 BUZZER
+    - YV3b
+    - YLF LegFlow
+    - WOLNY
+    - YV4a
+    - EPB_REL
+    - WOLNY
+    - WOLNY
+    - WOLNY
+    hide_disconnected_pins: true
+  X2:
+    type: HY-TTC 510
+    subtype: czesc X2, 58-pin (prawa), MLK 1.2 / SLK 2.8
+    pins:
+    - P201
+    - P202
+    - P203
+    - P204
+    - P205
+    - P206
+    - P207
+    - P208
+    - P209
+    - P210
+    - P211
+    - P217
+    - P220
+    - P221
+    - P222
+    - P223
+    - P224
+    - P230
+    - P234
+    - P235
+    - P236
+    - P237
+    - P238
+    - P239
+    - P240
+    - P241
+    - P243
+    - P244
+    - P245
+    - P246
+    - P247
+    - P248
+    - P249
+    - P250
+    - P251
+    - P252
+    - P253
+    - P254
+    - P256
+    - P257
+    - P258
+    pinlabels:
+    - BAT+ moc
+    - BAT+ moc
+    - BAT+ moc
+    - BAT+ moc
+    - BAT+ moc
+    - BAT+ moc
+    - T15
+    - LIN
+    - CAN0 L
+    - CAN1 L
+    - CAN2 L
+    - SENSOR GND
+    - WAKE_UP
+    - SSUP2 5..10 V
+    - CAN0 H
+    - CAN1 H
+    - CAN2 H
+    - SENSOR GND
+    - SSUP1 5 V
+    - TER0 L
+    - TER1 L
+    - TER2 L
+    - LS_YBP
+    - WOLNY
+    - BRAKE_EXT
+    - BRAKE_RET
+    - SENSOR GND
+    - SENSOR GND
+    - SENSOR GND
+    - BAT+ CPU
+    - SSUP0 5 V
+    - TER0 H
+    - TER1 H
+    - TER2 H
+    - LS_S1S2
+    - Y_CB
+    - LMD_PWR
+    - WOLNY
+    - SENSOR GND
+    - SENSOR GND
+    - SENSOR GND
+    hide_disconnected_pins: true
+  XB_CAN0:
+    type: Magistrala CAN0 - operator (250 kbit/s)
+    subtype: wezel zbiorczy (konwencja rysunkowa)
+    pins:
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+    - 6
+    - 7
+    - 8
+    - 9
+    - 10
+    - 11
+    pinlabels:
+    - H / BA1
+    - EKRAN / BA1
+    - L / BA1
+    - H / A2
+    - L / A2
+    - EKRAN / M2
+    - H / M2
+    - L / M2
+    - H / BG2
+    - H / A3
+    - L / A3
+    hide_disconnected_pins: true
+  XB_CAN1:
+    type: Magistrala CAN1 - Bodybuilder-CAN pojazdu (250 kbit/s)
+    subtype: wezel zbiorczy (konwencja rysunkowa)
+    pins:
+    - 1
+    - 2
+    pinlabels:
+    - H / A22 X1
+    - L / A22 X1
+    hide_disconnected_pins: true
+  XB_GND:
+    type: Szyna 0 V / BAT-
+    subtype: wezel zbiorczy (konwencja rysunkowa)
+    pins:
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+    - 6
+    - 7
+    - 8
+    - 9
+    - 10
+    - 11
+    - 12
+    pinlabels:
+    - 0V / Y2C
+    - 0V / YCL
+    - 0V / YLF
+    - 0V / KM1
+    - 0V / SB2_SB3
+    - 0V / B-SLEW1_B-SLEW2
+    - 0V / BA1
+    - 0V / A2
+    - 0V / M2
+    - 0V / A3
+    - 0V / K-PTO2
+    - 0V / A-EPB
+    hide_disconnected_pins: true
+  XB_SGND:
+    type: Masa czujnikow (SGND)
+    subtype: wezel zbiorczy (konwencja rysunkowa)
+    pins:
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+    - 6
+    - 7
+    - 8
+    pinlabels:
+    - SGND / SL1
+    - SGND / SP1
+    - SGND / SP2
+    - SGND / BG1
+    - SGND / BQ3
+    - SGND / BQ4
+    - SGND / SQ1_SQ2
+    - SGND / HOLD1/2_HA1_HA2_siłownik hamulca_kamery
     hide_disconnected_pins: true

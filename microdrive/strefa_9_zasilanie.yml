@@ -1,0 +1,148 @@
+# PLIK GENEROWANY - nie edytowac recznie.
+# Zrodlo: docs/45_wireviz/*.csv  ->  microdrive/z_csv.py
+# STREFA 9: zasilanie
+connectors:
+  BA1:
+    type: Pedal jazdy MCS 962 845 M028, CAN J1939 (SA 0x82, EEC2 0x0CF
+    pins:
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+    - 6
+    pinlabels:
+    - CAN HIGH
+    - CAN SHIELD
+    - 0 V GROUND
+    - CAN LOW
+    - '-'
+    - +8..32 VDC
+    subtype: Mobile Control Systems
+    notes: 'Wezel magistrali CAN0. Zasilanie wezlow CAN0 z P155. Ramka EEC2: b0 bity
+      0..1 IVS, b1 APP1, b6 licznik, b7 CRC8 (z ID + b0..b6); brak ramek przez 2 s
+      po wlaczeniu.'
+  A2:
+    type: Klawiatura EAO S09 In-Cabin Keypad 6PB CAN (CANopen, Node 0x
+    pins:
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+    - 6
+    - 7
+    - 8
+    pinlabels:
+    - CAN High
+    - WakeUp_Out
+    - LIN
+    - GND
+    - CAN Low
+    - WakeUp_In
+    - Clamp 30
+    - Clamp 30
+    subtype: EAO
+    notes: Klawiatura nie ma terminacji.
+cables:
+  W_BA1:
+    type: wiazka BA1
+    wirecount: 5
+    colors:
+    - GY
+    - GY
+    - GY
+    - GY
+    - GY
+    wirelabels:
+    - CAN HIGH
+    - CAN SHIELD
+    - 0 V GROUND
+    - CAN LOW
+    - +8..32 VDC
+    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+  W_A2:
+    type: wiazka A2
+    wirecount: 6
+    colors:
+    - GY
+    - GY
+    - GY
+    - GY
+    - GY
+    - GY
+    wirelabels:
+    - CAN High
+    - GND
+    - CAN Low
+    - WakeUp_In
+    - Clamp 30
+    - Clamp 30
+    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+connections:
+- - BA1:
+    - 1
+  - W_BA1:
+    - 1
+  - XB_CAN0:
+    - 1
+- - BA1:
+    - 2
+  - W_BA1:
+    - 2
+  - XB_CAN0:
+    - 2
+- - BA1:
+    - 3
+  - W_BA1:
+    - 3
+  - XB_GND:
+    - 7
+- - BA1:
+    - 4
+  - W_BA1:
+    - 4
+  - XB_CAN0:
+    - 3
+- - BA1:
+    - 6
+  - W_BA1:
+    - 5
+  - X1:
+    - P155
+- - A2:
+    - 1
+  - W_A2:
+    - 1
+  - XB_CAN0:
+    - 4
+- - A2:
+    - 4
+  - W_A2:
+    - 2
+  - XB_GND:
+    - 8
+- - A2:
+    - 5
+  - W_A2:
+    - 3
+  - XB_CAN0:
+    - 5
+- - A2:
+    - 6
+  - W_A2:
+    - 4
+  - XB_GND:
+    - 8
+- - A2:
+    - 7
+  - W_A2:
+    - 5
+  - X1:
+    - P155
+- - A2:
+    - 8
+  - W_A2:
+    - 6
+  - X1:
+    - P155

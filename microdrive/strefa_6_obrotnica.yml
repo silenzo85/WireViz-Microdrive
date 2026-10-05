@@ -1,0 +1,46 @@
+# PLIK GENEROWANY - nie edytowac recznie.
+# Zrodlo: docs/45_wireviz/*.csv  ->  microdrive/z_csv.py
+# STREFA 6: obrotnica
+connectors:
+  B_SLEW1_B_SLEW2:
+    type: Dwa czujniki indukcyjne licznika obrotow obrotnicy (znacznik
+    pins:
+    - '?'
+    pinlabels:
+    - +V czujnika
+    subtype: nie dobrany (TODO_HARDWARE)
+    notes: 'FIX30: czujniki NPN 3-przewodowe (wyjscie zwiera do masy przy znaczniku;
+      aktywny = LOW). P125/P126 = wejscia alternatywne HS PWM (staly pull-up) - +24
+      V na pin ZABRONIONE. Zasilanie czujnikow z wyjsci'
+cables:
+  W_B_SLEW1_B_SLEW2:
+    type: wiazka B_SLEW1_B_SLEW2
+    wirecount: 3
+    colors:
+    - GY
+    - GY
+    - GY
+    wirelabels:
+    - 0 V
+    - sygnal czujnika A
+    - sygnal czujnika B
+    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+connections:
+- - B_SLEW1_B_SLEW2:
+    - '?'
+  - W_B_SLEW1_B_SLEW2:
+    - 1
+  - XB_GND:
+    - 6
+- - B_SLEW1_B_SLEW2:
+    - '?'
+  - W_B_SLEW1_B_SLEW2:
+    - 2
+  - X1:
+    - P125
+- - B_SLEW1_B_SLEW2:
+    - '?'
+  - W_B_SLEW1_B_SLEW2:
+    - 3
+  - X1:
+    - P126

@@ -37,6 +37,7 @@ T_CABLE = "Kabel" if _PL else "Cable"
 T_WIRE = "Zyla" if _PL else "Wire"
 T_SHIELD = "Ekran" if _PL else "Shield"
 T_PINS = "pin." if _PL else "pins"
+T_WIRES = " zyl" if _PL else " wires"
 T_ADDITIONAL = "Elementy dodatkowe" if _PL else "Additional components"
 HEADER_MPN = "MPN"
 HEADER_SPN = "SPN"
@@ -162,7 +163,7 @@ def generate_bom(harness: "Harness") -> List[BOMEntry]:
                     + (
                         f" x {cable.gauge} {cable.gauge_unit}"
                         if cable.gauge
-                        else " wires"
+                        else T_WIRES
                     )
                     + (" shielded" if cable.shield else "")
                     + (

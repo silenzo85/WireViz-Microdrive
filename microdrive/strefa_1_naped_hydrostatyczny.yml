@@ -1,0 +1,654 @@
+# PLIK GENEROWANY - nie edytowac recznie.
+# Zrodlo: docs/45_wireviz/*.csv  ->  microdrive/z_csv.py
+# STREFA 1: naped hydrostatyczny
+connectors:
+  BP1:
+    type: Przetwornik cisnienia 0..600 bar, 4..20 mA, 2-przewodowy
+    pins:
+    - 1
+    - 2
+    pinlabels:
+    - Signal + (zasilanie petli)
+    - Signal - (wyjscie pradowe)
+    subtype: HYDAC HPT 144S-A-0600-000 (mat. 929389)
+    notes: BP1 P108, BP2 P132, BP3 P109, BP4 P133, BP5 P110, BP6 P134 (tryb pradowy
+      0..25 mA). Zasilanie petli (+24 V) - TODO_HARDWARE (P149 opisany tylko dla BT1/BT2).
+  BP2:
+    type: Przetwornik cisnienia 0..600 bar, 4..20 mA, 2-przewodowy
+    pins:
+    - 1
+    - 2
+    pinlabels:
+    - Signal + (zasilanie petli)
+    - Signal - (wyjscie pradowe)
+    subtype: HYDAC HPT 144S-A-0600-000 (mat. 929389)
+    notes: BP1 P108, BP2 P132, BP3 P109, BP4 P133, BP5 P110, BP6 P134 (tryb pradowy
+      0..25 mA). Zasilanie petli (+24 V) - TODO_HARDWARE (P149 opisany tylko dla BT1/BT2).
+  BT1:
+    type: Przetwornik temperatury oleju 4..20 mA
+    pins:
+    - '?'
+    pinlabels:
+    - zasilanie petli +24 V
+    subtype: 'HYDAC HTT (oferta: HTT 124S-A-016-013; rysunek: HTT 1X4S-X-0'
+    notes: Petla zasilana z P149 (przelaczane +24 V), sygnal na P103. Pinout TODO_HARDWARE
+      (brak ark. 1/2 i karty).
+  BT2:
+    type: Temperatura oleju obwodu creep
+    pins:
+    - '?'
+    pinlabels:
+    - zasilanie petli +24 V
+    subtype: nie ustalony (HYDAC HTT jak BT1 albo czujnik Poclain 3-przew
+    notes: 'W programie jak BT1: petla z P149, sygnal P106. Wariant Poclain (DIN/M12):
+      M12 1 brazowy NC, 2 bialy SUPPLY, 3 niebieski OUTPUT, 4 czarny GROUND.'
+  SL1:
+    type: Czujnik poziomu oleju, styk NC (otwiera przy spadku poziomu)
+    pins:
+    - 1
+    - 2
+    - PE
+    pinlabels:
+    - styk NC
+    - styk NC
+    - nieuzywany
+    subtype: HYDAC FSK-0127-2.5C-00000/O-/M12.000
+    notes: 1..48 V, max 0,2 A. Styk tylko do SGND (nie do BAT+). Wejscie P104 w trybie
+      rezystancyjnym.
+  SP1:
+    type: Wskaznik zatkania filtra cisnieniowego
+    pins:
+    - '?'
+    pinlabels:
+    - styk
+    subtype: HYDAC LPF SN 55 E B 10 CD 1.0 /-2M0-A2-B3
+    notes: 'Styk miedzy P105 a SGND. Typ NO/NC, zlacze i pinout: TODO_HARDWARE.'
+  SP2:
+    type: Wskaznik zatkania filtra powrotnego
+    pins:
+    - 1?
+    - 2?
+    pinlabels:
+    - styk
+    - styk
+    subtype: HYDAC VMF 2 FD.0 /-2M0-OE
+    notes: 42 V, IP67. NO/NC dla kodu -OE nierozszyfrowane. Styk miedzy P128 a SGND.
+  BG1:
+    type: Czujnik polozenia tarczy pompy PM50 (Feedback pump 1), 0,5..
+    pins:
+    - '?'
+    pinlabels:
+    - +5 V
+    subtype: Poclain (w pompie PM50)
+    notes: Pinout TODO_HARDWARE (karta czujnika od Poclaina).
+  BQ3:
+    type: Czujnik obrotow silnika CDM20 (T4, opcja 2), 60 imp/obr, pus
+    pins:
+    - 1
+    - 2
+    - 3
+    - 4
+    pinlabels:
+    - SUPPLY
+    - NC
+    - GROUND
+    - OUTPUT
+    subtype: Poclain
+    notes: 'UWAGA: kanal P117 skonfigurowany w drzewie jako pradowy (IoDrvComplexPWDCur,
+      7/14 mA), a karta Poclaina podaje wyjscie napieciowe push-pull - do sprawdzenia
+      konfiguracji kanalu.'
+  BQ4:
+    type: Czujnik obrotow pompy PM50 (T4, opcja SS), 9 imp/obr, push-p
+    pins:
+    - 1 (DTM 5)
+    - 2 (DTM 2)
+    - 3 (DTM 1)
+    - 4 (DTM 4)
+    - / (DTM 3, 6)
+    pinlabels:
+    - VSupply
+    - NC
+    - GROUND
+    - OUTPUT
+    - NC
+    subtype: Poclain
+    notes: Kolory niepodane. Ta sama uwaga o konfiguracji pradowej kanalu co BQ3 (P141).
+  SQ1_SQ2:
+    type: Czujniki polozenia sprzegla CDM20 (V2 = zalaczone, V1 = rozl
+    pins:
+    - '?'
+    pinlabels:
+    - +V
+    subtype: Poclain
+    notes: Rysunek podaje funkcje (+V, GND, sygnal), bez numerow pinow M8 - TODO_HARDWARE.
+  SQ3:
+    type: Przelacznik zadania creep (opcjonalny)
+    pins:
+    - 1
+    - 2
+    pinlabels:
+    - styk
+    - styk
+    subtype: nie dobrany
+    notes: Opcjonalny.
+  S1:
+    type: Cewki EDC pompy PM50 (servo elektroproporcjonalne)
+    pins:
+    - 1
+    - 2
+    - PE
+    pinlabels:
+    - cewka S1 +
+    - cewka S1 -
+    - '-'
+    subtype: Poclain PM50
+    notes: Rezystancja, wariant 12/24 V i polaryzacja - TODO_HARDWARE. Powrot przez
+      LS P251 (drugi tor odciecia). Przypisanie zaciskow 1/2 = nasza konwencja.
+  S2:
+    type: Cewki EDC pompy PM50 (servo elektroproporcjonalne)
+    pins:
+    - 1
+    - 2
+    - PE
+    pinlabels:
+    - cewka S2 +
+    - cewka S2 -
+    - '-'
+    subtype: Poclain PM50
+    notes: Rezystancja, wariant 12/24 V i polaryzacja - TODO_HARDWARE. Powrot przez
+      LS P251 (drugi tor odciecia). Przypisanie zaciskow 1/2 = nasza konwencja.
+  Y2C:
+    type: Zawor przelaczania chlonnosci CDM20 KVC-3/2-4-47B(-KF), 24 V
+    pins:
+    - 1?
+    - 2?
+    pinlabels:
+    - cewka +
+    - cewka -
+    subtype: Poclain (w ofercie zastapiony B90607K)
+    notes: Pinout TODO_HARDWARE.
+  YCL:
+    type: Zawor pilota pneumatycznego sprzegla CDM20
+    pins:
+    - +
+    - /
+    pinlabels:
+    - cewka +
+    - cewka -
+    subtype: nie zidentyfikowany (Poclain)
+    notes: Zaciski + / -, dioda 1N4001 w wtyczce - do sprawdzenia przy wyjsciu PWM
+      TTC (wlasne diody gaszace).
+  YBP:
+    type: Zawor cut-off / bypass petli
+    pins:
+    - '?'
+    pinlabels:
+    - cewka +
+    subtype: nie zidentyfikowany
+    notes: Powrot przez LS P238 (drugi tor odciecia).
+  KM1:
+    type: Przekaznik i wentylator chlodnicy HYDAC AC-M4/1.0/24V/PC/1/S
+    pins:
+    - A1
+    - A2
+    - styk NO
+    pinlabels:
+    - cewka +
+    - cewka -
+    - zasilanie wentylatora
+    subtype: HYDAC (wentylator); KM1 nie dobrany
+    notes: 'KM1: cewka 24 V z P173, styk NO &gt;= 16 A DC-1; F4 16 A przed QS1, przewody
+      2 x 4 mm2.'
+  Y_CB:
+    type: 'Zawor bypass obwodu doladowania (NO; zasilony = zamkniety), '
+    pins:
+    - '?'
+    pinlabels:
+    - cewka +
+    subtype: Poclain (z dostawa CreepDrive)
+    notes: 'Wyjscie LOW-SIDE: cewka na stalym +24 V, TTC zamyka obwod do masy. Poza
+      SSW. Pinout zlacza: TODO_HARDWARE.'
+cables:
+  W_BP1:
+    type: wiazka BP1
+    wirecount: 2
+    colors:
+    - GY
+    - GY
+    wirelabels:
+    - Signal + (zasilanie petl
+    - Signal - (wyjscie pradow
+    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+  W_BP2:
+    type: wiazka BP2
+    wirecount: 2
+    colors:
+    - GY
+    - GY
+    wirelabels:
+    - Signal + (zasilanie petl
+    - Signal - (wyjscie pradow
+    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+  W_BT1:
+    type: wiazka BT1
+    wirecount: 2
+    colors:
+    - GY
+    - GY
+    wirelabels:
+    - zasilanie petli +24 V
+    - wyjscie pradowe
+    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+  W_BT2:
+    type: wiazka BT2
+    wirecount: 2
+    colors:
+    - GY
+    - GY
+    wirelabels:
+    - zasilanie petli +24 V
+    - wyjscie pradowe
+    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+  W_SL1:
+    type: wiazka SL1
+    wirecount: 2
+    colors:
+    - GY
+    - GY
+    wirelabels:
+    - styk NC
+    - styk NC
+    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+  W_SP1:
+    type: wiazka SP1
+    wirecount: 2
+    colors:
+    - GY
+    - GY
+    wirelabels:
+    - styk
+    - styk
+    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+  W_SP2:
+    type: wiazka SP2
+    wirecount: 2
+    colors:
+    - GY
+    - GY
+    wirelabels:
+    - styk
+    - styk
+    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+  W_BG1:
+    type: wiazka BG1
+    wirecount: 3
+    colors:
+    - GY
+    - GY
+    - GY
+    wirelabels:
+    - +5 V
+    - sygnal 0,5..4,5 V
+    - masa
+    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+  W_BQ3:
+    type: wiazka BQ3
+    wirecount: 3
+    colors:
+    - GY
+    - GY
+    - GY
+    wirelabels:
+    - SUPPLY
+    - GROUND
+    - OUTPUT
+    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+  W_BQ4:
+    type: wiazka BQ4
+    wirecount: 3
+    colors:
+    - GY
+    - GY
+    - GY
+    wirelabels:
+    - VSupply
+    - GROUND
+    - OUTPUT
+    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+  W_SQ1_SQ2:
+    type: wiazka SQ1_SQ2
+    wirecount: 4
+    colors:
+    - GY
+    - GY
+    - GY
+    - GY
+    wirelabels:
+    - +V
+    - GROUND
+    - sygnal SQ1 (V2, zalaczon
+    - sygnal SQ2 (V1, rozlaczo
+    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+  W_SQ3:
+    type: wiazka SQ3
+    wirecount: 1
+    colors:
+    - GY
+    wirelabels:
+    - styk
+    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+  W_S1:
+    type: wiazka S1
+    wirecount: 2
+    colors:
+    - GY
+    - GY
+    wirelabels:
+    - cewka S1 +
+    - cewka S1 -
+    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+  W_S2:
+    type: wiazka S2
+    wirecount: 2
+    colors:
+    - GY
+    - GY
+    wirelabels:
+    - cewka S2 +
+    - cewka S2 -
+    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+  W_Y2C:
+    type: wiazka Y2C
+    wirecount: 2
+    colors:
+    - GY
+    - GY
+    wirelabels:
+    - cewka +
+    - cewka -
+    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+  W_YCL:
+    type: wiazka YCL
+    wirecount: 2
+    colors:
+    - GY
+    - GY
+    wirelabels:
+    - cewka +
+    - cewka -
+    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+  W_YBP:
+    type: wiazka YBP
+    wirecount: 2
+    colors:
+    - GY
+    - GY
+    wirelabels:
+    - cewka +
+    - cewka -
+    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+  W_KM1:
+    type: wiazka KM1
+    wirecount: 2
+    colors:
+    - GY
+    - GY
+    wirelabels:
+    - cewka +
+    - cewka -
+    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+  W_Y_CB:
+    type: wiazka Y_CB
+    wirecount: 1
+    colors:
+    - GY
+    wirelabels:
+    - cewka -
+    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+connections:
+- - BP1:
+    - 1
+  - W_BP1:
+    - 1
+  - X1:
+    - P149
+- - BP1:
+    - 2
+  - W_BP1:
+    - 2
+  - X1:
+    - P108
+- - BP2:
+    - 1
+  - W_BP2:
+    - 1
+  - X1:
+    - P149
+- - BP2:
+    - 2
+  - W_BP2:
+    - 2
+  - X1:
+    - P132
+- - BT1:
+    - '?'
+  - W_BT1:
+    - 1
+  - X1:
+    - P149
+- - BT1:
+    - '?'
+  - W_BT1:
+    - 2
+  - X1:
+    - P103
+- - BT2:
+    - '?'
+  - W_BT2:
+    - 1
+  - X1:
+    - P149
+- - BT2:
+    - '?'
+  - W_BT2:
+    - 2
+  - X1:
+    - P106
+- - SL1:
+    - 1
+  - W_SL1:
+    - 1
+  - X1:
+    - P104
+- - SL1:
+    - 2
+  - W_SL1:
+    - 2
+  - XB_SGND:
+    - 1
+- - SP1:
+    - '?'
+  - W_SP1:
+    - 1
+  - X1:
+    - P105
+- - SP1:
+    - '?'
+  - W_SP1:
+    - 2
+  - XB_SGND:
+    - 2
+- - SP2:
+    - 1?
+  - W_SP2:
+    - 1
+  - X1:
+    - P128
+- - SP2:
+    - 2?
+  - W_SP2:
+    - 2
+  - XB_SGND:
+    - 3
+- - BG1:
+    - '?'
+  - W_BG1:
+    - 1
+  - X2:
+    - P247
+- - BG1:
+    - '?'
+  - W_BG1:
+    - 2
+  - X1:
+    - P107
+- - BG1:
+    - '?'
+  - W_BG1:
+    - 3
+  - XB_SGND:
+    - 4
+- - BQ3:
+    - 1
+  - W_BQ3:
+    - 1
+  - X1:
+    - P152
+- - BQ3:
+    - 3
+  - W_BQ3:
+    - 2
+  - XB_SGND:
+    - 5
+- - BQ3:
+    - 4
+  - W_BQ3:
+    - 3
+  - X1:
+    - P117
+- - BQ4:
+    - 1 (DTM 5)
+  - W_BQ4:
+    - 1
+  - X1:
+    - P152
+- - BQ4:
+    - 3 (DTM 1)
+  - W_BQ4:
+    - 2
+  - XB_SGND:
+    - 6
+- - BQ4:
+    - 4 (DTM 4)
+  - W_BQ4:
+    - 3
+  - X1:
+    - P141
+- - SQ1_SQ2:
+    - '?'
+  - W_SQ1_SQ2:
+    - 1
+  - X1:
+    - P152
+- - SQ1_SQ2:
+    - '?'
+  - W_SQ1_SQ2:
+    - 2
+  - XB_SGND:
+    - 7
+- - SQ1_SQ2:
+    - '?'
+  - W_SQ1_SQ2:
+    - 3
+  - X1:
+    - P123
+- - SQ1_SQ2:
+    - '?'
+  - W_SQ1_SQ2:
+    - 4
+  - X1:
+    - P124
+- - SQ3:
+    - 1
+  - W_SQ3:
+    - 1
+  - X1:
+    - P122
+- - S1:
+    - 1
+  - W_S1:
+    - 1
+  - X1:
+    - P154
+- - S1:
+    - 2
+  - W_S1:
+    - 2
+  - X2:
+    - P251
+- - S2:
+    - 1
+  - W_S2:
+    - 1
+  - X1:
+    - P178
+- - S2:
+    - 2
+  - W_S2:
+    - 2
+  - X2:
+    - P251
+- - Y2C:
+    - 1?
+  - W_Y2C:
+    - 1
+  - X1:
+    - P160
+- - Y2C:
+    - 2?
+  - W_Y2C:
+    - 2
+  - XB_GND:
+    - 1
+- - YCL:
+    - +
+  - W_YCL:
+    - 1
+  - X1:
+    - P161
+- - YCL:
+    - /
+  - W_YCL:
+    - 2
+  - XB_GND:
+    - 2
+- - YBP:
+    - '?'
+  - W_YBP:
+    - 1
+  - X1:
+    - P181
+- - YBP:
+    - '?'
+  - W_YBP:
+    - 2
+  - X2:
+    - P238
+- - KM1:
+    - A1
+  - W_KM1:
+    - 1
+  - X1:
+    - P173
+- - KM1:
+    - A2
+  - W_KM1:
+    - 2
+  - XB_GND:
+    - 4
+- - Y_CB:
+    - '?'
+  - W_Y_CB:
+    - 1
+  - X2:
+    - P252

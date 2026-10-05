@@ -1,0 +1,141 @@
+# PLIK GENEROWANY - nie edytowac recznie.
+# Zrodlo: docs/45_wireviz/*.csv  ->  microdrive/z_csv.py
+# STREFA 10: magistrale can
+connectors:
+  BG2:
+    type: Enkoder kola sterowego HYDAC HAT 1436-F13-360L-P01-D106-M01-
+    pins:
+    - '?'
+    pinlabels:
+    - CAN H / CAN L / zasilanie / ma
+    subtype: HYDAC
+    notes: Pinout TODO_HARDWARE - potrzebna karta HYDAC.
+  A3:
+    type: TTControl Vision 307Plus - zlacze C1 34-pin
+    pins:
+    - 26
+    - 1
+    - 2
+    - 18
+    - 10
+    - 27
+    - 30
+    - 13
+    - 5
+    - 12
+    - 4
+    - 11
+    - 3
+    - 24
+    - 32
+    - 8
+    - 16
+    - 9
+    - 17
+    - 6
+    - 14
+    - 7
+    - 15
+    - 29
+    - 31
+    - 28
+    - 23
+    - 21
+    - 22
+    - 20
+    - 19
+    - 25
+    - 34
+    - 33
+    pinlabels:
+    - BAT+
+    - BAT-
+    - BAT-
+    - Terminal 15
+    - Wake-up
+    - Service Enable
+    - RTC supply
+    - CAN0 H
+    - CAN0 L
+    - CAN1 H
+    - CAN1 L
+    - CAN2 H
+    - CAN2 L
+    - CAN3 H
+    - CAN3 L
+    - Video1 sygnal
+    - Video1 GND
+    - Camera1 zasilanie 12 V
+    - Camera1 GND
+    - Video2 sygnal
+    - Video2 GND
+    - Camera2 zasilanie 12 V
+    - Camera2 GND
+    - Video3 sygnal
+    - Video3 GND
+    - Camera3 zasilanie
+    - Camera3 GND
+    - Video4 sygnal
+    - Video4 GND
+    - Camera4 zasilanie
+    - Camera4 GND
+    - RS-232 TX
+    - RS-232 RX
+    - RS-232 GND
+    subtype: TTControl
+    notes: 'Vision na CAN0 (decyzja usera 2026-09-28). Brak wewnetrznej terminacji.
+      Service Enable (27) nie wyprowadzac. Zrodlo BAT+ i bezpiecznik: TODO_HARDWARE.'
+cables:
+  W_BG2:
+    type: wiazka BG2
+    wirecount: 1
+    colors:
+    - GY
+    wirelabels:
+    - CAN H / CAN L / zasilani
+    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+  W_A3:
+    type: wiazka A3
+    wirecount: 4
+    colors:
+    - GY
+    - GY
+    - GY
+    - GY
+    wirelabels:
+    - BAT-
+    - BAT-
+    - CAN0 H
+    - CAN0 L
+    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+connections:
+- - BG2:
+    - '?'
+  - W_BG2:
+    - 1
+  - XB_CAN0:
+    - 9
+- - A3:
+    - 1
+  - W_A3:
+    - 1
+  - XB_GND:
+    - 10
+- - A3:
+    - 2
+  - W_A3:
+    - 2
+  - XB_GND:
+    - 10
+- - A3:
+    - 13
+  - W_A3:
+    - 3
+  - XB_CAN0:
+    - 10
+- - A3:
+    - 5
+  - W_A3:
+    - 4
+  - XB_CAN0:
+    - 11
