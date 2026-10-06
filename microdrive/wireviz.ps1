@@ -51,7 +51,7 @@ switch ($PSCmdlet.ParameterSetName) {
         Write-Host "Arkusze: $($arkusze.Name -join ', ')"
         $nazwa  = "INSTALACJA_calosc"
         $zrodlo = Join-Path $budowa "$nazwa.yml"
-        & python $zloz -o $zrodlo $wspolne @($arkusze.FullName)
+        & python $zloz -o $zrodlo $szablon $wspolne @($arkusze.FullName)
         if ($LASTEXITCODE -ne 0) { throw "Scalanie arkuszy nie powiodlo sie" }
     }
     "Strefa" {
@@ -59,7 +59,7 @@ switch ($PSCmdlet.ParameterSetName) {
         if (-not (Test-Path $arkusz)) { throw "Nie ma arkusza '$arkusz'" }
         $nazwa  = "STREFA_$Strefa"
         $zrodlo = Join-Path $budowa "$nazwa.yml"
-        & python $zloz -o $zrodlo $wspolne $arkusz
+        & python $zloz -o $zrodlo $szablon $wspolne $arkusz
         if ($LASTEXITCODE -ne 0) { throw "Scalanie arkusza nie powiodlo sie" }
     }
     "Plik" {
@@ -69,7 +69,9 @@ switch ($PSCmdlet.ParameterSetName) {
     }
 }
 
-& wireviz -p $szablon $zrodlo -f $Format -o $rysunki -O $nazwa
+$arg = @($zrodlo, "-f", $Format, "-o", $rysunki, "-O", $nazwa)
+if ($PSCmdlet.ParameterSetName -eq "Plik") { $arg = @("-p", $szablon) + $arg }
+& wireviz @arg
 if ($LASTEXITCODE -ne 0) { throw "WireViz zakonczyl sie bledem $LASTEXITCODE" }
 
 Write-Host ""

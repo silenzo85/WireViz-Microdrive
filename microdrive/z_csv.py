@@ -27,7 +27,10 @@ from pathlib import Path
 
 import yaml
 
+from kolory import LEGENDA, kolor
+
 TU = Path(__file__).resolve().parent
+sys.path.insert(0, str(TU))
 DANE_DOMYSLNE = TU.parents[1] / "docs" / "45_wireviz"
 
 K_DOKAD = "Dokad (TTC510:Pxxx = pin sterownika)"
@@ -176,6 +179,19 @@ def bezpieczne(oz):
     return s.strip("_") or "X"
 
 
+def uwaga_kolorow(polaczenia_kabla):
+    """Mowi wprost, ktore kolory sa z karty, a ktore z konwencji rysunkowej."""
+    zk = sum(1 for *_x, _k, flaga in polaczenia_kabla if flaga)
+    n = len(polaczenia_kabla)
+    if zk == n:
+        return "Kolory zyl wg karty urzadzenia. Dlugosc DO USTALENIA."
+    if zk == 0:
+        return ("Kolory zyl wg KONWENCJI FUNKCYJNEJ (karta ich nie podaje) - "
+                "do zatwierdzenia przed zamowieniem wiazki. Dlugosc DO USTALENIA.")
+    return (f"Kolory: {zk} z {n} zyl wg karty, reszta wg konwencji funkcyjnej "
+            "- do zatwierdzenia. Dlugosc DO USTALENIA.")
+
+
 def dodaj(dev_meta, dev_piny, polaczenia, raport, dev, pin, syg, dokad, r, zlacze, uwagi, oz_zb):
     """Dopisuje jeden pin urzadzenia i jego polaczenie (albo brak celu)."""
     if dev not in dev_meta:
@@ -187,13 +203,21 @@ def dodaj(dev_meta, dev_piny, polaczenia, raport, dev, pin, syg, dokad, r, zlacz
             "zbior": oz_zb,
         }
     pin = norm_pin(pin)
-    if pin not in [p for _d, p, _s in dev_piny[dev]]:
+    istniejace = [p for _d, p, _s in dev_piny[dev]]
+    if pin == "?":
+        # Karta nie podaje numeru pinu. Bez numerowania WSZYSTKIE takie sygnaly
+        # jednego urzadzenia skleilyby sie w jeden pin i na rysunku zostalaby
+        # tylko pierwsza etykieta (SQ1/SQ2: 4 sygnaly -> 1 pin).
+        pin = f"?{sum(1 for x in istniejace if str(x).startswith('?')) + 1}"
+    if pin not in istniejace:
         dev_piny[dev].append((dev, pin, syg))
+
     rodzaj, wezel, pcel = cel(dokad)
     if rodzaj is None:
         raport.append((dev, pin, syg, wezel))
-    else:
-        polaczenia.append((dev, pin, rodzaj, wezel, pcel, syg))
+        return
+    kod, zk = kolor(syg, r.get("Kolor zyly (karta)"), cel_to_pin_ttc=(rodzaj == "ttc"))
+    polaczenia.append((dev, pin, rodzaj, wezel, pcel, syg, kod, zk))
 
 
 def main():
@@ -252,8 +276,17 @@ def main():
             continue
 
         dev, pin = rozbij_pin(oz_zb, pin_raw, zlacze)
-        # "YVx:2" = wspolny zacisk wszystkich YV - nie jest osobnym urzadzeniem
+        # "YVx:2" = zacisk WSPOLNY dla wszystkich YV (powrot cewki na 0 V).
+        # Wczesniej byl pomijany - kazda cewka miala na rysunku tylko jeden
+        # przewod, bez powrotu.
         if dev.lower().endswith("x") and ":" in pin_raw:
+            pref = dev[:-1]
+            rodzina = [d for d in dev_meta if d.startswith(pref)]
+            for d in rodzina:
+                dodaj(dev_meta, dev_piny, polaczenia_sur, raport_bez_celu,
+                      d, pin, syg, r.get(K_DOKAD), r, zlacze, uwagi, oz_zb)
+            if not rodzina:
+                raport_bez_celu.append((dev, pin, syg, "brak urzadzen pasujacych do " + pref))
             continue
         dodaj(dev_meta, dev_piny, polaczenia_sur, raport_bez_celu,
               dev, pin, syg, r.get(K_DOKAD), r, zlacze, uwagi, oz_zb)
@@ -262,7 +295,7 @@ def main():
     grupa_dev = {}
     for dev in dev_meta:
         glosy = defaultdict(int)
-        for d, _pd, rodzaj, wezel, pcel, _s in polaczenia_sur:
+        for d, _pd, rodzaj, wezel, pcel, _s, _k, _zk in polaczenia_sur:
             if d == dev and rodzaj == "ttc":
                 glosy[grupa_pinu.get(pcel, "")] += 1
         # Piny zasilania (gr. 9) i CAN (gr. 10) ma prawie kazde urzadzenie -
@@ -275,7 +308,7 @@ def main():
             grupa_dev[dev] = max(glosy, key=glosy.get)
             continue
         # brak pinu TTC - przypisz po magistrali (wezly CAN maja tylko szyne)
-        szyny_dev = {w for d, _p, rodz, w, _pc, _s in polaczenia_sur
+        szyny_dev = {w for d, _p, rodz, w, _pc, _s, _k, _zk in polaczenia_sur
                      if d == dev and rodz == "szyna"}
         if "XB_CAN1" in szyny_dev:
             grupa_dev[dev] = "2"      # Bodybuilder-CAN = Mercedes
@@ -289,7 +322,7 @@ def main():
     # Dluga nazwa pinu wychodzi poza kolumne numeru i wchodzi pod zyly.
     szyna_piny = defaultdict(list)       # wezel -> [(nr, etykieta)]
     szyna_idx = {}                       # (wezel, pcel, dev) -> nr
-    for dev, pd, rodzaj, wezel, pcel, _s in polaczenia_sur:
+    for dev, pd, rodzaj, wezel, pcel, _s, _k, _zk in polaczenia_sur:
         if rodzaj == "szyna":
             k = (wezel, pcel, dev)
             if k not in szyna_idx:
@@ -308,6 +341,11 @@ def main():
                 "pinlabels": [esc(e) for _nr, e in szyna_piny[s]],
                 "hide_disconnected_pins": True,
             }
+
+    uzyte = {k for *_x, k, _zk in polaczenia_sur}
+    wspolne["metadata"] = {
+        "legenda_kolorow": [f"{k} = {o}" for k, o in LEGENDA if k in uzyte]
+    }
 
     naglowek = ("# PLIK GENEROWANY - nie edytowac recznie.\n"
                 "# Zrodlo: docs/45_wireviz/*.csv  ->  microdrive/z_csv.py\n")
@@ -357,11 +395,11 @@ def main():
             ark["cables"][kab] = {
                 "type": f"wiazka {klucz}",
                 "wirecount": len(moje),
-                "colors": ["GY"] * len(moje),          # kolory zyl nieustalone w danych
-                "wirelabels": [esc(str(s or p)[:24]) for _d, p, _r, _w, _pc, s in moje],
-                "notes": "Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.",
+                "colors": [k for *_x, k, _zk in moje],
+                "wirelabels": [esc(str(s or p)[:24]) for _d, p, _r, _w, _pc, s, _k, _zk in moje],
+                "notes": esc(uwaga_kolorow(moje)),
             }
-            for i, (_d, pd, _r, wezel, pcel, _s) in enumerate(moje, 1):
+            for i, (_d, pd, _r, wezel, pcel, _s, _k, _zk) in enumerate(moje, 1):
                 cel_pin = szyna_idx[(wezel, pcel, dev)] if wezel.startswith("XB_") else pcel
                 ark["connections"].append([{klucz: [pd]}, {kab: [i]}, {wezel: [cel_pin]}])
 
@@ -374,6 +412,11 @@ def main():
     rap = ["RAPORT GENERACJI ARKUSZY WIREVIZ", "=" * 70, ""]
     rap.append(f"Zlacza TTC510: X1 {len(ttc['X1']['pins'])} pin., X2 {len(ttc['X2']['pins'])} pin.")
     rap.append(f"Urzadzenia: {len(dev_meta)}   Polaczen narysowanych: {len(polaczenia_sur)}")
+    rap.append("")
+    rap.append("LEGENDA KOLOROW ZYL:")
+    for kod, opis in LEGENDA:
+        rap.append(f"  {kod:3s} {opis}")
+    rap.append("  (kolor z karty urzadzenia ma pierwszenstwo nad konwencja)")
     rap.append("")
     rap.append("ARKUSZE:")
     for p, nc, nconn in podsum:

@@ -18,37 +18,18 @@ connectors:
     notes: Odgalezienie &lt;= 100 cm, wezly &gt;= 10 cm. Terminacja po stronie TTC
       wymagana (TER1). Masa pojazdu konieczna - punkt masy TODO_HARDWARE. Piny CAN
       3 sasiaduja - NIE DOTYKAC.
-  A_EPB:
-    type: Zewnetrzny sterownik zwolnienia hamulca postojowego - wejsci
-    pins:
-    - '?'
-    pinlabels:
-    - wejscie "zwolnij EPB"
-    subtype: nie dobrany (uklad zewnetrzny, FIX21)
-    notes: P187 = HS PWM grupy B, ~98 % przez cala jazde = zwolnij; 0 V = zaciagnij.
-      Zrzut grupy B zdejmuje sygnal. Ew. przez przekaznik 24 V. Sprawdzic open-load
-      przy malym pradzie wejscia.
 cables:
   W_A22_X1:
     type: wiazka A22_X1
     wirecount: 2
     colors:
-    - GY
-    - GY
+    - YE
+    - GN
     wirelabels:
     - CAN 8 HIGH
     - CAN 8 LOW
-    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
-  W_A_EPB:
-    type: wiazka A_EPB
-    wirecount: 2
-    colors:
-    - GY
-    - GY
-    wirelabels:
-    - wejscie "zwolnij EPB"
-    - masa wejscia
-    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+    notes: Kolory zyl wg KONWENCJI FUNKCYJNEJ (karta ich nie podaje) - do zatwierdzenia
+      przed zamowieniem wiazki. Dlugosc DO USTALENIA.
 connections:
 - - A22_X1:
     - 40/03
@@ -62,15 +43,3 @@ connections:
     - 2
   - XB_CAN1:
     - 2
-- - A_EPB:
-    - '?'
-  - W_A_EPB:
-    - 1
-  - X1:
-    - P187
-- - A_EPB:
-    - '?'
-  - W_A_EPB:
-    - 2
-  - XB_GND:
-    - 12

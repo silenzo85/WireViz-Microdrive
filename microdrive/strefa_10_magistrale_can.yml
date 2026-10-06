@@ -5,7 +5,7 @@ connectors:
   BG2:
     type: Enkoder kola sterowego HYDAC HAT 1436-F13-360L-P01-D106-M01-
     pins:
-    - '?'
+    - ?1
     pinlabels:
     - CAN H / CAN L / zasilanie / ma
     subtype: HYDAC
@@ -85,32 +85,61 @@ connectors:
     subtype: TTControl
     notes: 'Vision na CAN0 (decyzja usera 2026-09-28). Brak wewnetrznej terminacji.
       Service Enable (27) nie wyprowadzac. Zrodlo BAT+ i bezpiecznik: TODO_HARDWARE.'
+  A_RC:
+    type: Dodatkowy sterownik pojazdu (RemoteCtrl) - jazda awaryjna/te
+    pins:
+    - ?1
+    - ?2
+    - ?3
+    - ?4
+    pinlabels:
+    - CAN H
+    - CAN L
+    - CAN GND / ekran
+    - zasilanie
+    subtype: zewnetrzny autor (RemoteCtrl.dbc)
+    notes: 'CAN2 J1939 250 kbit/s: TTC SA 0x31 nadaje C2V_MSG1 0x0CFF0031 (DLC 6,
+      20 ms), sterownik SA 0x25 nadaje V2C_MSG1 0x18FF0125 (DLC 8, 20 ms). Zlacze,
+      pinout, terminacja, masa i zasilanie: od autora. Dawn'
 cables:
   W_BG2:
     type: wiazka BG2
     wirecount: 1
     colors:
-    - GY
+    - YE
     wirelabels:
     - CAN H / CAN L / zasilani
-    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+    notes: Kolory zyl wg KONWENCJI FUNKCYJNEJ (karta ich nie podaje) - do zatwierdzenia
+      przed zamowieniem wiazki. Dlugosc DO USTALENIA.
   W_A3:
     type: wiazka A3
     wirecount: 4
     colors:
-    - GY
-    - GY
-    - GY
-    - GY
+    - BK
+    - BK
+    - YE
+    - GN
     wirelabels:
     - BAT-
     - BAT-
     - CAN0 H
     - CAN0 L
-    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+    notes: Kolory zyl wg KONWENCJI FUNKCYJNEJ (karta ich nie podaje) - do zatwierdzenia
+      przed zamowieniem wiazki. Dlugosc DO USTALENIA.
+  W_A_RC:
+    type: wiazka A_RC
+    wirecount: 2
+    colors:
+    - YE
+    - GN
+    wirelabels:
+    - CAN H
+    - CAN L
+    notes: Kolory zyl wg KONWENCJI FUNKCYJNEJ (karta ich nie podaje) - do zatwierdzenia
+      przed zamowieniem wiazki. Dlugosc DO USTALENIA.
 connections:
 - - BG2:
-    - '?'
+    - ?1
   - W_BG2:
     - 1
   - XB_CAN0:
@@ -120,13 +149,13 @@ connections:
   - W_A3:
     - 1
   - XB_GND:
-    - 10
+    - 18
 - - A3:
     - 2
   - W_A3:
     - 2
   - XB_GND:
-    - 10
+    - 18
 - - A3:
     - 13
   - W_A3:
@@ -139,3 +168,15 @@ connections:
     - 4
   - XB_CAN0:
     - 11
+- - A_RC:
+    - ?1
+  - W_A_RC:
+    - 1
+  - X2:
+    - P224
+- - A_RC:
+    - ?2
+  - W_A_RC:
+    - 2
+  - X2:
+    - P211

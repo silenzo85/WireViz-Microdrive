@@ -50,8 +50,10 @@ connectors:
     type: Cewki rozdzielacza podpor Walvoil Q45/4/F1S(N150)/103-A1-D41
     pins:
     - 1
+    - 2
     pinlabels:
     - lapa 1 wysuw
+    - powrot cewki
     subtype: Walvoil, cewka 4SLG111400 (D41, 24 VDC, 52 W, IP65)
     notes: 'Drugi zacisk kazdej cewki na szyne 0 V -&gt; BAT-. Bez dodatkowych diod.
       Strona a/b = wysuw: TODO (orurowanie). Cewki -20 °C (WET -30) - otwarte.'
@@ -59,8 +61,10 @@ connectors:
     type: Cewki rozdzielacza podpor Walvoil Q45/4/F1S(N150)/103-A1-D41
     pins:
     - 1
+    - 2
     pinlabels:
     - lapa 1 wsuw
+    - powrot cewki
     subtype: Walvoil, cewka 4SLG111400 (D41, 24 VDC, 52 W, IP65)
     notes: 'Drugi zacisk kazdej cewki na szyne 0 V -&gt; BAT-. Bez dodatkowych diod.
       Strona a/b = wysuw: TODO (orurowanie). Cewki -20 °C (WET -30) - otwarte.'
@@ -68,8 +72,10 @@ connectors:
     type: Cewki rozdzielacza podpor Walvoil Q45/4/F1S(N150)/103-A1-D41
     pins:
     - 1
+    - 2
     pinlabels:
     - lapa 2 wysuw
+    - powrot cewki
     subtype: Walvoil, cewka 4SLG111400 (D41, 24 VDC, 52 W, IP65)
     notes: 'Drugi zacisk kazdej cewki na szyne 0 V -&gt; BAT-. Bez dodatkowych diod.
       Strona a/b = wysuw: TODO (orurowanie). Cewki -20 °C (WET -30) - otwarte.'
@@ -77,8 +83,10 @@ connectors:
     type: Cewki rozdzielacza podpor Walvoil Q45/4/F1S(N150)/103-A1-D41
     pins:
     - 1
+    - 2
     pinlabels:
     - lapa 2 wsuw
+    - powrot cewki
     subtype: Walvoil, cewka 4SLG111400 (D41, 24 VDC, 52 W, IP65)
     notes: 'Drugi zacisk kazdej cewki na szyne 0 V -&gt; BAT-. Bez dodatkowych diod.
       Strona a/b = wysuw: TODO (orurowanie). Cewki -20 °C (WET -30) - otwarte.'
@@ -86,8 +94,10 @@ connectors:
     type: Cewki rozdzielacza podpor Walvoil Q45/4/F1S(N150)/103-A1-D41
     pins:
     - 1
+    - 2
     pinlabels:
     - lapa 3 wysuw
+    - powrot cewki
     subtype: Walvoil, cewka 4SLG111400 (D41, 24 VDC, 52 W, IP65)
     notes: 'Drugi zacisk kazdej cewki na szyne 0 V -&gt; BAT-. Bez dodatkowych diod.
       Strona a/b = wysuw: TODO (orurowanie). Cewki -20 °C (WET -30) - otwarte.'
@@ -95,8 +105,10 @@ connectors:
     type: Cewki rozdzielacza podpor Walvoil Q45/4/F1S(N150)/103-A1-D41
     pins:
     - 1
+    - 2
     pinlabels:
     - lapa 3 wsuw
+    - powrot cewki
     subtype: Walvoil, cewka 4SLG111400 (D41, 24 VDC, 52 W, IP65)
     notes: 'Drugi zacisk kazdej cewki na szyne 0 V -&gt; BAT-. Bez dodatkowych diod.
       Strona a/b = wysuw: TODO (orurowanie). Cewki -20 °C (WET -30) - otwarte.'
@@ -104,8 +116,10 @@ connectors:
     type: Cewki rozdzielacza podpor Walvoil Q45/4/F1S(N150)/103-A1-D41
     pins:
     - 1
+    - 2
     pinlabels:
     - lapa 4 wysuw
+    - powrot cewki
     subtype: Walvoil, cewka 4SLG111400 (D41, 24 VDC, 52 W, IP65)
     notes: 'Drugi zacisk kazdej cewki na szyne 0 V -&gt; BAT-. Bez dodatkowych diod.
       Strona a/b = wysuw: TODO (orurowanie). Cewki -20 °C (WET -30) - otwarte.'
@@ -113,8 +127,10 @@ connectors:
     type: Cewki rozdzielacza podpor Walvoil Q45/4/F1S(N150)/103-A1-D41
     pins:
     - 1
+    - 2
     pinlabels:
     - lapa 4 wsuw
+    - powrot cewki
     subtype: Walvoil, cewka 4SLG111400 (D41, 24 VDC, 52 W, IP65)
     notes: 'Drugi zacisk kazdej cewki na szyne 0 V -&gt; BAT-. Bez dodatkowych diod.
       Strona a/b = wysuw: TODO (orurowanie). Cewki -20 °C (WET -30) - otwarte.'
@@ -146,126 +162,156 @@ cables:
     type: wiazka BP3
     wirecount: 2
     colors:
-    - GY
-    - GY
+    - RD
+    - BU
     wirelabels:
     - Signal + (zasilanie petl
     - Signal - (wyjscie pradow
-    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+    notes: Kolory zyl wg KONWENCJI FUNKCYJNEJ (karta ich nie podaje) - do zatwierdzenia
+      przed zamowieniem wiazki. Dlugosc DO USTALENIA.
   W_BP4:
     type: wiazka BP4
     wirecount: 2
     colors:
-    - GY
-    - GY
+    - RD
+    - BU
     wirelabels:
     - Signal + (zasilanie petl
     - Signal - (wyjscie pradow
-    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+    notes: Kolory zyl wg KONWENCJI FUNKCYJNEJ (karta ich nie podaje) - do zatwierdzenia
+      przed zamowieniem wiazki. Dlugosc DO USTALENIA.
   W_BP5:
     type: wiazka BP5
     wirecount: 2
     colors:
-    - GY
-    - GY
+    - RD
+    - BU
     wirelabels:
     - Signal + (zasilanie petl
     - Signal - (wyjscie pradow
-    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+    notes: Kolory zyl wg KONWENCJI FUNKCYJNEJ (karta ich nie podaje) - do zatwierdzenia
+      przed zamowieniem wiazki. Dlugosc DO USTALENIA.
   W_BP6:
     type: wiazka BP6
     wirecount: 2
     colors:
-    - GY
-    - GY
+    - RD
+    - BU
     wirelabels:
     - Signal + (zasilanie petl
     - Signal - (wyjscie pradow
-    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+    notes: Kolory zyl wg KONWENCJI FUNKCYJNEJ (karta ich nie podaje) - do zatwierdzenia
+      przed zamowieniem wiazki. Dlugosc DO USTALENIA.
   W_YV1a:
     type: wiazka YV1a
-    wirecount: 1
+    wirecount: 2
     colors:
-    - GY
+    - BN
+    - BK
     wirelabels:
     - lapa 1 wysuw
-    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+    - powrot cewki
+    notes: Kolory zyl wg KONWENCJI FUNKCYJNEJ (karta ich nie podaje) - do zatwierdzenia
+      przed zamowieniem wiazki. Dlugosc DO USTALENIA.
   W_YV1b:
     type: wiazka YV1b
-    wirecount: 1
+    wirecount: 2
     colors:
-    - GY
+    - BN
+    - BK
     wirelabels:
     - lapa 1 wsuw
-    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+    - powrot cewki
+    notes: Kolory zyl wg KONWENCJI FUNKCYJNEJ (karta ich nie podaje) - do zatwierdzenia
+      przed zamowieniem wiazki. Dlugosc DO USTALENIA.
   W_YV2a:
     type: wiazka YV2a
-    wirecount: 1
+    wirecount: 2
     colors:
-    - GY
+    - BN
+    - BK
     wirelabels:
     - lapa 2 wysuw
-    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+    - powrot cewki
+    notes: Kolory zyl wg KONWENCJI FUNKCYJNEJ (karta ich nie podaje) - do zatwierdzenia
+      przed zamowieniem wiazki. Dlugosc DO USTALENIA.
   W_YV2b:
     type: wiazka YV2b
-    wirecount: 1
+    wirecount: 2
     colors:
-    - GY
+    - BN
+    - BK
     wirelabels:
     - lapa 2 wsuw
-    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+    - powrot cewki
+    notes: Kolory zyl wg KONWENCJI FUNKCYJNEJ (karta ich nie podaje) - do zatwierdzenia
+      przed zamowieniem wiazki. Dlugosc DO USTALENIA.
   W_YV3a:
     type: wiazka YV3a
-    wirecount: 1
+    wirecount: 2
     colors:
-    - GY
+    - BN
+    - BK
     wirelabels:
     - lapa 3 wysuw
-    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+    - powrot cewki
+    notes: Kolory zyl wg KONWENCJI FUNKCYJNEJ (karta ich nie podaje) - do zatwierdzenia
+      przed zamowieniem wiazki. Dlugosc DO USTALENIA.
   W_YV3b:
     type: wiazka YV3b
-    wirecount: 1
+    wirecount: 2
     colors:
-    - GY
+    - BN
+    - BK
     wirelabels:
     - lapa 3 wsuw
-    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+    - powrot cewki
+    notes: Kolory zyl wg KONWENCJI FUNKCYJNEJ (karta ich nie podaje) - do zatwierdzenia
+      przed zamowieniem wiazki. Dlugosc DO USTALENIA.
   W_YV4a:
     type: wiazka YV4a
-    wirecount: 1
+    wirecount: 2
     colors:
-    - GY
+    - BN
+    - BK
     wirelabels:
     - lapa 4 wysuw
-    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+    - powrot cewki
+    notes: Kolory zyl wg KONWENCJI FUNKCYJNEJ (karta ich nie podaje) - do zatwierdzenia
+      przed zamowieniem wiazki. Dlugosc DO USTALENIA.
   W_YV4b:
     type: wiazka YV4b
-    wirecount: 1
+    wirecount: 2
     colors:
-    - GY
+    - BN
+    - BK
     wirelabels:
     - lapa 4 wsuw
-    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+    - powrot cewki
+    notes: Kolory zyl wg KONWENCJI FUNKCYJNEJ (karta ich nie podaje) - do zatwierdzenia
+      przed zamowieniem wiazki. Dlugosc DO USTALENIA.
   W_YLF:
     type: wiazka YLF
     wirecount: 2
     colors:
-    - GY
-    - GY
+    - BN
+    - BK
     wirelabels:
     - cewka +
     - cewka -
-    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+    notes: Kolory zyl wg KONWENCJI FUNKCYJNEJ (karta ich nie podaje) - do zatwierdzenia
+      przed zamowieniem wiazki. Dlugosc DO USTALENIA.
   W_K_PTO2:
     type: wiazka K_PTO2
     wirecount: 2
     colors:
-    - GY
-    - GY
+    - BN
+    - BK
     wirelabels:
     - cewka +
     - cewka -
-    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+    notes: Kolory zyl wg KONWENCJI FUNKCYJNEJ (karta ich nie podaje) - do zatwierdzenia
+      przed zamowieniem wiazki. Dlugosc DO USTALENIA.
 connections:
 - - BP3:
     - 1
@@ -321,48 +367,96 @@ connections:
     - 1
   - X1:
     - P153
+- - YV1a:
+    - 2
+  - W_YV1a:
+    - 2
+  - XB_GND:
+    - 1
 - - YV1b:
     - 1
   - W_YV1b:
     - 1
   - X1:
     - P177
+- - YV1b:
+    - 2
+  - W_YV1b:
+    - 2
+  - XB_GND:
+    - 2
 - - YV2a:
     - 1
   - W_YV2a:
     - 1
   - X1:
     - P156
+- - YV2a:
+    - 2
+  - W_YV2a:
+    - 2
+  - XB_GND:
+    - 3
 - - YV2b:
     - 1
   - W_YV2b:
     - 1
   - X1:
     - P180
+- - YV2b:
+    - 2
+  - W_YV2b:
+    - 2
+  - XB_GND:
+    - 4
 - - YV3a:
     - 1
   - W_YV3a:
     - 1
   - X1:
     - P159
+- - YV3a:
+    - 2
+  - W_YV3a:
+    - 2
+  - XB_GND:
+    - 5
 - - YV3b:
     - 1
   - W_YV3b:
     - 1
   - X1:
     - P183
+- - YV3b:
+    - 2
+  - W_YV3b:
+    - 2
+  - XB_GND:
+    - 6
 - - YV4a:
     - 1
   - W_YV4a:
     - 1
   - X1:
     - P186
+- - YV4a:
+    - 2
+  - W_YV4a:
+    - 2
+  - XB_GND:
+    - 7
 - - YV4b:
     - 1
   - W_YV4b:
     - 1
   - X1:
     - P162
+- - YV4b:
+    - 2
+  - W_YV4b:
+    - 2
+  - XB_GND:
+    - 8
 - - YLF:
     - 1?
   - W_YLF:
@@ -374,7 +468,7 @@ connections:
   - W_YLF:
     - 2
   - XB_GND:
-    - 3
+    - 11
 - - K_PTO2:
     - A1
   - W_K_PTO2:
@@ -386,4 +480,4 @@ connections:
   - W_K_PTO2:
     - 2
   - XB_GND:
-    - 11
+    - 19

@@ -5,9 +5,15 @@ connectors:
   B_SLEW1_B_SLEW2:
     type: Dwa czujniki indukcyjne licznika obrotow obrotnicy (znacznik
     pins:
-    - '?'
+    - ?1
+    - ?2
+    - ?3
+    - ?4
     pinlabels:
     - +V czujnika
+    - 0 V
+    - sygnal czujnika A
+    - sygnal czujnika B
     subtype: nie dobrany (TODO_HARDWARE)
     notes: 'FIX30: czujniki NPN 3-przewodowe (wyjscie zwiera do masy przy znaczniku;
       aktywny = LOW). P125/P126 = wejscia alternatywne HS PWM (staly pull-up) - +24
@@ -17,29 +23,29 @@ cables:
     type: wiazka B_SLEW1_B_SLEW2
     wirecount: 3
     colors:
-    - GY
-    - GY
-    - GY
+    - BU
+    - BK
+    - BK
     wirelabels:
     - 0 V
     - sygnal czujnika A
     - sygnal czujnika B
-    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+    notes: Kolory zyl wg karty urzadzenia. Dlugosc DO USTALENIA.
 connections:
 - - B_SLEW1_B_SLEW2:
-    - '?'
+    - ?2
   - W_B_SLEW1_B_SLEW2:
     - 1
   - XB_GND:
-    - 6
+    - 14
 - - B_SLEW1_B_SLEW2:
-    - '?'
+    - ?3
   - W_B_SLEW1_B_SLEW2:
     - 2
   - X1:
     - P125
 - - B_SLEW1_B_SLEW2:
-    - '?'
+    - ?4
   - W_B_SLEW1_B_SLEW2:
     - 3
   - X1:

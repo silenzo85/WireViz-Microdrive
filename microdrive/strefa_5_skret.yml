@@ -55,13 +55,13 @@ cables:
     type: wiazka M2
     wirecount: 7
     colors:
+    - BN
+    - WH
+    - BK
     - GY
-    - GY
-    - GY
-    - GY
-    - GY
-    - GY
-    - GY
+    - BK
+    - YE
+    - GN
     wirelabels:
     - +V (12..60 V, max 3,5 A)
     - GND
@@ -70,7 +70,8 @@ cables:
     - CAN_GND
     - CAN_H
     - CAN_L
-    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+    notes: 'Kolory: 3 z 7 zyl wg karty, reszta wg konwencji funkcyjnej - do zatwierdzenia.
+      Dlugosc DO USTALENIA.'
 connections:
 - - M2:
     - P1:1
@@ -83,13 +84,13 @@ connections:
   - W_M2:
     - 2
   - XB_GND:
-    - 9
+    - 17
 - - M2:
     - P1:4
   - W_M2:
     - 3
   - XB_GND:
-    - 9
+    - 17
 - - M2:
     - P3:1
   - W_M2:
@@ -101,7 +102,7 @@ connections:
   - W_M2:
     - 5
   - XB_GND:
-    - 9
+    - 17
 - - M2:
     - P3:4
   - W_M2:

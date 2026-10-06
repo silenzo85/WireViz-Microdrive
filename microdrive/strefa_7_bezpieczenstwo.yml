@@ -49,37 +49,38 @@ cables:
     type: wiazka SB1
     wirecount: 4
     colors:
-    - GY
-    - GY
-    - GY
-    - GY
+    - WH
+    - BK
+    - WH
+    - BK
     wirelabels:
     - 'NC1 - grupa A wejscie 0 '
     - 'NO1 - grupa A wejscie 1 '
     - 'NC2 - grupa B wejscie 0 '
     - 'NO2 - grupa B wejscie 1 '
-    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+    notes: Kolory zyl wg KONWENCJI FUNKCYJNEJ (karta ich nie podaje) - do zatwierdzenia
+      przed zamowieniem wiazki. Dlugosc DO USTALENIA.
   W_SB2_SB3:
     type: wiazka SB2_SB3
     wirecount: 2
     colors:
-    - GY
-    - GY
+    - BN
+    - WH
     wirelabels:
     - styk
     - styk
-    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+    notes: Kolory zyl wg karty urzadzenia. Dlugosc DO USTALENIA.
   W_HOLD1_2_HA1_HA2_silownik_hamulca_kamery:
     type: wiazka HOLD1_2_HA1_HA2_silownik_hamulca_kamery
     wirecount: 7
     colors:
-    - GY
-    - GY
-    - GY
-    - GY
-    - GY
-    - GY
-    - GY
+    - WH
+    - WH
+    - BN
+    - BN
+    - BN
+    - BN
+    - BK
     wirelabels:
     - deadman kanal 1
     - deadman kanal 2
@@ -88,7 +89,8 @@ cables:
     - silownik hamulca - cewka
     - silownik hamulca - cewka
     - potencjometr silownika (
-    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+    notes: Kolory zyl wg KONWENCJI FUNKCYJNEJ (karta ich nie podaje) - do zatwierdzenia
+      przed zamowieniem wiazki. Dlugosc DO USTALENIA.
 connections:
 - - SB1:
     - 11/12
@@ -119,7 +121,7 @@ connections:
   - W_SB2_SB3:
     - 1
   - XB_GND:
-    - 5
+    - 13
 - - SB2_SB3:
     - biegun 1 NC
   - W_SB2_SB3:

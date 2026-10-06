@@ -27,18 +27,22 @@ connectors:
   BT1:
     type: Przetwornik temperatury oleju 4..20 mA
     pins:
-    - '?'
+    - ?1
+    - ?2
     pinlabels:
     - zasilanie petli +24 V
+    - wyjscie pradowe
     subtype: 'HYDAC HTT (oferta: HTT 124S-A-016-013; rysunek: HTT 1X4S-X-0'
     notes: Petla zasilana z P149 (przelaczane +24 V), sygnal na P103. Pinout TODO_HARDWARE
       (brak ark. 1/2 i karty).
   BT2:
     type: Temperatura oleju obwodu creep
     pins:
-    - '?'
+    - ?1
+    - ?2
     pinlabels:
     - zasilanie petli +24 V
+    - wyjscie pradowe
     subtype: nie ustalony (HYDAC HTT jak BT1 albo czujnik Poclain 3-przew
     notes: 'W programie jak BT1: petla z P149, sygnal P106. Wariant Poclain (DIN/M12):
       M12 1 brazowy NC, 2 bialy SUPPLY, 3 niebieski OUTPUT, 4 czarny GROUND.'
@@ -58,8 +62,10 @@ connectors:
   SP1:
     type: Wskaznik zatkania filtra cisnieniowego
     pins:
-    - '?'
+    - ?1
+    - ?2
     pinlabels:
+    - styk
     - styk
     subtype: HYDAC LPF SN 55 E B 10 CD 1.0 /-2M0-A2-B3
     notes: 'Styk miedzy P105 a SGND. Typ NO/NC, zlacze i pinout: TODO_HARDWARE.'
@@ -76,9 +82,13 @@ connectors:
   BG1:
     type: Czujnik polozenia tarczy pompy PM50 (Feedback pump 1), 0,5..
     pins:
-    - '?'
+    - ?1
+    - ?2
+    - ?3
     pinlabels:
     - +5 V
+    - sygnal 0,5..4,5 V
+    - masa
     subtype: Poclain (w pompie PM50)
     notes: Pinout TODO_HARDWARE (karta czujnika od Poclaina).
   BQ3:
@@ -116,9 +126,15 @@ connectors:
   SQ1_SQ2:
     type: Czujniki polozenia sprzegla CDM20 (V2 = zalaczone, V1 = rozl
     pins:
-    - '?'
+    - ?1
+    - ?2
+    - ?3
+    - ?4
     pinlabels:
     - +V
+    - GROUND
+    - sygnal SQ1 (V2, zalaczone)
+    - sygnal SQ2 (V1, rozlaczone)
     subtype: Poclain
     notes: Rysunek podaje funkcje (+V, GND, sygnal), bez numerow pinow M8 - TODO_HARDWARE.
   SQ3:
@@ -181,9 +197,11 @@ connectors:
   YBP:
     type: Zawor cut-off / bypass petli
     pins:
-    - '?'
+    - ?1
+    - ?2
     pinlabels:
     - cewka +
+    - cewka -
     subtype: nie zidentyfikowany
     notes: Powrot przez LS P238 (drugi tor odciecia).
   KM1:
@@ -202,9 +220,11 @@ connectors:
   Y_CB:
     type: 'Zawor bypass obwodu doladowania (NO; zasilony = zamkniety), '
     pins:
-    - '?'
+    - ?1
+    - ?2
     pinlabels:
     - cewka +
+    - cewka -
     subtype: Poclain (z dostawa CreepDrive)
     notes: 'Wyjscie LOW-SIDE: cewka na stalym +24 V, TTC zamyka obwod do masy. Poza
       SSW. Pinout zlacza: TODO_HARDWARE.'
@@ -213,198 +233,216 @@ cables:
     type: wiazka BP1
     wirecount: 2
     colors:
-    - GY
-    - GY
+    - RD
+    - BU
     wirelabels:
     - Signal + (zasilanie petl
     - Signal - (wyjscie pradow
-    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+    notes: Kolory zyl wg KONWENCJI FUNKCYJNEJ (karta ich nie podaje) - do zatwierdzenia
+      przed zamowieniem wiazki. Dlugosc DO USTALENIA.
   W_BP2:
     type: wiazka BP2
     wirecount: 2
     colors:
-    - GY
-    - GY
+    - RD
+    - BU
     wirelabels:
     - Signal + (zasilanie petl
     - Signal - (wyjscie pradow
-    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+    notes: Kolory zyl wg KONWENCJI FUNKCYJNEJ (karta ich nie podaje) - do zatwierdzenia
+      przed zamowieniem wiazki. Dlugosc DO USTALENIA.
   W_BT1:
     type: wiazka BT1
     wirecount: 2
     colors:
-    - GY
-    - GY
+    - RD
+    - BU
     wirelabels:
     - zasilanie petli +24 V
     - wyjscie pradowe
-    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+    notes: Kolory zyl wg KONWENCJI FUNKCYJNEJ (karta ich nie podaje) - do zatwierdzenia
+      przed zamowieniem wiazki. Dlugosc DO USTALENIA.
   W_BT2:
     type: wiazka BT2
     wirecount: 2
     colors:
-    - GY
-    - GY
+    - RD
+    - BU
     wirelabels:
     - zasilanie petli +24 V
     - wyjscie pradowe
-    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+    notes: Kolory zyl wg KONWENCJI FUNKCYJNEJ (karta ich nie podaje) - do zatwierdzenia
+      przed zamowieniem wiazki. Dlugosc DO USTALENIA.
   W_SL1:
     type: wiazka SL1
     wirecount: 2
     colors:
-    - GY
-    - GY
+    - WH
+    - WH
     wirelabels:
     - styk NC
     - styk NC
-    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+    notes: Kolory zyl wg KONWENCJI FUNKCYJNEJ (karta ich nie podaje) - do zatwierdzenia
+      przed zamowieniem wiazki. Dlugosc DO USTALENIA.
   W_SP1:
     type: wiazka SP1
     wirecount: 2
     colors:
-    - GY
-    - GY
+    - WH
+    - WH
     wirelabels:
     - styk
     - styk
-    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+    notes: Kolory zyl wg KONWENCJI FUNKCYJNEJ (karta ich nie podaje) - do zatwierdzenia
+      przed zamowieniem wiazki. Dlugosc DO USTALENIA.
   W_SP2:
     type: wiazka SP2
     wirecount: 2
     colors:
-    - GY
-    - GY
+    - WH
+    - WH
     wirelabels:
     - styk
     - styk
-    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+    notes: Kolory zyl wg KONWENCJI FUNKCYJNEJ (karta ich nie podaje) - do zatwierdzenia
+      przed zamowieniem wiazki. Dlugosc DO USTALENIA.
   W_BG1:
     type: wiazka BG1
     wirecount: 3
     colors:
-    - GY
-    - GY
-    - GY
+    - RD
+    - BU
+    - BK
     wirelabels:
     - +5 V
     - sygnal 0,5..4,5 V
     - masa
-    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+    notes: Kolory zyl wg KONWENCJI FUNKCYJNEJ (karta ich nie podaje) - do zatwierdzenia
+      przed zamowieniem wiazki. Dlugosc DO USTALENIA.
   W_BQ3:
     type: wiazka BQ3
     wirecount: 3
     colors:
-    - GY
-    - GY
-    - GY
+    - BN
+    - BU
+    - BK
     wirelabels:
     - SUPPLY
     - GROUND
     - OUTPUT
-    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+    notes: Kolory zyl wg karty urzadzenia. Dlugosc DO USTALENIA.
   W_BQ4:
     type: wiazka BQ4
     wirecount: 3
     colors:
-    - GY
-    - GY
-    - GY
+    - RD
+    - BK
+    - BU
     wirelabels:
     - VSupply
     - GROUND
     - OUTPUT
-    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+    notes: Kolory zyl wg KONWENCJI FUNKCYJNEJ (karta ich nie podaje) - do zatwierdzenia
+      przed zamowieniem wiazki. Dlugosc DO USTALENIA.
   W_SQ1_SQ2:
     type: wiazka SQ1_SQ2
     wirecount: 4
     colors:
-    - GY
-    - GY
-    - GY
-    - GY
+    - RD
+    - BK
+    - WH
+    - WH
     wirelabels:
     - +V
     - GROUND
     - sygnal SQ1 (V2, zalaczon
     - sygnal SQ2 (V1, rozlaczo
-    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+    notes: Kolory zyl wg KONWENCJI FUNKCYJNEJ (karta ich nie podaje) - do zatwierdzenia
+      przed zamowieniem wiazki. Dlugosc DO USTALENIA.
   W_SQ3:
     type: wiazka SQ3
     wirecount: 1
     colors:
-    - GY
+    - WH
     wirelabels:
     - styk
-    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+    notes: Kolory zyl wg KONWENCJI FUNKCYJNEJ (karta ich nie podaje) - do zatwierdzenia
+      przed zamowieniem wiazki. Dlugosc DO USTALENIA.
   W_S1:
     type: wiazka S1
     wirecount: 2
     colors:
-    - GY
-    - GY
+    - BN
+    - PK
     wirelabels:
     - cewka S1 +
     - cewka S1 -
-    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+    notes: Kolory zyl wg KONWENCJI FUNKCYJNEJ (karta ich nie podaje) - do zatwierdzenia
+      przed zamowieniem wiazki. Dlugosc DO USTALENIA.
   W_S2:
     type: wiazka S2
     wirecount: 2
     colors:
-    - GY
-    - GY
+    - BN
+    - PK
     wirelabels:
     - cewka S2 +
     - cewka S2 -
-    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+    notes: Kolory zyl wg KONWENCJI FUNKCYJNEJ (karta ich nie podaje) - do zatwierdzenia
+      przed zamowieniem wiazki. Dlugosc DO USTALENIA.
   W_Y2C:
     type: wiazka Y2C
     wirecount: 2
     colors:
-    - GY
-    - GY
+    - BN
+    - BK
     wirelabels:
     - cewka +
     - cewka -
-    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+    notes: Kolory zyl wg KONWENCJI FUNKCYJNEJ (karta ich nie podaje) - do zatwierdzenia
+      przed zamowieniem wiazki. Dlugosc DO USTALENIA.
   W_YCL:
     type: wiazka YCL
     wirecount: 2
     colors:
-    - GY
-    - GY
+    - BN
+    - BK
     wirelabels:
     - cewka +
     - cewka -
-    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+    notes: Kolory zyl wg KONWENCJI FUNKCYJNEJ (karta ich nie podaje) - do zatwierdzenia
+      przed zamowieniem wiazki. Dlugosc DO USTALENIA.
   W_YBP:
     type: wiazka YBP
     wirecount: 2
     colors:
-    - GY
-    - GY
+    - BN
+    - PK
     wirelabels:
     - cewka +
     - cewka -
-    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+    notes: Kolory zyl wg KONWENCJI FUNKCYJNEJ (karta ich nie podaje) - do zatwierdzenia
+      przed zamowieniem wiazki. Dlugosc DO USTALENIA.
   W_KM1:
     type: wiazka KM1
     wirecount: 2
     colors:
-    - GY
-    - GY
+    - BN
+    - BK
     wirelabels:
     - cewka +
     - cewka -
-    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+    notes: Kolory zyl wg KONWENCJI FUNKCYJNEJ (karta ich nie podaje) - do zatwierdzenia
+      przed zamowieniem wiazki. Dlugosc DO USTALENIA.
   W_Y_CB:
     type: wiazka Y_CB
     wirecount: 1
     colors:
-    - GY
+    - PK
     wirelabels:
     - cewka -
-    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+    notes: Kolory zyl wg KONWENCJI FUNKCYJNEJ (karta ich nie podaje) - do zatwierdzenia
+      przed zamowieniem wiazki. Dlugosc DO USTALENIA.
 connections:
 - - BP1:
     - 1
@@ -431,25 +469,25 @@ connections:
   - X1:
     - P132
 - - BT1:
-    - '?'
+    - ?1
   - W_BT1:
     - 1
   - X1:
     - P149
 - - BT1:
-    - '?'
+    - ?2
   - W_BT1:
     - 2
   - X1:
     - P103
 - - BT2:
-    - '?'
+    - ?1
   - W_BT2:
     - 1
   - X1:
     - P149
 - - BT2:
-    - '?'
+    - ?2
   - W_BT2:
     - 2
   - X1:
@@ -467,13 +505,13 @@ connections:
   - XB_SGND:
     - 1
 - - SP1:
-    - '?'
+    - ?1
   - W_SP1:
     - 1
   - X1:
     - P105
 - - SP1:
-    - '?'
+    - ?2
   - W_SP1:
     - 2
   - XB_SGND:
@@ -491,19 +529,19 @@ connections:
   - XB_SGND:
     - 3
 - - BG1:
-    - '?'
+    - ?1
   - W_BG1:
     - 1
   - X2:
     - P247
 - - BG1:
-    - '?'
+    - ?2
   - W_BG1:
     - 2
   - X1:
     - P107
 - - BG1:
-    - '?'
+    - ?3
   - W_BG1:
     - 3
   - XB_SGND:
@@ -545,25 +583,25 @@ connections:
   - X1:
     - P141
 - - SQ1_SQ2:
-    - '?'
+    - ?1
   - W_SQ1_SQ2:
     - 1
   - X1:
     - P152
 - - SQ1_SQ2:
-    - '?'
+    - ?2
   - W_SQ1_SQ2:
     - 2
   - XB_SGND:
     - 7
 - - SQ1_SQ2:
-    - '?'
+    - ?3
   - W_SQ1_SQ2:
     - 3
   - X1:
     - P123
 - - SQ1_SQ2:
-    - '?'
+    - ?4
   - W_SQ1_SQ2:
     - 4
   - X1:
@@ -609,7 +647,7 @@ connections:
   - W_Y2C:
     - 2
   - XB_GND:
-    - 1
+    - 9
 - - YCL:
     - +
   - W_YCL:
@@ -621,15 +659,15 @@ connections:
   - W_YCL:
     - 2
   - XB_GND:
-    - 2
+    - 10
 - - YBP:
-    - '?'
+    - ?1
   - W_YBP:
     - 1
   - X1:
     - P181
 - - YBP:
-    - '?'
+    - ?2
   - W_YBP:
     - 2
   - X2:
@@ -645,9 +683,9 @@ connections:
   - W_KM1:
     - 2
   - XB_GND:
-    - 4
+    - 12
 - - Y_CB:
-    - '?'
+    - ?2
   - W_Y_CB:
     - 1
   - X2:

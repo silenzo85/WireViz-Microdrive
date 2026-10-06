@@ -17,6 +17,7 @@ Fork: https://github.com/silenzo85/WireViz-Microdrive, gałąź `microdrive`
 | **Polskie nagłówki listy materiałowej** | `src/wireviz/wv_bom.py` | j.w. Wyłącznik: `WIREVIZ_LANG=en` przywraca oryginał. |
 | **Scalanie arkuszy strefowych** | `microdrive/zloz.py` (narzędzie, poza pakietem) | natywne `-p/--prepend` w WireViz składa pliki **jako tekst** — powtórzona sekcja `connectors:` nadpisuje poprzednią **bez ostrzeżenia**. Sprawdzone: sklejenie dwóch plików po 1 złączu daje 1 złącze. |
 | **Generator arkuszy z danych projektu** | `microdrive/z_csv.py` (narzędzie) | arkusze powstają z `docs/45_wireviz/*.csv` (pinout TTC510 + karty urządzeń), nie z ręcznie pisanego YAML — architektura wciąż się zmienia, więc każda zmiana przechodzi przez regenerację |
+| **Kolory żył** | `microdrive/kolory.py` (narzędzie) | karta urządzenia ma pierwszeństwo (28 ze 171 żył), reszta z konwencji funkcyjnej — bez kolorów nie dało się prześledzić, co gdzie idzie |
 | **`ezdxf` jako zależność** | `requirements.txt`, `setup.py` | potrzebny do eksportu DXF |
 
 Nic poza tym nie ruszane — merge ze zmianami upstreamu pozostaje możliwy.

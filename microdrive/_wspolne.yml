@@ -171,7 +171,7 @@ connectors:
     - YLF LegFlow
     - WOLNY
     - YV4a
-    - EPB_REL
+    - P187 (EPB_REL)
     - WOLNY
     - WOLNY
     - WOLNY
@@ -318,7 +318,22 @@ connectors:
     - 10
     - 11
     - 12
+    - 13
+    - 14
+    - 15
+    - 16
+    - 17
+    - 18
+    - 19
     pinlabels:
+    - 0V / YV1a
+    - 0V / YV1b
+    - 0V / YV2a
+    - 0V / YV2b
+    - 0V / YV3a
+    - 0V / YV3b
+    - 0V / YV4a
+    - 0V / YV4b
     - 0V / Y2C
     - 0V / YCL
     - 0V / YLF
@@ -330,7 +345,6 @@ connectors:
     - 0V / M2
     - 0V / A3
     - 0V / K-PTO2
-    - 0V / A-EPB
     hide_disconnected_pins: true
   XB_SGND:
     type: Masa czujnikow (SGND)
@@ -354,3 +368,14 @@ connectors:
     - SGND / SQ1_SQ2
     - SGND / HOLD1/2_HA1_HA2_siłownik hamulca_kamery
     hide_disconnected_pins: true
+metadata:
+  legenda_kolorow:
+  - RD = zasilanie (+24 V, +5 V, Clamp 30, BAT+)
+  - BK = masa (GND, 0 V, BAT-, SGND)
+  - YE = CAN High (J1939-11)
+  - GN = CAN Low (J1939-11)
+  - GY = ekran / nieokreslone
+  - BU = sygnal analogowy (4..20 mA, 0,5..4,5 V)
+  - WH = sygnal cyfrowy / styk / czujnik impulsowy
+  - BN = wyjscie mocy - cewka, przekaznik, beacon, buzzer
+  - PK = powrot cewki przez wyjscie LS (drugi tor odciecia)

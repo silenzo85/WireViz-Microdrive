@@ -111,11 +111,21 @@ def _hex_to_rgb(h: str) -> Tuple[int, int, int]:
 
 
 def _connector_rows(connector) -> List[Tuple[str, str]]:
-    """Zwraca wiersze zlacza: (numer pinu, etykieta)."""
+    """
+    Zwraca wiersze zlacza: (numer pinu, etykieta).
+
+    Honoruje `hide_disconnected_pins` tak samo jak render SVG (Harness.py ~228).
+    Bez tego zlacze TTC510 wchodzilo do DXF ze wszystkimi 84 pinami, podczas gdy
+    SVG pokazywal tylko uzyte - rysunek byl scianka tekstu nie do przesledzenia.
+    """
     pins = list(connector.pins or [])
     labels = list(connector.pinlabels or [])
+    widoczne = getattr(connector, "visible_pins", {}) or {}
+    ukryj = getattr(connector, "hide_disconnected_pins", False)
     rows = []
     for i, pin in enumerate(pins):
+        if ukryj and not widoczne.get(pin, False):
+            continue
         label = labels[i] if i < len(labels) else ""
         rows.append((str(pin), str(label or "")))
     return rows
@@ -463,7 +473,8 @@ def _draw_frame(msp, metadata, bbox, bomlist):
     lm_h = (len(bomlist) + 1) * row_h if bomlist else 0.0
 
     # LM stoi NAD tabliczka - inaczej wiersze wchodza na jej pole
-    fx0, fy0 = x0 - margin, y0 - margin - tb_h - lm_h - 8.0
+    leg_h = 4.5 * len((metadata or {}).get('legenda_kolorow') or []) + 8.0
+    fx0, fy0 = x0 - margin, y0 - margin - max(tb_h, leg_h) - lm_h - 8.0
     fx1, fy1 = max(x1 + margin, x0 - margin + tb_w + 20.0), y1 + margin
 
     msp.add_lwpolyline(
@@ -492,6 +503,28 @@ def _draw_frame(msp, metadata, bbox, bomlist):
     _add_text(
         msp, _fit(str(meta.get("company", "") or ""), inner, TXT_H), tx + PAD, ty + 4.0, TXT_H, "WV_RAMKA"
     )
+
+    # --- legenda kolorow zyl, lewy dolny rog ---
+    # Konwencja funkcyjna nie jest standardem, wiec bez legendy kolory sa
+    # tylko w polowie uzyteczne.
+    leg = (metadata or {}).get("legenda_kolorow") or []
+    if leg:
+        # Legenda rysuje sie W DOL, wiec punkt startowy musi lezec tyle nad
+        # dolna krawedzia ramki, ile zajmie caly blok - inaczej ostatnie pozycje
+        # wychodza poza obrys (CAD tego nie przytnie, podglad PNG tak).
+        lx = fx0 + PAD
+        ly = fy0 + 2.0 + 4.5 * (len(leg) - 1)
+        _add_text(msp, "KOLORY ZYL", lx, ly + 5.0, TXT_H_TITLE, "WV_RAMKA")
+        for i, poz in enumerate(leg):
+            yy = ly - i * 4.5
+            kod = str(poz).split("=")[0].strip()
+            hexes = get_color_hex(kod, pad=False)
+            for j, hx in enumerate(hexes):
+                _solid(msp, lx + j * 3.0, yy - 1.3, 3.0, 2.6, _hex_to_rgb(hx), "WV_ZYLA")
+            msp.add_lwpolyline(
+                [(lx, yy - 1.3), (lx + 9.0, yy - 1.3), (lx + 9.0, yy + 1.3), (lx, yy + 1.3)],
+                close=True, dxfattribs={"layer": "WV_RAMKA"})
+            _add_text(msp, _fit(str(poz), 130.0, TXT_H), lx + 11.0, yy, TXT_H, "WV_RAMKA")
 
     # --- lista materialowa, nad tabliczka, szerokosc ramki ---
     if not bomlist:

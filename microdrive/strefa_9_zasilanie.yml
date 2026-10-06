@@ -49,28 +49,29 @@ cables:
     type: wiazka BA1
     wirecount: 5
     colors:
+    - YE
     - GY
-    - GY
-    - GY
-    - GY
-    - GY
+    - BK
+    - GN
+    - RD
     wirelabels:
     - CAN HIGH
     - CAN SHIELD
     - 0 V GROUND
     - CAN LOW
     - +8..32 VDC
-    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+    notes: Kolory zyl wg KONWENCJI FUNKCYJNEJ (karta ich nie podaje) - do zatwierdzenia
+      przed zamowieniem wiazki. Dlugosc DO USTALENIA.
   W_A2:
     type: wiazka A2
     wirecount: 6
     colors:
-    - GY
-    - GY
-    - GY
-    - GY
-    - GY
-    - GY
+    - YE
+    - BK
+    - GN
+    - RD
+    - RD
+    - RD
     wirelabels:
     - CAN High
     - GND
@@ -78,7 +79,8 @@ cables:
     - WakeUp_In
     - Clamp 30
     - Clamp 30
-    notes: Kolory zyl i dlugosc DO USTALENIA - karty urzadzen ich nie podaja.
+    notes: Kolory zyl wg KONWENCJI FUNKCYJNEJ (karta ich nie podaje) - do zatwierdzenia
+      przed zamowieniem wiazki. Dlugosc DO USTALENIA.
 connections:
 - - BA1:
     - 1
@@ -97,7 +99,7 @@ connections:
   - W_BA1:
     - 3
   - XB_GND:
-    - 7
+    - 15
 - - BA1:
     - 4
   - W_BA1:
@@ -121,7 +123,7 @@ connections:
   - W_A2:
     - 2
   - XB_GND:
-    - 8
+    - 16
 - - A2:
     - 5
   - W_A2:
@@ -133,7 +135,7 @@ connections:
   - W_A2:
     - 4
   - XB_GND:
-    - 8
+    - 16
 - - A2:
     - 7
   - W_A2:
