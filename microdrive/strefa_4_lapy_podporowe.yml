@@ -162,8 +162,8 @@ cables:
     type: wiazka BP3
     wirecount: 2
     colors:
-    - RD
-    - BU
+    - RDWH
+    - BUWH
     wirelabels:
     - Signal + (zasilanie petl
     - Signal - (wyjscie pradow
@@ -173,8 +173,8 @@ cables:
     type: wiazka BP4
     wirecount: 2
     colors:
-    - RD
-    - BU
+    - RDGN
+    - BUGN
     wirelabels:
     - Signal + (zasilanie petl
     - Signal - (wyjscie pradow
@@ -184,8 +184,8 @@ cables:
     type: wiazka BP5
     wirecount: 2
     colors:
-    - RD
-    - BU
+    - RDYE
+    - BUYE
     wirelabels:
     - Signal + (zasilanie petl
     - Signal - (wyjscie pradow
@@ -195,7 +195,7 @@ cables:
     type: wiazka BP6
     wirecount: 2
     colors:
-    - RD
+    - RDBU
     - BU
     wirelabels:
     - Signal + (zasilanie petl
@@ -206,8 +206,8 @@ cables:
     type: wiazka YV1a
     wirecount: 2
     colors:
-    - BN
-    - BK
+    - BNVT
+    - BKVT
     wirelabels:
     - lapa 1 wysuw
     - powrot cewki
@@ -217,8 +217,8 @@ cables:
     type: wiazka YV1b
     wirecount: 2
     colors:
-    - BN
-    - BK
+    - BNOG
+    - BKOG
     wirelabels:
     - lapa 1 wsuw
     - powrot cewki
@@ -228,8 +228,8 @@ cables:
     type: wiazka YV2a
     wirecount: 2
     colors:
-    - BN
-    - BK
+    - BNPK
+    - BKPK
     wirelabels:
     - lapa 2 wysuw
     - powrot cewki
@@ -239,8 +239,8 @@ cables:
     type: wiazka YV2b
     wirecount: 2
     colors:
-    - BN
-    - BK
+    - BNRD
+    - BKRD
     wirelabels:
     - lapa 2 wsuw
     - powrot cewki
@@ -250,8 +250,8 @@ cables:
     type: wiazka YV3a
     wirecount: 2
     colors:
-    - BN
-    - BK
+    - BNTQ
+    - BKTQ
     wirelabels:
     - lapa 3 wysuw
     - powrot cewki
@@ -261,8 +261,8 @@ cables:
     type: wiazka YV3b
     wirecount: 2
     colors:
-    - BN
-    - BK
+    - BNBG
+    - BKBG
     wirelabels:
     - lapa 3 wsuw
     - powrot cewki
@@ -272,8 +272,8 @@ cables:
     type: wiazka YV4a
     wirecount: 2
     colors:
-    - BN
-    - BK
+    - BNGY
+    - BKGY
     wirelabels:
     - lapa 4 wysuw
     - powrot cewki
@@ -283,7 +283,7 @@ cables:
     type: wiazka YV4b
     wirecount: 2
     colors:
-    - BN
+    - BNBK
     - BK
     wirelabels:
     - lapa 4 wsuw
@@ -295,7 +295,7 @@ cables:
     wirecount: 2
     colors:
     - BN
-    - BK
+    - BKBN
     wirelabels:
     - cewka +
     - cewka -
@@ -305,8 +305,8 @@ cables:
     type: wiazka K_PTO2
     wirecount: 2
     colors:
-    - BN
-    - BK
+    - BNLB
+    - BKLB
     wirelabels:
     - cewka +
     - cewka -

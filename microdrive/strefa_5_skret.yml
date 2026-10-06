@@ -58,10 +58,10 @@ cables:
     - BN
     - WH
     - BK
-    - GY
-    - BK
-    - YE
-    - GN
+    - GYWH
+    - BKWH
+    - YEWH
+    - GNWH
     wirelabels:
     - +V (12..60 V, max 3,5 A)
     - GND

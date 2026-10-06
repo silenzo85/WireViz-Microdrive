@@ -233,8 +233,8 @@ cables:
     type: wiazka BP1
     wirecount: 2
     colors:
-    - RD
-    - BU
+    - RDWH
+    - BUWH
     wirelabels:
     - Signal + (zasilanie petl
     - Signal - (wyjscie pradow
@@ -244,8 +244,8 @@ cables:
     type: wiazka BP2
     wirecount: 2
     colors:
-    - RD
-    - BU
+    - RDGN
+    - BUGN
     wirelabels:
     - Signal + (zasilanie petl
     - Signal - (wyjscie pradow
@@ -255,8 +255,8 @@ cables:
     type: wiazka BT1
     wirecount: 2
     colors:
-    - RD
-    - BU
+    - RDYE
+    - BUYE
     wirelabels:
     - zasilanie petli +24 V
     - wyjscie pradowe
@@ -266,7 +266,7 @@ cables:
     type: wiazka BT2
     wirecount: 2
     colors:
-    - RD
+    - RDBU
     - BU
     wirelabels:
     - zasilanie petli +24 V
@@ -277,8 +277,8 @@ cables:
     type: wiazka SL1
     wirecount: 2
     colors:
-    - WH
-    - WH
+    - WHVT
+    - WHVT
     wirelabels:
     - styk NC
     - styk NC
@@ -288,8 +288,8 @@ cables:
     type: wiazka SP1
     wirecount: 2
     colors:
-    - WH
-    - WH
+    - WHOG
+    - WHOG
     wirelabels:
     - styk
     - styk
@@ -299,8 +299,8 @@ cables:
     type: wiazka SP2
     wirecount: 2
     colors:
-    - WH
-    - WH
+    - WHPK
+    - WHPK
     wirelabels:
     - styk
     - styk
@@ -311,8 +311,8 @@ cables:
     wirecount: 3
     colors:
     - RD
-    - BU
-    - BK
+    - BURD
+    - BKRD
     wirelabels:
     - +5 V
     - sygnal 0,5..4,5 V
@@ -335,9 +335,9 @@ cables:
     type: wiazka BQ4
     wirecount: 3
     colors:
-    - RD
-    - BK
-    - BU
+    - RDBG
+    - BKBG
+    - BUBG
     wirelabels:
     - VSupply
     - GROUND
@@ -348,10 +348,10 @@ cables:
     type: wiazka SQ1_SQ2
     wirecount: 4
     colors:
-    - RD
-    - BK
-    - WH
-    - WH
+    - RDGY
+    - BKGY
+    - WHGY
+    - WHGY
     wirelabels:
     - +V
     - GROUND
@@ -363,7 +363,7 @@ cables:
     type: wiazka SQ3
     wirecount: 1
     colors:
-    - WH
+    - WHBK
     wirelabels:
     - styk
     notes: Kolory zyl wg KONWENCJI FUNKCYJNEJ (karta ich nie podaje) - do zatwierdzenia
@@ -373,7 +373,7 @@ cables:
     wirecount: 2
     colors:
     - BN
-    - PK
+    - PKBN
     wirelabels:
     - cewka S1 +
     - cewka S1 -
@@ -383,8 +383,8 @@ cables:
     type: wiazka S2
     wirecount: 2
     colors:
-    - BN
-    - PK
+    - BNLB
+    - PKLB
     wirelabels:
     - cewka S2 +
     - cewka S2 -
@@ -394,8 +394,8 @@ cables:
     type: wiazka Y2C
     wirecount: 2
     colors:
-    - BN
-    - BK
+    - BNSL
+    - BKSL
     wirelabels:
     - cewka +
     - cewka -
@@ -405,8 +405,8 @@ cables:
     type: wiazka YCL
     wirecount: 2
     colors:
-    - BN
-    - BK
+    - BNIV
+    - BKIV
     wirelabels:
     - cewka +
     - cewka -
@@ -416,8 +416,8 @@ cables:
     type: wiazka YBP
     wirecount: 2
     colors:
-    - BN
-    - PK
+    - BNWH
+    - PKWH
     wirelabels:
     - cewka +
     - cewka -
@@ -427,8 +427,8 @@ cables:
     type: wiazka KM1
     wirecount: 2
     colors:
-    - BN
-    - BK
+    - BNGN
+    - BKGN
     wirelabels:
     - cewka +
     - cewka -
@@ -438,7 +438,7 @@ cables:
     type: wiazka Y_CB
     wirecount: 1
     colors:
-    - PK
+    - PKYE
     wirelabels:
     - cewka -
     notes: Kolory zyl wg KONWENCJI FUNKCYJNEJ (karta ich nie podaje) - do zatwierdzenia

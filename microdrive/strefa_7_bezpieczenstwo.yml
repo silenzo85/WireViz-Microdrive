@@ -50,9 +50,9 @@ cables:
     wirecount: 4
     colors:
     - WH
-    - BK
+    - BKWH
     - WH
-    - BK
+    - BKWH
     wirelabels:
     - 'NC1 - grupa A wejscie 0 '
     - 'NO1 - grupa A wejscie 1 '
@@ -74,13 +74,13 @@ cables:
     type: wiazka HOLD1_2_HA1_HA2_silownik_hamulca_kamery
     wirecount: 7
     colors:
-    - WH
-    - WH
-    - BN
-    - BN
-    - BN
-    - BN
-    - BK
+    - WHYE
+    - WHYE
+    - BNYE
+    - BNYE
+    - BNYE
+    - BNYE
+    - BKYE
     wirelabels:
     - deadman kanal 1
     - deadman kanal 2

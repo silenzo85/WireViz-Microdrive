@@ -49,11 +49,11 @@ cables:
     type: wiazka BA1
     wirecount: 5
     colors:
-    - YE
-    - GY
-    - BK
-    - GN
-    - RD
+    - YEWH
+    - GYWH
+    - BKWH
+    - GNWH
+    - RDWH
     wirelabels:
     - CAN HIGH
     - CAN SHIELD
@@ -66,12 +66,12 @@ cables:
     type: wiazka A2
     wirecount: 6
     colors:
-    - YE
-    - BK
+    - YEGN
+    - BKGN
     - GN
-    - RD
-    - RD
-    - RD
+    - RDGN
+    - RDGN
+    - RDGN
     wirelabels:
     - CAN High
     - GND

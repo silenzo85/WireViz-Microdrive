@@ -106,7 +106,7 @@ cables:
     type: wiazka BG2
     wirecount: 1
     colors:
-    - YE
+    - YEWH
     wirelabels:
     - CAN H / CAN L / zasilani
     notes: Kolory zyl wg KONWENCJI FUNKCYJNEJ (karta ich nie podaje) - do zatwierdzenia
@@ -115,9 +115,9 @@ cables:
     type: wiazka A3
     wirecount: 4
     colors:
-    - BK
-    - BK
-    - YE
+    - BKGN
+    - BKGN
+    - YEGN
     - GN
     wirelabels:
     - BAT-
@@ -131,7 +131,7 @@ cables:
     wirecount: 2
     colors:
     - YE
-    - GN
+    - GNYE
     wirelabels:
     - CAN H
     - CAN L

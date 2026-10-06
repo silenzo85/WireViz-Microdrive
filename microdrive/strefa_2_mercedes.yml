@@ -23,8 +23,8 @@ cables:
     type: wiazka A22_X1
     wirecount: 2
     colors:
-    - YE
-    - GN
+    - YEWH
+    - GNWH
     wirelabels:
     - CAN 8 HIGH
     - CAN 8 LOW

@@ -379,3 +379,4 @@ metadata:
   - WH = sygnal cyfrowy / styk / czujnik impulsowy
   - BN = wyjscie mocy - cewka, przekaznik, beacon, buzzer
   - PK = powrot cewki przez wyjscie LS (drugi tor odciecia)
+  - -- drugi kolor (pasek) = numer przebiegu, nie funkcja --

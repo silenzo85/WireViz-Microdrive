@@ -109,3 +109,30 @@ def kolor(sygnal, kolor_karty, cel_to_pin_ttc=False):
     if k:
         return k, True
     return z_funkcji(sygnal, cel_to_pin_ttc), False
+
+
+# --- pasek rozrozniajacy PRZEBIEG -----------------------------------------
+# Sama funkcja daje 3-4 kolory na arkusz: osiem cewek YV to osiem identycznych
+# brazowych zyl i nie widac, ktora gdzie idzie. Dlatego zyla = BAZA (funkcja)
+# + PASEK (numer przebiegu), jak w wiazkach samochodowych.
+# Zyly, ktorych kolor pochodzi z KARTY urzadzenia, zostaja jednolite - to fakt,
+# nie wolno go zasmiecac paskiem.
+
+PASKI = ["WH", "GN", "YE", "BU", "VT", "OG", "PK", "RD", "TQ", "BG",
+         "GY", "BK", "BN", "LB", "SL", "IV"]
+
+
+def pasek(nr):
+    """Kolor paska dla n-tego przebiegu na arkuszu."""
+    return PASKI[nr % len(PASKI)]
+
+
+def zyla(baza, nr_przebiegu, z_karty_flaga):
+    """
+    Zwraca kod koloru zyly dla WireViz.
+    Jednolity, gdy kolor jest z karty; inaczej 'BAZA+PASEK' (zyla w paski).
+    """
+    if z_karty_flaga:
+        return baza
+    p = pasek(nr_przebiegu)
+    return baza if p == baza else baza + p

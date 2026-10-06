@@ -27,7 +27,7 @@ from pathlib import Path
 
 import yaml
 
-from kolory import LEGENDA, kolor
+from kolory import LEGENDA, kolor, zyla
 
 TU = Path(__file__).resolve().parent
 sys.path.insert(0, str(TU))
@@ -342,9 +342,10 @@ def main():
                 "hide_disconnected_pins": True,
             }
 
-    uzyte = {k for *_x, k, _zk in polaczenia_sur}
+    bazy = {k for *_x, k, _zk in polaczenia_sur}   # baza bez paska
     wspolne["metadata"] = {
-        "legenda_kolorow": [f"{k} = {o}" for k, o in LEGENDA if k in uzyte]
+        "legenda_kolorow": [f"{k} = {o}" for k, o in LEGENDA if k in bazy]
+        + ["-- drugi kolor (pasek) = numer przebiegu, nie funkcja --"]
     }
 
     naglowek = ("# PLIK GENEROWANY - nie edytowac recznie.\n"
@@ -373,7 +374,7 @@ def main():
         plik = f"strefa_{g}_{nazwa}.yml" if g != "0" else "strefa_0_do_ustalenia.yml"
         ark = {"connectors": {}, "cables": {}, "connections": []}
 
-        for dev in devs:
+        for nr_przebiegu, dev in enumerate(devs):
             m = dev_meta[dev]
             klucz = bezpieczne(dev)
             pl = [p for _d, p, _s in dev_piny[dev]]
@@ -395,7 +396,7 @@ def main():
             ark["cables"][kab] = {
                 "type": f"wiazka {klucz}",
                 "wirecount": len(moje),
-                "colors": [k for *_x, k, _zk in moje],
+                "colors": [zyla(k, nr_przebiegu, zk) for *_x, k, zk in moje],
                 "wirelabels": [esc(str(s or p)[:24]) for _d, p, _r, _w, _pc, s, _k, _zk in moje],
                 "notes": esc(uwaga_kolorow(moje)),
             }
