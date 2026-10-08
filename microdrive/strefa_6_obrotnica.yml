@@ -2,51 +2,111 @@
 # Zrodlo: docs/45_wireviz/*.csv  ->  microdrive/z_csv.py
 # STREFA 6: obrotnica
 connectors:
-  B_SLEW1_B_SLEW2:
-    type: Dwa czujniki indukcyjne licznika obrotow obrotnicy (znacznik
+  B_SLEW1:
+    type: Dwa czujniki indukcyjne licznika obrotow obrotnicy - ifm IGM
     pins:
-    - ?1
-    - ?2
-    - ?3
-    - ?4
+    - 1
+    - 3
+    - 4
     pinlabels:
-    - +V czujnika
-    - 0 V
-    - sygnal czujnika A
-    - sygnal czujnika B
-    subtype: nie dobrany (TODO_HARDWARE)
-    notes: 'FIX30: czujniki NPN 3-przewodowe (wyjscie zwiera do masy przy znaczniku;
-      aktywny = LOW). P125/P126 = wejscia alternatywne HS PWM (staly pull-up) - +24
-      V na pin ZABRONIONE. Zasilanie czujnikow z wyjsci'
+    - L+ (10..36 V)
+    - L-
+    - wyjscie PNP czujnika A
+    subtype: ifm electronic IGM200
+    notes: 'FIX32: PNP 3-przewodowy, NO (znacznik = +24 V na wyjsciu). Wejscia timerowe
+      P115/P116 jako
+
+      DI z pull-down 10 kOhm (SM 4.11.5.1, 0..32 V); SLEW_SENSOR_ACTIVE_LOW = FALSE.
+      Zasilanie
+
+      zwykle zabezpieczone +24 V (czujnik nie-safety; nie musi byc z wyjscia TTC).
+      P125/P126
+
+      zwolnione. Kolory zyl wg standardu M12 (BN/BU/BK) - potwierdzic z kablem. Geometria
+
+      znacznikow: SLEW_SEQUENCE_CONFIRMED.'
+  B_SLEW2:
+    type: Dwa czujniki indukcyjne licznika obrotow obrotnicy - ifm IGM
+    pins:
+    - 1
+    - 3
+    - 4
+    pinlabels:
+    - L+ (10..36 V)
+    - L-
+    - wyjscie PNP czujnika B
+    subtype: ifm electronic IGM200
+    notes: 'FIX32: PNP 3-przewodowy, NO (znacznik = +24 V na wyjsciu). Wejscia timerowe
+      P115/P116 jako
+
+      DI z pull-down 10 kOhm (SM 4.11.5.1, 0..32 V); SLEW_SENSOR_ACTIVE_LOW = FALSE.
+      Zasilanie
+
+      zwykle zabezpieczone +24 V (czujnik nie-safety; nie musi byc z wyjscia TTC).
+      P125/P126
+
+      zwolnione. Kolory zyl wg standardu M12 (BN/BU/BK) - potwierdzic z kablem. Geometria
+
+      znacznikow: SLEW_SEQUENCE_CONFIRMED.'
 cables:
-  W_B_SLEW1_B_SLEW2:
-    type: wiazka B_SLEW1_B_SLEW2
+  W_B_SLEW1:
+    type: wiazka B_SLEW1
     wirecount: 3
     colors:
+    - BN
     - BU
     - BK
+    wirelabels:
+    - L+ (10..36 V)
+    - L-
+    - wyjscie PNP czujnika A
+    notes: Kolory zyl wg karty urzadzenia. Dlugosc DO USTALENIA.
+  W_B_SLEW2:
+    type: wiazka B_SLEW2
+    wirecount: 3
+    colors:
+    - BN
+    - BU
     - BK
     wirelabels:
-    - 0 V
-    - sygnal czujnika A
-    - sygnal czujnika B
+    - L+ (10..36 V)
+    - L-
+    - wyjscie PNP czujnika B
     notes: Kolory zyl wg karty urzadzenia. Dlugosc DO USTALENIA.
 connections:
-- - B_SLEW1_B_SLEW2:
-    - ?2
-  - W_B_SLEW1_B_SLEW2:
+- - B_SLEW1:
     - 1
+  - W_B_SLEW1:
+    - 1
+  - XB_24V:
+    - 3
+- - B_SLEW1:
+    - 3
+  - W_B_SLEW1:
+    - 2
   - XB_GND:
     - 14
-- - B_SLEW1_B_SLEW2:
-    - ?3
-  - W_B_SLEW1_B_SLEW2:
-    - 2
-  - X1:
-    - P125
-- - B_SLEW1_B_SLEW2:
-    - ?4
-  - W_B_SLEW1_B_SLEW2:
+- - B_SLEW1:
+    - 4
+  - W_B_SLEW1:
     - 3
   - X1:
-    - P126
+    - P115
+- - B_SLEW2:
+    - 1
+  - W_B_SLEW2:
+    - 1
+  - XB_24V:
+    - 4
+- - B_SLEW2:
+    - 3
+  - W_B_SLEW2:
+    - 2
+  - XB_GND:
+    - 15
+- - B_SLEW2:
+    - 4
+  - W_B_SLEW2:
+    - 3
+  - X1:
+    - P116

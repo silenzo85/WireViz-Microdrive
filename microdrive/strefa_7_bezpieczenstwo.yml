@@ -18,8 +18,12 @@ connectors:
     - wspolne +24 V styków
     subtype: APEM/IDEC XW 2NO-2NC (wg BOM, niepotwierdzony)
     notes: 'Para NC+NO na grupe odciecia (IO Driver Manual 7.16.4: wejscie 0 HIGH,
-      wejscie 1 LOW = praca). Numeracja styków = konwencja IEC (niepotwierdzona karta).
-      Przez pierscien 4 tory, NIE szeregowo. Zrodlo +'
+      wejscie 1 LOW =
+
+      praca). Numeracja styków = konwencja IEC (niepotwierdzona karta). Przez pierscien
+      4 tory,
+
+      NIE szeregowo. Zrodlo +24 V petli: TODO_HARDWARE.'
   SB2_SB3:
     type: Zewnetrzne E-STOP strefowe (pigtail 4 x AWG22, 500 mm, IP67)
     pins:
@@ -34,14 +38,26 @@ connectors:
     - styk
     subtype: APEM ES1C41653 (seria ES, 2NC - dekodowanie niepotwierdzone)
     notes: 'Program: Estop1 -&gt; P101, Estop2 -&gt; P102 (alternatywne DI pinow HS
-      PWM: staly pull-up ~4,5 V, tylko styk do masy). Kod dzis: pressed = NOT pin
-      - niezgodne z NC do masy, do decyzji (FIX).'
-  HOLD1_2_HA1_HA2_silownik_hamulca_kamery:
+      PWM: staly pull-up ~4,5
+
+      V, tylko styk do masy). FIX30: styk NC do masy, pressed = pin (wcisniety / przerwa
+      = HIGH
+
+      = STOP).'
+  HOLD1_2_silownik_hamulca:
     type: Urzadzenia jeszcze nie dobrane
     pins:
-    - /
+    - ?1
+    - ?2
+    - ?3
+    - ?4
+    - ?5
     pinlabels:
     - deadman kanal 1
+    - deadman kanal 2
+    - silownik hamulca - cewka WYSUW
+    - silownik hamulca - cewka WSUW
+    - potencjometr silownika (zasila
     subtype: '-'
     notes: Pinout po doborze. Piny TTC wg programu ponizej.
 cables:
@@ -70,22 +86,18 @@ cables:
     - styk
     - styk
     notes: Kolory zyl wg karty urzadzenia. Dlugosc DO USTALENIA.
-  W_HOLD1_2_HA1_HA2_silownik_hamulca_kamery:
-    type: wiazka HOLD1_2_HA1_HA2_silownik_hamulca_kamery
-    wirecount: 7
+  W_HOLD1_2_silownik_hamulca:
+    type: wiazka HOLD1_2_silownik_hamulca
+    wirecount: 5
     colors:
     - WHYE
     - WHYE
-    - BNYE
-    - BNYE
     - BNYE
     - BNYE
     - BKYE
     wirelabels:
     - deadman kanal 1
     - deadman kanal 2
-    - beacon MICRODRIVE AKTYWN
-    - buzzer MICRODRIVE AKTYWN
     - silownik hamulca - cewka
     - silownik hamulca - cewka
     - potencjometr silownika (
@@ -128,45 +140,33 @@ connections:
     - 2
   - X1:
     - P101
-- - HOLD1_2_HA1_HA2_silownik_hamulca_kamery:
-    - /
-  - W_HOLD1_2_HA1_HA2_silownik_hamulca_kamery:
+- - HOLD1_2_silownik_hamulca:
+    - ?1
+  - W_HOLD1_2_silownik_hamulca:
     - 1
   - X1:
     - P111
-- - HOLD1_2_HA1_HA2_silownik_hamulca_kamery:
-    - /
-  - W_HOLD1_2_HA1_HA2_silownik_hamulca_kamery:
+- - HOLD1_2_silownik_hamulca:
+    - ?2
+  - W_HOLD1_2_silownik_hamulca:
     - 2
   - X1:
     - P135
-- - HOLD1_2_HA1_HA2_silownik_hamulca_kamery:
-    - /
-  - W_HOLD1_2_HA1_HA2_silownik_hamulca_kamery:
+- - HOLD1_2_silownik_hamulca:
+    - ?3
+  - W_HOLD1_2_silownik_hamulca:
     - 3
-  - X1:
-    - P179
-- - HOLD1_2_HA1_HA2_silownik_hamulca_kamery:
-    - /
-  - W_HOLD1_2_HA1_HA2_silownik_hamulca_kamery:
-    - 4
-  - X1:
-    - P182
-- - HOLD1_2_HA1_HA2_silownik_hamulca_kamery:
-    - /
-  - W_HOLD1_2_HA1_HA2_silownik_hamulca_kamery:
-    - 5
   - X2:
     - P240
-- - HOLD1_2_HA1_HA2_silownik_hamulca_kamery:
-    - /
-  - W_HOLD1_2_HA1_HA2_silownik_hamulca_kamery:
-    - 6
+- - HOLD1_2_silownik_hamulca:
+    - ?4
+  - W_HOLD1_2_silownik_hamulca:
+    - 4
   - X2:
     - P241
-- - HOLD1_2_HA1_HA2_silownik_hamulca_kamery:
-    - /
-  - W_HOLD1_2_HA1_HA2_silownik_hamulca_kamery:
-    - 7
+- - HOLD1_2_silownik_hamulca:
+    - ?5
+  - W_HOLD1_2_silownik_hamulca:
+    - 5
   - XB_SGND:
-    - 8
+    - 7

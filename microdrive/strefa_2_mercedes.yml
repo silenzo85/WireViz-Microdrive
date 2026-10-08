@@ -15,9 +15,10 @@ connectors:
     - CAN 3 (667 kbit/s)
     - CAN 3
     subtype: Mercedes-Benz
-    notes: Odgalezienie &lt;= 100 cm, wezly &gt;= 10 cm. Terminacja po stronie TTC
-      wymagana (TER1). Masa pojazdu konieczna - punkt masy TODO_HARDWARE. Piny CAN
-      3 sasiaduja - NIE DOTYKAC.
+    notes: 'Odgalezienie &lt;= 100 cm, wezly &gt;= 10 cm. Terminacja po stronie TTC
+      wymagana (TER1). Masa
+
+      pojazdu konieczna - punkt masy TODO_HARDWARE. Piny CAN 3 sasiaduja - NIE DOTYKAC.'
 cables:
   W_A22_X1:
     type: wiazka A22_X1

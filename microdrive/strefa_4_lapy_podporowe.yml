@@ -11,8 +11,10 @@ connectors:
     - Signal + (zasilanie petli)
     - Signal - (wyjscie pradowe)
     subtype: HYDAC HPT 144S-A-0600-000 (mat. 929389)
-    notes: BP1 P108, BP2 P132, BP3 P109, BP4 P133, BP5 P110, BP6 P134 (tryb pradowy
-      0..25 mA). Zasilanie petli (+24 V) - TODO_HARDWARE (P149 opisany tylko dla BT1/BT2).
+    notes: 'BP1 P108, BP2 P132, BP3 P109, BP4 P133, BP5 P110, BP6 P134 (tryb pradowy
+      0..25 mA).
+
+      Zasilanie petli (+24 V) - TODO_HARDWARE (P149 opisany tylko dla BT1/BT2).'
   BP4:
     type: Przetwornik cisnienia 0..600 bar, 4..20 mA, 2-przewodowy
     pins:
@@ -22,8 +24,10 @@ connectors:
     - Signal + (zasilanie petli)
     - Signal - (wyjscie pradowe)
     subtype: HYDAC HPT 144S-A-0600-000 (mat. 929389)
-    notes: BP1 P108, BP2 P132, BP3 P109, BP4 P133, BP5 P110, BP6 P134 (tryb pradowy
-      0..25 mA). Zasilanie petli (+24 V) - TODO_HARDWARE (P149 opisany tylko dla BT1/BT2).
+    notes: 'BP1 P108, BP2 P132, BP3 P109, BP4 P133, BP5 P110, BP6 P134 (tryb pradowy
+      0..25 mA).
+
+      Zasilanie petli (+24 V) - TODO_HARDWARE (P149 opisany tylko dla BT1/BT2).'
   BP5:
     type: Przetwornik cisnienia 0..600 bar, 4..20 mA, 2-przewodowy
     pins:
@@ -33,8 +37,10 @@ connectors:
     - Signal + (zasilanie petli)
     - Signal - (wyjscie pradowe)
     subtype: HYDAC HPT 144S-A-0600-000 (mat. 929389)
-    notes: BP1 P108, BP2 P132, BP3 P109, BP4 P133, BP5 P110, BP6 P134 (tryb pradowy
-      0..25 mA). Zasilanie petli (+24 V) - TODO_HARDWARE (P149 opisany tylko dla BT1/BT2).
+    notes: 'BP1 P108, BP2 P132, BP3 P109, BP4 P133, BP5 P110, BP6 P134 (tryb pradowy
+      0..25 mA).
+
+      Zasilanie petli (+24 V) - TODO_HARDWARE (P149 opisany tylko dla BT1/BT2).'
   BP6:
     type: Przetwornik cisnienia 0..600 bar, 4..20 mA, 2-przewodowy
     pins:
@@ -44,8 +50,10 @@ connectors:
     - Signal + (zasilanie petli)
     - Signal - (wyjscie pradowe)
     subtype: HYDAC HPT 144S-A-0600-000 (mat. 929389)
-    notes: BP1 P108, BP2 P132, BP3 P109, BP4 P133, BP5 P110, BP6 P134 (tryb pradowy
-      0..25 mA). Zasilanie petli (+24 V) - TODO_HARDWARE (P149 opisany tylko dla BT1/BT2).
+    notes: 'BP1 P108, BP2 P132, BP3 P109, BP4 P133, BP5 P110, BP6 P134 (tryb pradowy
+      0..25 mA).
+
+      Zasilanie petli (+24 V) - TODO_HARDWARE (P149 opisany tylko dla BT1/BT2).'
   YV1a:
     type: Cewki rozdzielacza podpor Walvoil Q45/4/F1S(N150)/103-A1-D41
     pins:
@@ -56,7 +64,9 @@ connectors:
     - powrot cewki
     subtype: Walvoil, cewka 4SLG111400 (D41, 24 VDC, 52 W, IP65)
     notes: 'Drugi zacisk kazdej cewki na szyne 0 V -&gt; BAT-. Bez dodatkowych diod.
-      Strona a/b = wysuw: TODO (orurowanie). Cewki -20 °C (WET -30) - otwarte.'
+      Strona a/b = wysuw:
+
+      TODO (orurowanie). Cewki -20 °C (WET -30) - otwarte.'
   YV1b:
     type: Cewki rozdzielacza podpor Walvoil Q45/4/F1S(N150)/103-A1-D41
     pins:
@@ -67,7 +77,9 @@ connectors:
     - powrot cewki
     subtype: Walvoil, cewka 4SLG111400 (D41, 24 VDC, 52 W, IP65)
     notes: 'Drugi zacisk kazdej cewki na szyne 0 V -&gt; BAT-. Bez dodatkowych diod.
-      Strona a/b = wysuw: TODO (orurowanie). Cewki -20 °C (WET -30) - otwarte.'
+      Strona a/b = wysuw:
+
+      TODO (orurowanie). Cewki -20 °C (WET -30) - otwarte.'
   YV2a:
     type: Cewki rozdzielacza podpor Walvoil Q45/4/F1S(N150)/103-A1-D41
     pins:
@@ -78,7 +90,9 @@ connectors:
     - powrot cewki
     subtype: Walvoil, cewka 4SLG111400 (D41, 24 VDC, 52 W, IP65)
     notes: 'Drugi zacisk kazdej cewki na szyne 0 V -&gt; BAT-. Bez dodatkowych diod.
-      Strona a/b = wysuw: TODO (orurowanie). Cewki -20 °C (WET -30) - otwarte.'
+      Strona a/b = wysuw:
+
+      TODO (orurowanie). Cewki -20 °C (WET -30) - otwarte.'
   YV2b:
     type: Cewki rozdzielacza podpor Walvoil Q45/4/F1S(N150)/103-A1-D41
     pins:
@@ -89,7 +103,9 @@ connectors:
     - powrot cewki
     subtype: Walvoil, cewka 4SLG111400 (D41, 24 VDC, 52 W, IP65)
     notes: 'Drugi zacisk kazdej cewki na szyne 0 V -&gt; BAT-. Bez dodatkowych diod.
-      Strona a/b = wysuw: TODO (orurowanie). Cewki -20 °C (WET -30) - otwarte.'
+      Strona a/b = wysuw:
+
+      TODO (orurowanie). Cewki -20 °C (WET -30) - otwarte.'
   YV3a:
     type: Cewki rozdzielacza podpor Walvoil Q45/4/F1S(N150)/103-A1-D41
     pins:
@@ -100,7 +116,9 @@ connectors:
     - powrot cewki
     subtype: Walvoil, cewka 4SLG111400 (D41, 24 VDC, 52 W, IP65)
     notes: 'Drugi zacisk kazdej cewki na szyne 0 V -&gt; BAT-. Bez dodatkowych diod.
-      Strona a/b = wysuw: TODO (orurowanie). Cewki -20 °C (WET -30) - otwarte.'
+      Strona a/b = wysuw:
+
+      TODO (orurowanie). Cewki -20 °C (WET -30) - otwarte.'
   YV3b:
     type: Cewki rozdzielacza podpor Walvoil Q45/4/F1S(N150)/103-A1-D41
     pins:
@@ -111,7 +129,9 @@ connectors:
     - powrot cewki
     subtype: Walvoil, cewka 4SLG111400 (D41, 24 VDC, 52 W, IP65)
     notes: 'Drugi zacisk kazdej cewki na szyne 0 V -&gt; BAT-. Bez dodatkowych diod.
-      Strona a/b = wysuw: TODO (orurowanie). Cewki -20 °C (WET -30) - otwarte.'
+      Strona a/b = wysuw:
+
+      TODO (orurowanie). Cewki -20 °C (WET -30) - otwarte.'
   YV4a:
     type: Cewki rozdzielacza podpor Walvoil Q45/4/F1S(N150)/103-A1-D41
     pins:
@@ -122,7 +142,9 @@ connectors:
     - powrot cewki
     subtype: Walvoil, cewka 4SLG111400 (D41, 24 VDC, 52 W, IP65)
     notes: 'Drugi zacisk kazdej cewki na szyne 0 V -&gt; BAT-. Bez dodatkowych diod.
-      Strona a/b = wysuw: TODO (orurowanie). Cewki -20 °C (WET -30) - otwarte.'
+      Strona a/b = wysuw:
+
+      TODO (orurowanie). Cewki -20 °C (WET -30) - otwarte.'
   YV4b:
     type: Cewki rozdzielacza podpor Walvoil Q45/4/F1S(N150)/103-A1-D41
     pins:
@@ -133,7 +155,9 @@ connectors:
     - powrot cewki
     subtype: Walvoil, cewka 4SLG111400 (D41, 24 VDC, 52 W, IP65)
     notes: 'Drugi zacisk kazdej cewki na szyne 0 V -&gt; BAT-. Bez dodatkowych diod.
-      Strona a/b = wysuw: TODO (orurowanie). Cewki -20 °C (WET -30) - otwarte.'
+      Strona a/b = wysuw:
+
+      TODO (orurowanie). Cewki -20 °C (WET -30) - otwarte.'
   YLF:
     type: Regulator przeplywu podpor HYDAC PWK12120WP-01-C-V-P80-0
     pins:
@@ -144,19 +168,6 @@ connectors:
     - cewka -
     subtype: HYDAC, cewka 40-1836 (24 V = 8,8 Ohm, max 1,05 A)
     notes: Koncowka -0 = cewka niewyspecyfikowana. Otoczenie od -20 °C.
-  K_PTO2:
-    type: Przekaznik zadania zalaczenia PTO2 (N2E) - rownolegle do wla
-    pins:
-    - A1
-    - A2
-    - styk
-    pinlabels:
-    - cewka +
-    - cewka -
-    - rownolegle do wlacznika PTO N2
-    subtype: nie dobrany
-    notes: 'Wariant sterowania N2E otwarty. Styk przekaznika w obwodzie wlacznika
-      PTO pojazdu: TODO_HARDWARE.'
 cables:
   W_BP3:
     type: wiazka BP3
@@ -296,17 +307,6 @@ cables:
     colors:
     - BN
     - BKBN
-    wirelabels:
-    - cewka +
-    - cewka -
-    notes: Kolory zyl wg KONWENCJI FUNKCYJNEJ (karta ich nie podaje) - do zatwierdzenia
-      przed zamowieniem wiazki. Dlugosc DO USTALENIA.
-  W_K_PTO2:
-    type: wiazka K_PTO2
-    wirecount: 2
-    colors:
-    - BNLB
-    - BKLB
     wirelabels:
     - cewka +
     - cewka -
@@ -469,15 +469,3 @@ connections:
     - 2
   - XB_GND:
     - 11
-- - K_PTO2:
-    - A1
-  - W_K_PTO2:
-    - 1
-  - X1:
-    - P176
-- - K_PTO2:
-    - A2
-  - W_K_PTO2:
-    - 2
-  - XB_GND:
-    - 19

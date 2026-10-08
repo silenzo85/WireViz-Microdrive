@@ -11,8 +11,10 @@ connectors:
     - Signal + (zasilanie petli)
     - Signal - (wyjscie pradowe)
     subtype: HYDAC HPT 144S-A-0600-000 (mat. 929389)
-    notes: BP1 P108, BP2 P132, BP3 P109, BP4 P133, BP5 P110, BP6 P134 (tryb pradowy
-      0..25 mA). Zasilanie petli (+24 V) - TODO_HARDWARE (P149 opisany tylko dla BT1/BT2).
+    notes: 'BP1 P108, BP2 P132, BP3 P109, BP4 P133, BP5 P110, BP6 P134 (tryb pradowy
+      0..25 mA).
+
+      Zasilanie petli (+24 V) - TODO_HARDWARE (P149 opisany tylko dla BT1/BT2).'
   BP2:
     type: Przetwornik cisnienia 0..600 bar, 4..20 mA, 2-przewodowy
     pins:
@@ -22,8 +24,10 @@ connectors:
     - Signal + (zasilanie petli)
     - Signal - (wyjscie pradowe)
     subtype: HYDAC HPT 144S-A-0600-000 (mat. 929389)
-    notes: BP1 P108, BP2 P132, BP3 P109, BP4 P133, BP5 P110, BP6 P134 (tryb pradowy
-      0..25 mA). Zasilanie petli (+24 V) - TODO_HARDWARE (P149 opisany tylko dla BT1/BT2).
+    notes: 'BP1 P108, BP2 P132, BP3 P109, BP4 P133, BP5 P110, BP6 P134 (tryb pradowy
+      0..25 mA).
+
+      Zasilanie petli (+24 V) - TODO_HARDWARE (P149 opisany tylko dla BT1/BT2).'
   BT1:
     type: Przetwornik temperatury oleju 4..20 mA
     pins:
@@ -33,8 +37,10 @@ connectors:
     - zasilanie petli +24 V
     - wyjscie pradowe
     subtype: 'HYDAC HTT (oferta: HTT 124S-A-016-013; rysunek: HTT 1X4S-X-0'
-    notes: Petla zasilana z P149 (przelaczane +24 V), sygnal na P103. Pinout TODO_HARDWARE
-      (brak ark. 1/2 i karty).
+    notes: 'Petla zasilana z P149 (przelaczane +24 V), sygnal na P103. Pinout TODO_HARDWARE
+      (brak ark.
+
+      1/2 i karty).'
   BT2:
     type: Temperatura oleju obwodu creep
     pins:
@@ -45,7 +51,9 @@ connectors:
     - wyjscie pradowe
     subtype: nie ustalony (HYDAC HTT jak BT1 albo czujnik Poclain 3-przew
     notes: 'W programie jak BT1: petla z P149, sygnal P106. Wariant Poclain (DIN/M12):
-      M12 1 brazowy NC, 2 bialy SUPPLY, 3 niebieski OUTPUT, 4 czarny GROUND.'
+      M12 1 brazowy
+
+      NC, 2 bialy SUPPLY, 3 niebieski OUTPUT, 4 czarny GROUND.'
   SL1:
     type: Czujnik poziomu oleju, styk NC (otwiera przy spadku poziomu)
     pins:
@@ -57,8 +65,9 @@ connectors:
     - styk NC
     - nieuzywany
     subtype: HYDAC FSK-0127-2.5C-00000/O-/M12.000
-    notes: 1..48 V, max 0,2 A. Styk tylko do SGND (nie do BAT+). Wejscie P104 w trybie
-      rezystancyjnym.
+    notes: '1..48 V, max 0,2 A. Styk tylko do SGND (nie do BAT+). Wejscie P104 w trybie
+
+      rezystancyjnym.'
   SP1:
     type: Wskaznik zatkania filtra cisnieniowego
     pins:
@@ -79,20 +88,8 @@ connectors:
     - styk
     subtype: HYDAC VMF 2 FD.0 /-2M0-OE
     notes: 42 V, IP67. NO/NC dla kodu -OE nierozszyfrowane. Styk miedzy P128 a SGND.
-  BG1:
-    type: Czujnik polozenia tarczy pompy PM50 (Feedback pump 1), 0,5..
-    pins:
-    - ?1
-    - ?2
-    - ?3
-    pinlabels:
-    - +5 V
-    - sygnal 0,5..4,5 V
-    - masa
-    subtype: Poclain (w pompie PM50)
-    notes: Pinout TODO_HARDWARE (karta czujnika od Poclaina).
   BQ3:
-    type: Czujnik obrotow silnika CDM20 (T4, opcja 2), 60 imp/obr, pus
+    type: Czujnik obrotow silnika CDM20 (T4, opcja 2), 120 imp/obr (FI
     pins:
     - 1
     - 2
@@ -104,9 +101,10 @@ connectors:
     - GROUND
     - OUTPUT
     subtype: Poclain
-    notes: 'UWAGA: kanal P117 skonfigurowany w drzewie jako pradowy (IoDrvComplexPWDCur,
-      7/14 mA), a karta Poclaina podaje wyjscie napieciowe push-pull - do sprawdzenia
-      konfiguracji kanalu.'
+    notes: 'Kanal P117 napieciowy: pull-up 10 kOhm, capture 2, voltage_feedback =
+      przerwa przewodu
+
+      (FIX25, v14). Glowne zrodlo predkosci i postoju (prog 0,1 km/h, FIX32).'
   BQ4:
     type: Czujnik obrotow pompy PM50 (T4, opcja SS), 9 imp/obr, push-p
     pins:
@@ -114,7 +112,7 @@ connectors:
     - 2 (DTM 2)
     - 3 (DTM 1)
     - 4 (DTM 4)
-    - / (DTM 3, 6)
+    - '- (DTM 3, 6)'
     pinlabels:
     - VSupply
     - NC
@@ -136,7 +134,13 @@ connectors:
     - sygnal SQ1 (V2, zalaczone)
     - sygnal SQ2 (V1, rozlaczone)
     subtype: Poclain
-    notes: Rysunek podaje funkcje (+V, GND, sygnal), bez numerow pinow M8 - TODO_HARDWARE.
+    notes: 'Rysunek podaje funkcje (+V, GND, sygnal), bez numerow pinow M8 - TODO_HARDWARE.
+      FIX32: NO
+
+      =&gt; aktywny = LOW (CLUTCH_SENSOR_ACTIVE_LOW), zasilanie STALE (nie P152) -
+      stan sprzegla
+
+      znany takze poza jazda.'
   SQ3:
     type: Przelacznik zadania creep (opcjonalny)
     pins:
@@ -158,8 +162,10 @@ connectors:
     - cewka S1 -
     - '-'
     subtype: Poclain PM50
-    notes: Rezystancja, wariant 12/24 V i polaryzacja - TODO_HARDWARE. Powrot przez
-      LS P251 (drugi tor odciecia). Przypisanie zaciskow 1/2 = nasza konwencja.
+    notes: 'Rezystancja, wariant 12/24 V i polaryzacja - TODO_HARDWARE. Powrot przez
+      LS P251 (drugi
+
+      tor odciecia). Przypisanie zaciskow 1/2 = nasza konwencja.'
   S2:
     type: Cewki EDC pompy PM50 (servo elektroproporcjonalne)
     pins:
@@ -171,8 +177,10 @@ connectors:
     - cewka S2 -
     - '-'
     subtype: Poclain PM50
-    notes: Rezystancja, wariant 12/24 V i polaryzacja - TODO_HARDWARE. Powrot przez
-      LS P251 (drugi tor odciecia). Przypisanie zaciskow 1/2 = nasza konwencja.
+    notes: 'Rezystancja, wariant 12/24 V i polaryzacja - TODO_HARDWARE. Powrot przez
+      LS P251 (drugi
+
+      tor odciecia). Przypisanie zaciskow 1/2 = nasza konwencja.'
   Y2C:
     type: Zawor przelaczania chlonnosci CDM20 KVC-3/2-4-47B(-KF), 24 V
     pins:
@@ -187,13 +195,20 @@ connectors:
     type: Zawor pilota pneumatycznego sprzegla CDM20
     pins:
     - +
-    - /
+    - '-'
     pinlabels:
     - cewka +
     - cewka -
     subtype: nie zidentyfikowany (Poclain)
-    notes: Zaciski + / -, dioda 1N4001 w wtyczce - do sprawdzenia przy wyjsciu PWM
-      TTC (wlasne diody gaszace).
+    notes: 'JEDNA cewka: zawor 4/2 monostabilny, elektromagnes + sprezyna powrotna
+      (PROPOSAL HYDRAULIC
+
+      SCHEMATIC poz. 4; powietrze z ciezarowki 6,2..13,8 bar). Bez zasilania = sprzeglo
+
+      rozlaczone. Zaciski + / -, dioda 1N4001 w wtyczce - POLARYZACJA: + na P161,
+      - na mase. Typ
+
+      / napiecie / prad cewki TODO_HARDWARE (lista czesci Poclaina tylko opisowo).'
   YBP:
     type: Zawor cut-off / bypass petli
     pins:
@@ -227,7 +242,9 @@ connectors:
     - cewka -
     subtype: Poclain (z dostawa CreepDrive)
     notes: 'Wyjscie LOW-SIDE: cewka na stalym +24 V, TTC zamyka obwod do masy. Poza
-      SSW. Pinout zlacza: TODO_HARDWARE.'
+      SSW. Pinout
+
+      zlacza: TODO_HARDWARE.'
 cables:
   W_BP1:
     type: wiazka BP1
@@ -306,19 +323,6 @@ cables:
     - styk
     notes: Kolory zyl wg KONWENCJI FUNKCYJNEJ (karta ich nie podaje) - do zatwierdzenia
       przed zamowieniem wiazki. Dlugosc DO USTALENIA.
-  W_BG1:
-    type: wiazka BG1
-    wirecount: 3
-    colors:
-    - RD
-    - BURD
-    - BKRD
-    wirelabels:
-    - +5 V
-    - sygnal 0,5..4,5 V
-    - masa
-    notes: Kolory zyl wg KONWENCJI FUNKCYJNEJ (karta ich nie podaje) - do zatwierdzenia
-      przed zamowieniem wiazki. Dlugosc DO USTALENIA.
   W_BQ3:
     type: wiazka BQ3
     wirecount: 3
@@ -335,9 +339,9 @@ cables:
     type: wiazka BQ4
     wirecount: 3
     colors:
-    - RDBG
-    - BKBG
-    - BUBG
+    - RDTQ
+    - BKTQ
+    - BUTQ
     wirelabels:
     - VSupply
     - GROUND
@@ -348,10 +352,10 @@ cables:
     type: wiazka SQ1_SQ2
     wirecount: 4
     colors:
-    - RDGY
-    - BKGY
-    - WHGY
-    - WHGY
+    - RDBG
+    - BKBG
+    - WHBG
+    - WHBG
     wirelabels:
     - +V
     - GROUND
@@ -363,7 +367,7 @@ cables:
     type: wiazka SQ3
     wirecount: 1
     colors:
-    - WHBK
+    - WHGY
     wirelabels:
     - styk
     notes: Kolory zyl wg KONWENCJI FUNKCYJNEJ (karta ich nie podaje) - do zatwierdzenia
@@ -372,8 +376,8 @@ cables:
     type: wiazka S1
     wirecount: 2
     colors:
-    - BN
-    - PKBN
+    - BNBK
+    - PKBK
     wirelabels:
     - cewka S1 +
     - cewka S1 -
@@ -383,8 +387,8 @@ cables:
     type: wiazka S2
     wirecount: 2
     colors:
-    - BNLB
-    - PKLB
+    - BN
+    - PKBN
     wirelabels:
     - cewka S2 +
     - cewka S2 -
@@ -394,8 +398,8 @@ cables:
     type: wiazka Y2C
     wirecount: 2
     colors:
-    - BNSL
-    - BKSL
+    - BNLB
+    - BKLB
     wirelabels:
     - cewka +
     - cewka -
@@ -405,8 +409,8 @@ cables:
     type: wiazka YCL
     wirecount: 2
     colors:
-    - BNIV
-    - BKIV
+    - BNSL
+    - BKSL
     wirelabels:
     - cewka +
     - cewka -
@@ -416,8 +420,8 @@ cables:
     type: wiazka YBP
     wirecount: 2
     colors:
-    - BNWH
-    - PKWH
+    - BNIV
+    - PKIV
     wirelabels:
     - cewka +
     - cewka -
@@ -427,8 +431,8 @@ cables:
     type: wiazka KM1
     wirecount: 2
     colors:
-    - BNGN
-    - BKGN
+    - BNWH
+    - BKWH
     wirelabels:
     - cewka +
     - cewka -
@@ -436,10 +440,12 @@ cables:
       przed zamowieniem wiazki. Dlugosc DO USTALENIA.
   W_Y_CB:
     type: wiazka Y_CB
-    wirecount: 1
+    wirecount: 2
     colors:
-    - PKYE
+    - BNGN
+    - PKGN
     wirelabels:
+    - cewka +
     - cewka -
     notes: Kolory zyl wg KONWENCJI FUNKCYJNEJ (karta ich nie podaje) - do zatwierdzenia
       przed zamowieniem wiazki. Dlugosc DO USTALENIA.
@@ -528,36 +534,18 @@ connections:
     - 2
   - XB_SGND:
     - 3
-- - BG1:
-    - ?1
-  - W_BG1:
+- - BQ3:
     - 1
-  - X2:
-    - P247
-- - BG1:
-    - ?2
-  - W_BG1:
-    - 2
-  - X1:
-    - P107
-- - BG1:
-    - ?3
-  - W_BG1:
+  - W_BQ3:
+    - 1
+  - XB_24V:
+    - 1
+- - BQ3:
     - 3
+  - W_BQ3:
+    - 2
   - XB_SGND:
     - 4
-- - BQ3:
-    - 1
-  - W_BQ3:
-    - 1
-  - X1:
-    - P152
-- - BQ3:
-    - 3
-  - W_BQ3:
-    - 2
-  - XB_SGND:
-    - 5
 - - BQ3:
     - 4
   - W_BQ3:
@@ -575,7 +563,7 @@ connections:
   - W_BQ4:
     - 2
   - XB_SGND:
-    - 6
+    - 5
 - - BQ4:
     - 4 (DTM 4)
   - W_BQ4:
@@ -586,14 +574,14 @@ connections:
     - ?1
   - W_SQ1_SQ2:
     - 1
-  - X1:
-    - P152
+  - XB_24V:
+    - 2
 - - SQ1_SQ2:
     - ?2
   - W_SQ1_SQ2:
     - 2
   - XB_SGND:
-    - 7
+    - 6
 - - SQ1_SQ2:
     - ?3
   - W_SQ1_SQ2:
@@ -655,7 +643,7 @@ connections:
   - X1:
     - P161
 - - YCL:
-    - /
+    - '-'
   - W_YCL:
     - 2
   - XB_GND:
@@ -685,8 +673,14 @@ connections:
   - XB_GND:
     - 12
 - - Y_CB:
-    - ?2
+    - ?1
   - W_Y_CB:
     - 1
+  - XB_24V:
+    - 5
+- - Y_CB:
+    - ?2
+  - W_Y_CB:
+    - 2
   - X2:
     - P252

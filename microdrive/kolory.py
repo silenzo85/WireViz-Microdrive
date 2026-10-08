@@ -31,11 +31,21 @@ Z_KARTY = {
 }
 
 
+KODY = {"BK", "WH", "GY", "PK", "RD", "OG", "YE", "OL", "GN", "TQ", "LB",
+        "BU", "VT", "BN", "BG", "IV", "SL", "CU", "SN", "SR", "GD"}
+
+
 def z_karty(tekst):
     """'brazowy (typowo)' -> 'BN'. Zwraca None, gdy karta nic nie podaje."""
     t = (tekst or "").strip().lower()
     if not t:
         return None
+    # Karty zapisuja kolor albo slowem ('brazowy (typowo)'), albo kodem
+    # ('BN (standard ifm)', obrotnica IGM200). Kod rozpoznajemy po pierwszym
+    # slowie - inaczej karta przegrywala z konwencja i zyla szla na szaro.
+    pierwszy = t.replace("(", " ").split()[0].upper()
+    if pierwszy in KODY:
+        return pierwszy
     for nazwa, kod in Z_KARTY.items():
         if nazwa in t:
             return kod
@@ -75,6 +85,9 @@ _REGULY = [
     (r"cewka.*-\s*$|powrot cewki|out\d-", "COIL_RET"),
     (r"cewka|lapa \d (wysuw|wsuw)|silownik hamulca|beacon|buzzer|out\d\+"
      r"|zasilanie wentylatora|rownolegle do wlacznika", "BN"),
+    # notacja ifm / IO-Link
+    (r"^l\+", "RD"),
+    (r"^l-", "BK"),
     # masy
     (r"\bmasa\b|\bgnd\b|\bground\b|\b0 ?v\b|\bbat-|logic_gnd|sgnd", "BK"),
     # zasilania

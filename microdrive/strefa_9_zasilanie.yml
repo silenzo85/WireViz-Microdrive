@@ -20,8 +20,9 @@ connectors:
     - +8..32 VDC
     subtype: Mobile Control Systems
     notes: 'Wezel magistrali CAN0. Zasilanie wezlow CAN0 z P155. Ramka EEC2: b0 bity
-      0..1 IVS, b1 APP1, b6 licznik, b7 CRC8 (z ID + b0..b6); brak ramek przez 2 s
-      po wlaczeniu.'
+      0..1 IVS, b1
+
+      APP1, b6 licznik, b7 CRC8 (z ID + b0..b6); brak ramek przez 2 s po wlaczeniu.'
   A2:
     type: Klawiatura EAO S09 In-Cabin Keypad 6PB CAN (CANopen, Node 0x
     pins:
@@ -99,7 +100,7 @@ connections:
   - W_BA1:
     - 3
   - XB_GND:
-    - 15
+    - 16
 - - BA1:
     - 4
   - W_BA1:
@@ -123,7 +124,7 @@ connections:
   - W_A2:
     - 2
   - XB_GND:
-    - 16
+    - 17
 - - A2:
     - 5
   - W_A2:
@@ -135,7 +136,7 @@ connections:
   - W_A2:
     - 4
   - XB_GND:
-    - 16
+    - 17
 - - A2:
     - 7
   - W_A2:

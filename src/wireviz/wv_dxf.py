@@ -144,8 +144,50 @@ def _cable_rows(cable) -> List[Tuple[str, str, str]]:
     return rows
 
 
-def _box_size(n_rows: int, width: float) -> Tuple[float, float]:
-    return width, HEAD_H + max(n_rows, 1) * ROW_H + PAD
+NOTE_H = 3.4  # odstep linii uwagi [mm]
+
+
+def _notes_lines(obj, width):
+    """
+    Uwagi zlacza/kabla jako linie mieszczace sie w pudelku - bez docinania tresci.
+    Do tej pory DXF uwag NIE rysowal wcale: kazde TODO, "kolory do ustalenia"
+    i uwaga o polaryzacji byly tylko w SVG/PNG, a nie w rysunku do CAD.
+    """
+    txt = _odkoduj(getattr(obj, "notes", None) or "")
+    if not txt.strip():
+        return []
+    n = max(int((width - 2 * PAD) / (TXT_H * CHAR_W)), 10)
+    out = []
+    for akapit in txt.replace("<br />", " ").splitlines():
+        cur = ""
+        for slowo in akapit.split():
+            if len(cur) + 1 + len(slowo) <= n:
+                cur = (cur + " " + slowo).strip()
+            else:
+                if cur:
+                    out.append(cur)
+                cur = slowo if len(slowo) <= n else slowo[: n - 3] + "..."
+        if cur:
+            out.append(cur)
+    return out
+
+
+def _draw_notes(msp, obj, x, y, w, layer):
+    """Blok uwag u dolu pudelka, oddzielony kreska."""
+    lines = _notes_lines(obj, w)
+    if not lines:
+        return
+    y_sep = y + len(lines) * NOTE_H + PAD
+    msp.add_line((x, y_sep), (x + w, y_sep), dxfattribs={"layer": layer})
+    for i, ln in enumerate(lines):
+        _add_text(msp, ln, x + PAD, y_sep - (i + 0.5) * NOTE_H, TXT_H * 0.9, "WV_OPIS")
+
+
+def _box_size(n_rows: int, width: float, n_notes: int = 0) -> Tuple[float, float]:
+    h = HEAD_H + max(n_rows, 1) * ROW_H + PAD
+    if n_notes:
+        h += n_notes * NOTE_H + PAD
+    return width, h
 
 
 # --- rozmieszczenie przez graphviz ------------------------------------------
@@ -283,6 +325,7 @@ def _draw_connector(msp, connector, x, y, w, h):
             "WV_OPIS",
         )
         row_y[str(pin)] = cy
+    _draw_notes(msp, connector, x, y, w, "WV_ZLACZE")
     return row_y
 
 
@@ -333,6 +376,7 @@ def _draw_cable(msp, cable, x, y, w, h, color_mode):
 
     if cable.shield:
         _add_text(msp, "EKRAN", x + PAD, y + PAD, TXT_H, "WV_EKRAN")
+    _draw_notes(msp, cable, x, y, w, "WV_KABEL")
     return row_y
 
 
@@ -568,9 +612,9 @@ def export_dxf(harness, filename: str, bomlist: Optional[List[List[str]]] = None
     # 1. rozmiary
     sizes = {}
     for name, c in harness.connectors.items():
-        sizes[name] = _box_size(len(_connector_rows(c)), W_CONNECTOR)
+        sizes[name] = _box_size(len(_connector_rows(c)), W_CONNECTOR, len(_notes_lines(c, W_CONNECTOR)))
     for name, c in harness.cables.items():
-        sizes[name] = _box_size(len(_cable_rows(c)), W_CABLE)
+        sizes[name] = _box_size(len(_cable_rows(c)), W_CABLE, len(_notes_lines(c, W_CABLE)))
 
     if not sizes:
         raise SystemExit("Wiazka nie zawiera zadnych elementow - nie ma czego zapisac.")

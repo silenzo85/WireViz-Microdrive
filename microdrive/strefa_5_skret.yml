@@ -84,13 +84,13 @@ connections:
   - W_M2:
     - 2
   - XB_GND:
-    - 17
+    - 18
 - - M2:
     - P1:4
   - W_M2:
     - 3
   - XB_GND:
-    - 17
+    - 18
 - - M2:
     - P3:1
   - W_M2:
@@ -102,7 +102,7 @@ connections:
   - W_M2:
     - 5
   - XB_GND:
-    - 17
+    - 18
 - - M2:
     - P3:4
   - W_M2:

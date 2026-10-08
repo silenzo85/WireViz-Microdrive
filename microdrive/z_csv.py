@@ -22,7 +22,7 @@ import argparse
 import csv
 import re
 import sys
-from collections import OrderedDict, defaultdict
+from collections import Counter, OrderedDict, defaultdict
 from pathlib import Path
 
 import yaml
@@ -47,6 +47,7 @@ SZYNY = OrderedDict([
     ("XB_CAN0", "Magistrala CAN0 - operator (250 kbit/s)"),
     ("XB_CAN1", "Magistrala CAN1 - Bodybuilder-CAN pojazdu (250 kbit/s)"),
     ("XB_CAN2", "Magistrala CAN2 - rezerwa / diagnostyka"),
+    ("XB_24V", "Szyna +24 V zabezpieczona (bezpiecznik: DO USTALENIA)"),
     ("XB_GND", "Szyna 0 V / BAT-"),
     ("XB_SGND", "Masa czujnikow (SGND)"),
 ])
@@ -73,6 +74,28 @@ def czytaj(sciezka):
 # --- rozbior pola "Dokad" ----------------------------------------------------
 
 
+def zawin(t, n=90, maks=8):
+    """
+    Uwagi lamane w linie po ~90 znakow zamiast docinania do 200.
+    Docinanie gubilo koncowke - np. uwaga o diodzie 1N4001 i POLARYZACJI
+    zaworu YCL zaczyna sie ok. 230. znaku i znikala z rysunku.
+    """
+    out, cur = [], ""
+    for slowo in str(t or "").split():
+        if len(cur) + 1 + len(slowo) <= n:
+            cur = (cur + " " + slowo).strip()
+        else:
+            if cur:
+                out.append(cur)
+            cur = slowo
+    if cur:
+        out.append(cur)
+    if len(out) > maks:
+        out = out[:maks]
+        out[-1] += " ..."
+    return chr(10).join(out)
+
+
 def esc(t):
     """
     Tekst z CSV to DANE, nie markup. WireViz wstawia opisy wprost do etykiet
@@ -88,13 +111,19 @@ def norm_pin(p):
     Dopasowanie do wv_helper.expand() WireViz:
       - napis numeryczny jest tam zamieniany na int -> musimy podac int, inaczej
         'BA1:1 not found' (porownanie 1 in ['1',...] = False),
-      - napis z '-' jest traktowany jako ZAKRES (11-12 -> 11,12), wiec myslnik
-        w nazwie styku zamieniamy na '/'.
+      - napis "liczba-liczba" jest traktowany jako ZAKRES (11-12 -> 11, 12),
+        wiec TYLKO wtedy myslnik zamieniamy na '/'.
+    Gol y '-' (zacisk minus) przechodzi przez expand() bez zmian - zamiana go
+    na '/' zgubila oznaczenie bieguna na zaworze YCL, gdzie polaryzacja jest
+    istotna (dioda 1N4001 we wtyczce). Sprawdzone na wv_helper.expand.
     """
     p = str(p).strip()
     if p.isdigit():
         return int(p)
-    return p.replace("-", "/") or "?"
+    a, kreska, b = p.partition("-")
+    if kreska and a.strip().isdigit() and b.strip().isdigit():
+        return p.replace("-", "/")
+    return p or "?"
 
 
 def cel(tekst):
@@ -129,6 +158,14 @@ def cel(tekst):
     if m:
         n = int(m.group(1))
         return "ttc", ("X1" if n < 200 else "X2"), f"P{n}"
+
+    # "+24 V (STALE) zabezpieczone (TODO: bezpiecznik)" - cel jest OKRESLONY:
+    # stale zasilanie przez bezpiecznik. Niewiadoma jest tylko wartosc
+    # bezpiecznika - to idzie do uwagi szyny, a nie jest powodem, zeby zyly
+    # nie rysowac. Bez tego SQ1/SQ2/BQ3/obrotnica wychodzily na rysunku BEZ
+    # zasilania (FIX32: zasilanie stale, NIE z P152).
+    if "+24" in t and re.search(r"zabezpiecz|bezpiecznik", low):
+        return "szyna", "XB_24V", "24V"
 
     return None, t, None
 
@@ -257,8 +294,56 @@ def main():
     polaczenia_sur = []          # (dev, pin_dev, rodzaj, wezel, pin_celu, sygnal)
     raport_bez_celu = []
 
-    for r in urz:
+    # Zbiorcze "B-SLEW1, B-SLEW2": jesli ten sam numer pinu wystepuje tyle razy,
+    # ilu jest czlonkow, to sa ODDZIELNE urzadzenia (kolejne wiersze = kolejni
+    # czlonkowie), a piny jednokrotne sa wspolne dla wszystkich. Bez tego dwa
+    # czujniki M12 3-pin rysowaly sie jako jeden klocek z dwoma wyjsciami na
+    # pinie 4 - fizycznie niemozliwe. Piny "?" i z prefiksem "X:" pomijane.
+    przydzial = {}
+    grupy = defaultdict(list)
+    for i, r in enumerate(urz):
+        grupy[(r.get("Oznaczenie") or "").strip()].append(i)
+    for oz, idx in grupy.items():
+        czlonki = [x.strip() for x in oz.split("(")[0].split(",") if x.strip()]
+        if len(czlonki) < 2:
+            continue
+        piny_gr = [(urz[i].get("Pin urzadzenia") or "").strip() for i in idx]
+        if any(pg in ("", "?") or ":" in pg for pg in piny_gr):
+            continue
+        licz = Counter(piny_gr)
+        powt = [pg for pg, n in licz.items() if n > 1]
+        if not powt or any(licz[pg] != len(czlonki) for pg in powt):
+            continue
+        uzyte = Counter()
+        for i, pg in zip(idx, piny_gr):
+            if licz[pg] == len(czlonki):
+                przydzial[i] = [czlonki[uzyte[pg]]]
+                uzyte[pg] += 1
+            else:
+                przydzial[i] = czlonki
+
+    # "-" w kolumnie pinu bywa DWOJAKO: zacisk minus (YCL: "+" i "-") albo
+    # "numeru brak" (HOLD/silownik: cztery wiersze, wszystkie "-"). Powtorzony
+    # "-" w obrebie jednego oznaczenia = brak numeru -> traktujemy jak "?",
+    # inaczej wszystkie sygnaly (tu: oba kanaly deadmana + silownik) skleilyby
+    # sie w jeden pin. Pojedynczy "-" zostaje zaciskiem minus.
+    minus_jako_brak = {oz for oz, idx in grupy.items()
+                       if sum(1 for i in idx
+                              if (urz[i].get("Pin urzadzenia") or "").strip() == "-") > 1}
+
+    for nr_wiersza, r in enumerate(urz):
+        if ((r.get("Oznaczenie") or "").strip() in minus_jako_brak
+                and (r.get("Pin urzadzenia") or "").strip() == "-"):
+            r = dict(r, **{"Pin urzadzenia": "?"})
         oz_zb = (r.get("Oznaczenie") or "").strip()
+        if nr_wiersza in przydzial:
+            for d in przydzial[nr_wiersza]:
+                dodaj(dev_meta, dev_piny, polaczenia_sur, raport_bez_celu,
+                      d, (r.get("Pin urzadzenia") or "").strip(),
+                      (r.get("Sygnal") or "").strip(), r.get(K_DOKAD), r,
+                      (r.get("Zlacze urzadzenia") or "").strip(),
+                      (r.get("Uwagi do urzadzenia") or "").strip(), oz_zb)
+            continue
         zlacze = (r.get("Zlacze urzadzenia") or "").strip()
         syg = (r.get("Sygnal") or "").strip()
         uwagi = (r.get("Uwagi do urzadzenia") or "").strip()
@@ -383,7 +468,7 @@ def main():
             if m["subtype"]:
                 c["subtype"] = esc(m["subtype"][:60])
             if m["uwagi"]:
-                c["notes"] = esc(m["uwagi"][:200])
+                c["notes"] = esc(zawin(m["uwagi"]))
             ark["connectors"][klucz] = c
 
             moje = [x for x in polaczenia_sur if x[0] == dev]
