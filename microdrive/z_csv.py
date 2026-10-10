@@ -24,6 +24,7 @@ import re
 import sys
 from collections import Counter, OrderedDict, defaultdict
 from pathlib import Path
+from types import SimpleNamespace
 
 import yaml
 
@@ -229,7 +230,8 @@ def uwaga_kolorow(polaczenia_kabla):
             "- do zatwierdzenia. Dlugosc DO USTALENIA.")
 
 
-def dodaj(dev_meta, dev_piny, polaczenia, raport, dev, pin, syg, dokad, r, zlacze, uwagi, oz_zb):
+def dodaj(dev_meta, dev_piny, polaczenia, raport, dev, pin, syg, dokad, r, zlacze, uwagi, oz_zb,
+          zrodla=None):
     """Dopisuje jeden pin urzadzenia i jego polaczenie (albo brak celu)."""
     if dev not in dev_meta:
         dev_meta[dev] = {
@@ -238,6 +240,7 @@ def dodaj(dev_meta, dev_piny, polaczenia, raport, dev, pin, syg, dokad, r, zlacz
             "zlacze": zlacze,
             "uwagi": uwagi,
             "zbior": oz_zb,
+            "wtyczka": (r.get("Wtyczka (odpowiednik)") or "").strip(),
         }
     pin = norm_pin(pin)
     istniejace = [p for _d, p, _s in dev_piny[dev]]
@@ -255,18 +258,16 @@ def dodaj(dev_meta, dev_piny, polaczenia, raport, dev, pin, syg, dokad, r, zlacz
         return
     kod, zk = kolor(syg, r.get("Kolor zyly (karta)"), cel_to_pin_ttc=(rodzaj == "ttc"))
     polaczenia.append((dev, pin, rodzaj, wezel, pcel, syg, kod, zk))
+    if zrodla is not None:  # oryginalny tekst celu (szablon wiazek: pin TTC magistrali)
+        zrodla.append((dokad or "").strip())
 
 
-def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--dane", default=str(DANE_DOMYSLNE))
-    ap.add_argument("--wyjscie", default=str(TU))
-    a = ap.parse_args()
-
-    dane, wyj = Path(a.dane), Path(a.wyjscie)
-    if not (dane / "01_TTC510_piny.csv").exists():
-        sys.exit(f"Brak danych w {dane}. Uruchom najpierw driver_sil2/tools/gen_wireviz_dane.py")
-
+def analizuj(dane):
+    """
+    Rozbior danych 01/02 na urzadzenia, piny i polaczenia (kroki 1-3).
+    Wspolny dla arkuszy strefowych (main) i szablonu tabel wiazek
+    (wiazka/szablon.py) - obie drogi musza czytac kolumne "Dokad" identycznie.
+    """
     piny = czytaj(dane / "01_TTC510_piny.csv")
     urz = czytaj(dane / "02_urzadzenia_piny.csv")
 
@@ -293,6 +294,7 @@ def main():
     dev_meta, dev_piny = OrderedDict(), defaultdict(list)
     polaczenia_sur = []          # (dev, pin_dev, rodzaj, wezel, pin_celu, sygnal)
     raport_bez_celu = []
+    zrodla = []                  # rownolegle do polaczenia_sur: tekst "Dokad"
 
     # Zbiorcze "B-SLEW1, B-SLEW2": jesli ten sam numer pinu wystepuje tyle razy,
     # ilu jest czlonkow, to sa ODDZIELNE urzadzenia (kolejne wiersze = kolejni
@@ -342,7 +344,7 @@ def main():
                       d, (r.get("Pin urzadzenia") or "").strip(),
                       (r.get("Sygnal") or "").strip(), r.get(K_DOKAD), r,
                       (r.get("Zlacze urzadzenia") or "").strip(),
-                      (r.get("Uwagi do urzadzenia") or "").strip(), oz_zb)
+                      (r.get("Uwagi do urzadzenia") or "").strip(), oz_zb, zrodla)
             continue
         zlacze = (r.get("Zlacze urzadzenia") or "").strip()
         syg = (r.get("Sygnal") or "").strip()
@@ -357,7 +359,7 @@ def main():
             for i, d in enumerate(lista):
                 dc = cele[i] if len(cele) == len(lista) else (r.get(K_DOKAD) or "")
                 dodaj(dev_meta, dev_piny, polaczenia_sur, raport_bez_celu,
-                      d, pin_raw or "?", syg, dc, r, zlacze, uwagi, oz_zb)
+                      d, pin_raw or "?", syg, dc, r, zlacze, uwagi, oz_zb, zrodla)
             continue
 
         dev, pin = rozbij_pin(oz_zb, pin_raw, zlacze)
@@ -369,12 +371,12 @@ def main():
             rodzina = [d for d in dev_meta if d.startswith(pref)]
             for d in rodzina:
                 dodaj(dev_meta, dev_piny, polaczenia_sur, raport_bez_celu,
-                      d, pin, syg, r.get(K_DOKAD), r, zlacze, uwagi, oz_zb)
+                      d, pin, syg, r.get(K_DOKAD), r, zlacze, uwagi, oz_zb, zrodla)
             if not rodzina:
                 raport_bez_celu.append((dev, pin, syg, "brak urzadzen pasujacych do " + pref))
             continue
         dodaj(dev_meta, dev_piny, polaczenia_sur, raport_bez_celu,
-              dev, pin, syg, r.get(K_DOKAD), r, zlacze, uwagi, oz_zb)
+              dev, pin, syg, r.get(K_DOKAD), r, zlacze, uwagi, oz_zb, zrodla)
 
     # --- 3. przypisanie urzadzen do grup -----------------------------------
     grupa_dev = {}
@@ -401,6 +403,26 @@ def main():
             grupa_dev[dev] = "10"     # magistrala operatora
         else:
             grupa_dev[dev] = "0"
+    return SimpleNamespace(piny=piny, urz=urz, ttc=ttc, grupa_pinu=grupa_pinu,
+                           opis_pinu=opis_pinu, dev_meta=dev_meta, dev_piny=dev_piny,
+                           polaczenia_sur=polaczenia_sur,
+                           raport_bez_celu=raport_bez_celu, grupa_dev=grupa_dev,
+                           zrodla=zrodla)
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--dane", default=str(DANE_DOMYSLNE))
+    ap.add_argument("--wyjscie", default=str(TU))
+    a = ap.parse_args()
+
+    dane, wyj = Path(a.dane), Path(a.wyjscie)
+    if not (dane / "01_TTC510_piny.csv").exists():
+        sys.exit(f"Brak danych w {dane}. Uruchom najpierw driver_sil2/tools/gen_wireviz_dane.py")
+
+    a_ = analizuj(dane)
+    ttc, grupa_pinu, dev_meta, dev_piny = a_.ttc, a_.grupa_pinu, a_.dev_meta, a_.dev_piny
+    polaczenia_sur, raport_bez_celu, grupa_dev = a_.polaczenia_sur, a_.raport_bez_celu, a_.grupa_dev
 
     # --- 4. szyny: ile pinow ------------------------------------------------
     # Piny szyn numerujemy (1,2,3...), a opis "SGND / SL1" idzie do etykiety.
