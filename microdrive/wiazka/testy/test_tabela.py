@@ -22,6 +22,16 @@ def test_tabela_rozmiar_i_teksty_w_obrysie():
             assert 10 <= e.x and e.x + szer <= 10 + t.w + 0.01, e.tekst
 
 
+def test_kolumny_auto_nie_ucinaja_tekstu(demo_dir):
+    # Wada z pierwszego renderu: 'DEMO-STYK-20' i '3830 mm' ucinane / wychodzace za kolumne.
+    t = Tabela("T", ["Styk", "Ilosc", "Kolor"],
+               [["DEMO-STYK-20", "3830 mm", "BN/WH"], ["WWWWWWWW", "MMMM", "RD"]], kolory={2})
+    sc = Scena(300, 100)
+    t.rysuj(sc, 0, 90)
+    teksty = [e.tekst for e in sc.el if isinstance(e, Tekst)]
+    assert not any(x.endswith("...") for x in teksty), teksty
+
+
 def test_blok_zlacza_c1(demo_dir):
     d = wczytaj(demo_dir)
     b = BlokZlacza(d, "C1")

@@ -255,7 +255,8 @@ def _drzewo(sc, d, wid, ul, zaw, bloki, dx, dy):
             x, y = ax + (bx - ax) * 0.15, ay - 5.0
         elif e.wezel in ul.poz:
             x, y = P(ul.poz[e.wezel])
-            x, y = x - 10.0, y - 9.0
+            # pod symbolem zlacza (ten siega 7 mm pod os), nie na nim
+            x, y = x - 10.0, y - 12.0
         else:
             continue
         w_ = szer_tekstu(e.tekst, 2.2) + 3.0
@@ -271,7 +272,8 @@ def _drzewo(sc, d, wid, ul, zaw, bloki, dx, dy):
             k = licznik.get(n, 0)
             licznik[n] = k + 1
             x, y = P(ul.poz[n])
-            cx, cy = x - 6.0 - 7.0 * k, y + 8.0
+            # nad opisem odcinka (ten konczy sie ~6 mm nad osia), nie na nim
+            cx, cy = x - 4.0 - 7.0 * k, y + 12.0
             sc.okrag(cx, cy, 2.8, "WH_UWAGA", rgb=(230, 180, 0), wypelniony=True)
             sc.okrag(cx, cy, 2.8, "WH_UWAGA")
             sc.tekst(u.nr, cx, cy, 2.5, "WH_OPIS", "C")

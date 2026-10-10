@@ -8,20 +8,37 @@ Jedna scena -> DXF -> PDF/PNG: PDF i DXF nie moga sie rozjechac.
 from dataclasses import dataclass
 from typing import List, Optional, Tuple
 
-# Arial: zmierzona szerokosc znaku 0,64-0,70 wysokosci (tekst mieszany),
-# 0,76 (same cyfry). Jak w wv_dxf.CHAR_W: 0,72 z zapasem.
-SZER_ZNAKU = 0.72
+# Szerokosc tekstu MIERZONA czcionka Arial (ta sama, ktora renderuje PDF/PNG).
+# Staly wspolczynnik (0,72 z wv_dxf) nie wystarcza: WIELKIE litery i cyfry w Arialu
+# to ~0,86 wysokosci - tabele z numerami katalogowymi wychodzily poza kolumny.
+# Gdy czcionki brak, zapasowo 0,9 wysokosci na znak (raczej za szeroko niz za wasko).
+SZER_ZNAKU = 0.9
+ZAPAS = 1.04  # margines na roznice renderera
+
+try:
+    from ezdxf.fonts import fonts as _fonts
+    _arial = _fonts.make_font("arial.ttf", 1.0)
+except Exception:  # pragma: no cover - brak czcionki w systemie
+    _arial = None
 
 
 def szer_tekstu(t, h):
-    return len(str(t)) * h * SZER_ZNAKU
+    t = str(t)
+    if _arial is not None:
+        return _arial.text_width(t) * h * ZAPAS
+    return len(t) * h * SZER_ZNAKU
 
 
 def dopasuj(t, max_w, h):
     """Docina tekst do szerokosci, dokladajac wielokropek."""
     t = str(t).replace("\n", " ")
-    n = max(int(max_w / (h * SZER_ZNAKU)), 1)
-    return t if len(t) <= n else t[:max(n - 3, 1)] + "..."
+    if szer_tekstu(t, h) <= max_w + 1e-6:
+        return t
+    for n in range(len(t) - 1, 0, -1):
+        k = t[:n] + "..."
+        if szer_tekstu(k, h) <= max_w + 1e-6:
+            return k
+    return t[:1]
 
 
 @dataclass
