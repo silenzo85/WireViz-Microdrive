@@ -1,0 +1,15 @@
+# FIKCYJNE DANE DEMONSTRACYJNE - nie dotycza pojazdu Microdrive (docs/54 rozdz. 7)
+ID zyly;Od zlacze;Od gniazdo;Do zlacze;Do gniazdo;Przekroj mm2;Kolor;Sygnal;Typ przewodu;Kabel;Zyla w kablu;Skrecona z;Naddatek mm;Uwagi
+W1;C1;1;P1;1;0,5;RD;ZASIL+;DEMO-FLRY 0,5;;;W2;;
+W2;C1;2;P1;2;0,5;BK;MASA;DEMO-FLRY 0,5;;;W1;;
+W3;C1;3;P1;3;0,5;YE;CAN-H;DEMO-FLRY 0,5;;;W4;;
+W4;C1;4;P1;4;0,5;GN;CAN-L;DEMO-FLRY 0,5;;;W3;;
+W5;C1;5;C2;1;0,35;BK;SYG1;;K1;1;;;
+W6;C1;6;C2;2;0,35;BN;SYG2;;K1;2;;;
+W7;C1;7;C2;3;0,35;RD;SYG3;;K1;3;;;
+W8;C1;9;S1;;0,75;BU;LAMPA+;DEMO-FLRY 0,75;;;;;
+W9;S1;;C3;1;0,5;BU;LAMPA+;DEMO-FLRY 0,5;;;;;
+W10;S1;;C3;2;0,5;BU/WH;LAMPA+;DEMO-FLRY 0,5;;;;;
+W11;C1;11;D1;A;0,75;BN/WH;ZAWOR+;DEMO-FLRY 0,75;;;;;
+W12;D1;K;C4;1;0,75;BN/WH;ZAWOR+;DEMO-FLRY 0,75;;;;;
+W13;C4;2;C1;12;0,75;BK;ZAWOR-;DEMO-FLRY 0,75;;;;;

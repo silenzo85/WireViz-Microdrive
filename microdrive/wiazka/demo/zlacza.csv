@@ -1,0 +1,7 @@
+# FIKCYJNE DANE DEMONSTRACYJNE - nie dotycza pojazdu Microdrive (docs/54 rozdz. 7)
+Oznaczenie;Urzadzenie;Producent;Obudowa;Liczba gniazd;Styk;Uszczelka;Zaslepka;Backshell;Naddatek mm;Widok czola;Uwagi
+C1;STEROWNIK-DEMO;DEMO;DEMO-13P;13;DEMO-STYK-20;DEMO-USZCZ-20;DEMO-ZASL;DEMO-BS-13;;;
+P1;CZUJNIK-DEMO;DEMO;DEMO-4S;4;DEMO-STYK-20;;;;30;;
+C2;MODUL-DEMO;DEMO;DEMO-3S;3;DEMO-STYK-24;;;;;;
+C3;LAMPA-DEMO;DEMO;TODO;2;;;;;;;obudowa nieustalona
+C4;ZAWOR-DEMO;DEMO;DEMO-DT04-2P;2;DEMO-STYK-16;;;;;;

@@ -1,0 +1,13 @@
+# FIKCYJNE DANE DEMONSTRACYJNE - nie dotycza pojazdu Microdrive (docs/54 rozdz. 7)
+ID wezla;ID wiazki;Typ;Opis;Producent;Numer katalogowy
+C1;DEMO-1;ZLACZE;Sterownik demo;;
+P1;DEMO-1;ZLACZE;Czujnik demo;;
+C2;DEMO-1;ZLACZE;Modul demo;;
+C3;DEMO-1;ZLACZE;Lampa demo;;
+C4;DEMO-1;ZLACZE;Zawor demo;;
+B1;DEMO-1;ROZGALEZIENIE;;;
+B2;DEMO-1;ROZGALEZIENIE;;;
+B3;DEMO-1;ROZGALEZIENIE;;;
+G1;DEMO-1;PRZEPUST;Przepust w scianie;DEMO;DEMO-GROM-58
+S1;DEMO-1;SPLICE;Splice zgrzewany;DEMO;DEMO-SPL-1
+D1;DEMO-1;ELEMENT;Dioda gaszaca;DEMO;DEMO-1N4001
