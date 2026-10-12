@@ -30,6 +30,10 @@ def test_wszystko_rozmieszczone(demo_dir):
 
 def test_bloki_sie_nie_nakladaja(demo_dir):
     d, ul = przygotuj(demo_dir)
+    sprawdz_bloki(d, ul)
+
+
+def sprawdz_bloki(d, ul):
     r = prostokaty(d, ul)
     for i in range(len(r)):
         for j in range(i + 1, len(r)):
@@ -153,7 +157,9 @@ def test_trasy_sie_nie_nakladaja_dane_projektu():
     d = wczytaj(dane)
     for wid in d.wiazki:
         dr = Drzewo(d, wid)
-        sprawdz_trasy(d, uloz(d, dr, zawartosc(d, dr)))
+        ul = uloz(d, dr, zawartosc(d, dr))
+        sprawdz_bloki(d, ul)   # zlacza "w linii" (para zlaczy na ogonku) nachodzily na siebie
+        sprawdz_trasy(d, ul)
 
 
 def test_uklad_csv_nadpisuje(demo_dir):

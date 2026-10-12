@@ -168,6 +168,11 @@ def uloz(d, drzewo, zaw):
             oid, _ = krawedz[c]
             dl = max(S_MIN, dl_opisu(oid) + 12)
             potrzeba = koniec[i] + 4
+            if i == 0 and n in u.bloki and ch and not czy_korzen:
+                # zlacze w linii ma tabele NAD wezlem - ciag dalszy wiazki zaczyna sie
+                # dopiero za nia (para zlaczy na ogonku: tabele nachodzily na siebie)
+                bx, _by, _s = u.bloki[n]
+                potrzeba = max(potrzeba, bx + bloki[n].w + 4)
             for j in range(1, len(subs)):
                 if j != i:
                     xl = x_linii(j, cy + sub.bbox[1], cy + sub.bbox[3])
