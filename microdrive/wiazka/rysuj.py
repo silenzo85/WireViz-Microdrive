@@ -227,6 +227,11 @@ def _drzewo(sc, d, wid, ul, zaw, bloki, dx, dy):
         sc.tekst(opis_odcinka(d, o, len(zaw[oid])), (ax + bx) / 2, ay + OPIS_DY + OPIS_H / 2,
                  OPIS_H, "WH_OPIS", "C", rgb=CZERWONY if o.dlugosc is None else None)
 
+    # belki rozgalezne: wezel, z ktorego wychodzi kilka galezi bocznych
+    for n, (bx, y0, y1) in ul.belki.items():
+        (x, ya), (_x, yb) = P((bx, y0)), P((bx, y1))
+        sc.wyp(x - 1.3, ya - RURKA, 2.6, yb - ya + 2 * RURKA, (60, 60, 60), "WH_WEZEL")
+
     for w in sorted(d.wezly_wiazki(wid), key=lambda w: naturalnie(w.id)):
         x, y = P(ul.poz[w.id])
         if w.typ == "ROZGALEZIENIE":

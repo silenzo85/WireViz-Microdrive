@@ -25,6 +25,8 @@ WEZEL_R = 6.0     # polowa obrysu wezla nie-zlacza [mm]
 OPIS_H = 2.5      # wysokosc opisu odcinka [mm]
 OPIS_DY = 3.5     # opis nad osia odcinka [mm]
 ODSUNIECIE = 1.0  # blok zlacza od wezla [mm]
+BELKA_KROK = 9.0   # odstep startow galezi na belce rozgaleznej [mm]; 9*cos60 = 4,5 mm miedzy liniami
+CTG_KATA = 0.577   # = ctg(60 st.): galaz boczna pod katem 60 st. od poziomu
 
 
 @dataclass
@@ -35,6 +37,7 @@ class Ulozenie:
     bbox: list = field(default_factory=lambda: [0.0, 0.0, 0.0, 0.0])
     korzen: str = ""
     krawedz: dict = field(default_factory=dict)  # odcinek -> (rodzic, dziecko)
+    belki: dict = field(default_factory=dict)    # wezel -> (x, y0, y1) belki rozgaleznej
 
 
 def opis_odcinka(d, o, n_zyl):
@@ -94,6 +97,8 @@ def _wklej(u, sub, dx, dy):
     for k, (x, y, s) in sub.bloki.items():
         u.bloki[k] = (x + dx, y + dy, s)
     u.krawedz.update(sub.krawedz)
+    for k, (x, y0, y1) in sub.belki.items():
+        u.belki[k] = (x + dx, y0 + dy, y1 + dy)
     _bb(u.bbox, sub.bbox[0] + dx, sub.bbox[1] + dy, sub.bbox[2] + dx, sub.bbox[3] + dy)
 
 
@@ -123,31 +128,63 @@ def uloz(d, drzewo, zaw):
             _bb(u.bbox, -WEZEL_R, -WEZEL_R, WEZEL_R, WEZEL_R)
         else:
             u.bbox = [-WEZEL_R, -WEZEL_R, WEZEL_R, WEZEL_R]
+        # 1) wysokosci: ciezkie dziecko na osi, boczne naprzemiennie w gore / w dol,
+        #    kazde w swoim pasmie (pasma liczone tylko w pionie)
+        subs = [rek(c, False) for c in ch]
         gora, dol = u.bbox[3], u.bbox[1]
-        for i, c in enumerate(ch):
+        if subs:
+            gora, dol = max(gora, subs[0].bbox[3]), min(dol, subs[0].bbox[1])
+        wys_y, start = [0.0], [0.0]
+        ku = kd = 0
+        for i, sub in enumerate(subs[1:], 1):
+            if i % 2 == 1:  # w gore
+                ku += 1
+                cy = gora + ODSTEP + OPIS_DY + OPIS_H - sub.bbox[1]
+                gora = cy + sub.bbox[3]
+                start.append(ku * BELKA_KROK)
+            else:           # w dol
+                kd += 1
+                cy = dol - ODSTEP - sub.bbox[3]
+                dol = cy + sub.bbox[1]
+                start.append(-kd * BELKA_KROK)
+            wys_y.append(cy)
+        # 2) BELKA ROZGALEZNA: kazda galaz boczna startuje z WLASNEGO punktu belki
+        #    (co BELKA_KROK) i idzie pod katem 60 st. Linie sa rownolegle z odstepem
+        #    BELKA_KROK*cos(kat) - nie zlewaja sie (wczesniej: prawie pionowe z jednego
+        #    punktu, nakladaly sie w jeden pas). Zawartosc kazdej galezi odsuwana tak,
+        #    zeby linie dalszych galezi przechodzily PRZED nia.
+        koniec = [abs(cy - s0) * CTG_KATA for cy, s0 in zip(wys_y, start)]
+
+        def x_linii(j, y0, y1):
+            """Najdalej w prawo, gdzie linia galezi j przechodzi przez pasmo [y0, y1]."""
+            lo, hi = sorted((start[j], wys_y[j]))
+            a, b = max(lo, y0), min(hi, y1)
+            if a > b:
+                return None
+            yy = b if wys_y[j] > start[j] else a
+            return abs(yy - start[j]) * CTG_KATA
+
+        for i, (c, sub, cy) in enumerate(zip(ch, subs, wys_y)):
             oid, _ = krawedz[c]
-            sub = rek(c, False)
             dl = max(S_MIN, dl_opisu(oid) + 12)
+            potrzeba = koniec[i] + 4
+            for j in range(1, len(subs)):
+                if j != i:
+                    xl = x_linii(j, cy + sub.bbox[1], cy + sub.bbox[3])
+                    if xl is not None:
+                        potrzeba = max(potrzeba, xl + 4)
+            cx = max(koniec[i] + dl, potrzeba - sub.bbox[0])
             if i == 0:
-                cx = max(dl, 4 - sub.bbox[0])
-                cy, t = 0.0, 0.0
                 trasa = [(0.0, 0.0), (cx, 0.0)]
             else:
-                if i % 2 == 1:  # w gore
-                    cy = gora + ODSTEP + OPIS_DY + OPIS_H - sub.bbox[1]
-                    zasieg = max(gora, 1.0)
-                else:           # w dol
-                    cy = dol - ODSTEP - sub.bbox[3]
-                    zasieg = max(-dol, 1.0)
-                # prawie pionowo: na wysokosci dotychczasowej zawartosci x = 1,5 mm
-                t = max(2.0, 1.5 * abs(cy) / zasieg)
-                cx = max(t + dl, t + 4 - sub.bbox[0])
-                trasa = [(0.0, 0.0), (t, cy), (cx, cy)]
+                trasa = [(0.0, start[i]), (koniec[i], cy), (cx, cy)]
             _wklej(u, sub, cx, cy)
             u.trasy[oid] = trasa
             u.krawedz[oid] = (n, c)
-            _bb(u.bbox, min(0.0, t), min(0.0, cy), cx, cy + OPIS_DY + OPIS_H)
-            gora, dol = u.bbox[3], u.bbox[1]
+            _bb(u.bbox, 0.0, min(0.0, cy, start[i]), cx,
+                max(0.0, cy, start[i]) + OPIS_DY + OPIS_H)
+        if len(subs) > 1:
+            u.belki[n] = (0.0, min(start), max(start))
         return u
 
     ul = rek(korzen, True)
@@ -168,6 +205,7 @@ def _nadpisz(d, ul, bloki):
         if n in ul.bloki:
             bx, by, s = ul.bloki[n]
             ul.bloki[n] = (bx + x1 - x0, by + y1 - y0, s)
+        ul.belki.pop(n, None)  # po recznym przesunieciu galezie wychodza z punktu wezla
     for oid, (a, b) in ul.krawedz.items():
         if a in ruszone or b in ruszone:
             (xa, ya), (xb, yb) = ul.poz[a], ul.poz[b]
