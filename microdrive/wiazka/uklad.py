@@ -38,6 +38,7 @@ class Ulozenie:
     korzen: str = ""
     krawedz: dict = field(default_factory=dict)  # odcinek -> (rodzic, dziecko)
     belki: dict = field(default_factory=dict)    # wezel -> (x, y0, y1) belki rozgaleznej
+    ksztalt: list = field(default_factory=list)  # prostokaty tresci (x0, y0, x1, y1)
 
 
 def opis_odcinka(d, o, n_zyl):
@@ -99,22 +100,52 @@ def _wklej(u, sub, dx, dy):
     u.krawedz.update(sub.krawedz)
     for k, (x, y0, y1) in sub.belki.items():
         u.belki[k] = (x + dx, y0 + dy, y1 + dy)
+    u.ksztalt += [(a + dx, b + dy, c + dx, e + dy) for a, b, c, e in sub.ksztalt]
     _bb(u.bbox, sub.bbox[0] + dx, sub.bbox[1] + dy, sub.bbox[2] + dx, sub.bbox[3] + dy)
+
+
+def _urzadzenie(d, z):
+    """'HY-TTC 510 (X1, 96-pin)' -> 'HY-TTC 510': klucz grupujacy wtyczki jednego urzadzenia."""
+    zl = d.zlacza.get(z)
+    return zl.urzadzenie.split("(")[0].strip() if zl else ""
+
+
+def _grupa_korzenia(d, drzewo, korzen):
+    """
+    Wtyczki jednego urzadzenia przy korzeniu (TTC510 = X1 + X2) stoja RAZEM po lewej
+    stronie wspolnego wezla, z ktorego wychodza kable. Wczesniej X2 rysowala sie jako
+    galaz za wezlem - wygladalo, jakby jedna wtyczka byla podlaczona do drugiej.
+    Zwraca (wezel ukladu, [wtyczki po lewej]) albo (korzen, []).
+    """
+    sas = drzewo.sas[korzen]
+    klucz = _urzadzenie(d, korzen)
+    if len(sas) != 1 or not klucz:
+        return korzen, []
+    b = sas[0][0]
+    if d.wezly[b].typ == "ZLACZE":
+        return korzen, []
+    inne = [s for s, _ in drzewo.sas[b] if s != korzen and d.wezly[s].typ == "ZLACZE"
+            and len(drzewo.sas[s]) == 1 and _urzadzenie(d, s) == klucz]
+    if not inne:
+        return korzen, []
+    return b, [korzen] + sorted(inne, key=naturalnie)
 
 
 def uloz(d, drzewo, zaw):
     bloki = {n: BlokZlacza(d, n) for n in drzewo.wezly if d.wezly[n].typ == "ZLACZE"}
     korzen = _korzen(d, drzewo)
+    korzen, lewe = _grupa_korzenia(d, drzewo, korzen)
     dzieci, krawedz = _ukorzen(drzewo, korzen)
     wys = _wysokosci(dzieci, korzen)
 
     def dl_opisu(oid):
         return szer_tekstu(opis_odcinka(d, d.odcinki[oid], len(zaw[oid])), OPIS_H)
 
-    def rek(n, czy_korzen):
+    def rek(n, czy_korzen, w_gore=True):
         u = Ulozenie()
         u.poz[n] = (0.0, 0.0)
-        ch = sorted(dzieci[n], key=lambda c: (-wys[c], naturalnie(c)))
+        ch = sorted([c for c in dzieci[n] if not (czy_korzen and c in lewe)],
+                    key=lambda c: (-wys[c], naturalnie(c)))
         if n in bloki:
             b = bloki[n]
             if czy_korzen:
@@ -125,19 +156,24 @@ def uloz(d, drzewo, zaw):
                 x, y, s = -b.w / 2, WEZEL_R + 2, 1
             u.bloki[n] = (x, y, s)
             u.bbox = [x, y, x + b.w, y + b.h]
+            u.ksztalt.append((x, y, x + b.w, y + b.h))
             _bb(u.bbox, -WEZEL_R, -WEZEL_R, WEZEL_R, WEZEL_R)
         else:
             u.bbox = [-WEZEL_R, -WEZEL_R, WEZEL_R, WEZEL_R]
-        # 1) wysokosci: ciezkie dziecko na osi, boczne naprzemiennie w gore / w dol,
-        #    kazde w swoim pasmie (pasma liczone tylko w pionie)
-        subs = [rek(c, False) for c in ch]
+        u.ksztalt.append((-WEZEL_R, -WEZEL_R, WEZEL_R, WEZEL_R))
+        # 1) wysokosci: ciezkie dziecko na osi, boczne naprzemiennie w gore / w dol.
+        #    UKLAD SZEREGOWY: boczne pasma licza sie od samego wezla (NIE ponad calym
+        #    ciagiem dalszym), a ciag dalszy wiazki przesuwa sie w prawo za odgalezienia.
+        #    Wczesniej kazde odgalezienie szlo ponad wszystkim dalej - schodki (uwaga
+        #    usera 2026-10-12: CAN0 klawiatura > HAT > Vision ma byc szeregowo).
+        nie_pierwsze = len(ch) == 2   # jedno odgalezienie: kierunek zmienia sie w ciagu
+        subs = [rek(c, False, (not w_gore) if (i == 0 and nie_pierwsze) else True)
+                for i, c in enumerate(ch)]
         gora, dol = u.bbox[3], u.bbox[1]
-        if subs:
-            gora, dol = max(gora, subs[0].bbox[3]), min(dol, subs[0].bbox[1])
         wys_y, start = [0.0], [0.0]
         ku = kd = 0
         for i, sub in enumerate(subs[1:], 1):
-            if i % 2 == 1:  # w gore
+            if (i % 2 == 1) == w_gore:  # w gore
                 ku += 1
                 cy = gora + ODSTEP + OPIS_DY + OPIS_H - sub.bbox[1]
                 gora = cy + sub.bbox[3]
@@ -164,7 +200,8 @@ def uloz(d, drzewo, zaw):
             yy = b if wys_y[j] > start[j] else a
             return abs(yy - start[j]) * CTG_KATA
 
-        for i, (c, sub, cy) in enumerate(zip(ch, subs, wys_y)):
+        for i in list(range(1, len(subs))) + ([0] if subs else []):
+            c, sub, cy = ch[i], subs[i], wys_y[i]
             oid, _ = krawedz[c]
             dl = max(S_MIN, dl_opisu(oid) + 12)
             potrzeba = koniec[i] + 4
@@ -180,17 +217,54 @@ def uloz(d, drzewo, zaw):
                         potrzeba = max(potrzeba, xl + 4)
             cx = max(koniec[i] + dl, potrzeba - sub.bbox[0])
             if i == 0:
+                # DOSUWANIE: ciag dalszy przesuwany w prawo tylko tyle, zeby jego tresc
+                # nie nachodzila na juz ulozone odgalezienia (prostokaty, nie caly obrys).
+                # Wczesniej: zawsze za cala szerokosc odgalezien - rzad 1,9 m (kabina).
+                for _ in range(500):
+                    kolizja = None
+                    for a, b, c2, e in sub.ksztalt:
+                        a, c2 = a + cx, c2 + cx
+                        for p0, q0, p1, q1 in u.ksztalt:
+                            if a < p1 + ODSTEP and p0 < c2 + ODSTEP and b < q1 + 2 and q0 < e + 2:
+                                kolizja = max(kolizja or 0.0, p1 + ODSTEP - a)
+                    if not kolizja:
+                        break
+                    cx += kolizja
+            if i == 0:
                 trasa = [(0.0, 0.0), (cx, 0.0)]
             else:
                 trasa = [(0.0, start[i]), (koniec[i], cy), (cx, cy)]
             _wklej(u, sub, cx, cy)
             u.trasy[oid] = trasa
             u.krawedz[oid] = (n, c)
+            for (xa, ya), (xb, yb) in zip(trasa, trasa[1:]):
+                u.ksztalt.append((min(xa, xb), min(ya, yb) - 2, max(xa, xb), max(ya, yb) + 2))
+            u.ksztalt.append((trasa[-2][0], cy, cx, cy + OPIS_DY + OPIS_H))
             _bb(u.bbox, 0.0, min(0.0, cy, start[i]), cx,
                 max(0.0, cy, start[i]) + OPIS_DY + OPIS_H)
         if len(subs) > 1:
             u.belki[n] = (0.0, min(start), max(start))
+        if czy_korzen and lewe:
+            _uloz_lewe(u, n)
         return u
+
+    def _uloz_lewe(u, n):
+        """Wtyczki jednego urzadzenia jedna nad druga po lewej stronie wezla n."""
+        hs = [bloki[z].h for z in lewe]
+        gora = (sum(hs) + ODSTEP * (len(hs) - 1)) / 2
+        L = max(S_MIN, max(dl_opisu(krawedz[z][0]) for z in lewe) + 12) / 0.6
+        for z, h in zip(lewe, hs):
+            cy = gora - h / 2
+            gora -= h + ODSTEP
+            oid, _ = krawedz[z]
+            b = bloki[z]
+            u.poz[z] = (-L, cy)
+            bx, by = -L - ODSUNIECIE - b.w, cy - b.h / 2
+            u.bloki[z] = (bx, by, -1)
+            u.trasy[oid] = [(0.0, 0.0), (-0.4 * L, cy), (-L, cy)]
+            u.krawedz[oid] = (n, z)
+            _bb(u.bbox, bx, by, 0.0, by + b.h)
+            _bb(u.bbox, -L, cy, 0.0, cy + OPIS_DY + OPIS_H)
 
     ul = rek(korzen, True)
     ul.korzen = korzen

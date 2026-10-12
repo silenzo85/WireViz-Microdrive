@@ -26,6 +26,8 @@ BANER_H = 12.0      # pas na znak TBD nad rysunkiem [mm]
 CZERWONY = (200, 0, 0)
 POMARANCZ = (255, 170, 60)
 ZIELONY = (170, 220, 170)
+BOOT = (205, 205, 205)  # lacznik rozgalezny (but przejsciowy)
+BOOT_NOZKA = 7.0        # dlugosc nozki lacznika wzdluz rurki [mm]
 
 
 def wybierz_format(w, h, wymuszony="auto"):
@@ -227,10 +229,29 @@ def _drzewo(sc, d, wid, ul, zaw, bloki, dx, dy):
         sc.tekst(opis_odcinka(d, o, len(zaw[oid])), (ax + bx) / 2, ay + OPIS_DY + OPIS_H / 2,
                  OPIS_H, "WH_OPIS", "C", rgb=CZERWONY if o.dlugosc is None else None)
 
-    # belki rozgalezne: wezel, z ktorego wychodzi kilka galezi bocznych
+    # lacznik rozgalezny (jak "transition boot" w RapidHarness): korpus + nozki wzdluz
+    # kazdej rurki wychodzacej z wezla. Zamiast czarnej belki (uwaga usera 2026-10-12).
     for n, (bx, y0, y1) in ul.belki.items():
         (x, ya), (_x, yb) = P((bx, y0)), P((bx, y1))
-        sc.wyp(x - 1.3, ya - RURKA, 2.6, yb - ya + 2 * RURKA, (60, 60, 60), "WH_WEZEL")
+        nozki = []
+        for oid, (rodzic, dziecko) in ul.krawedz.items():
+            pts = [P(p) for p in ul.trasy[oid]]
+            if rodzic == n:
+                nozki.append((pts[0], pts[1]))
+            elif dziecko == n:
+                nozki.append((pts[-1], pts[-2]))
+        for (sx, sy), (tx, ty) in nozki:
+            dl = math.hypot(tx - sx, ty - sy)
+            if dl < 1e-6:
+                continue
+            ux, uy = (tx - sx) / dl, (ty - sy) / dl
+            L, h = min(BOOT_NOZKA, dl), RURKA + 0.8
+            q = [(sx - uy * h, sy + ux * h), (sx + ux * L - uy * h, sy + uy * L + ux * h),
+                 (sx + ux * L + uy * h, sy + uy * L - ux * h), (sx + uy * h, sy - ux * h)]
+            sc.wielokat(q, BOOT, "WH_WEZEL")
+            sc.linia(q + [q[0]], "WH_WEZEL")
+        sc.wyp(x - 3.0, ya - 3.0, 6.0, yb - ya + 6.0, BOOT, "WH_WEZEL")
+        sc.prost(x - 3.0, ya - 3.0, 6.0, yb - ya + 6.0, "WH_WEZEL")
 
     for w in sorted(d.wezly_wiazki(wid), key=lambda w: naturalnie(w.id)):
         x, y = P(ul.poz[w.id])

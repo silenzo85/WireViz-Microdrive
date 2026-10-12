@@ -17,6 +17,7 @@ KRATKA = 5.0                # pole gniazda w widoku czola [mm]
 ODST = 3.0                  # odstep symbol / czolo / tabela [mm]
 SZARY_SYM = (200, 200, 200)
 ZAJETE = (190, 215, 240)
+PUSTE = (190, 190, 190)   # obrys i numer gniazda nieobsadzonego
 
 
 def _wiersz(gn, drugi, gn2, z, zl):
@@ -77,9 +78,12 @@ class BlokZlacza:
         for i, g in enumerate(self.gn):
             r, c = divmod(i, self.kol)
             cx, cy = xc + c * KRATKA, y0 - (r + 1) * KRATKA
-            if g in self.uzyte:
+            # puste gniazda blado - widok czola nie moze sugerowac, ze obsadzona jest
+            # cala wtyczka (uwaga usera: Vision C1 34-pin, a ida tylko 4 zyly)
+            zajete = g in self.uzyte
+            if zajete:
                 sc.wyp(cx, cy, KRATKA, KRATKA, ZAJETE, "WH_ZLACZE")
-            sc.prost(cx, cy, KRATKA, KRATKA, "WH_ZLACZE")
+            sc.prost(cx, cy, KRATKA, KRATKA, "WH_ZLACZE", rgb=None if zajete else PUSTE)
             sc.tekst(dopasuj(g, KRATKA - 0.6, 1.6), cx + KRATKA / 2, cy + KRATKA / 2, 1.6,
-                     "WH_OPIS", "C")
+                     "WH_OPIS", "C", rgb=None if zajete else PUSTE)
         self.tab.rysuj(sc, xt, yc + self.tab.h / 2)

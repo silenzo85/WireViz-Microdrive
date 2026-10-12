@@ -73,16 +73,33 @@ def renderuj(doc, w, h, fmt="pdf", dpi=110):
     return be.get_pixmap_bytes(strona, fmt="png", dpi=dpi, render_box=pole)
 
 
+def _zapisz_bezpiecznie(zapis, sciezka):
+    """
+    Plik otwarty w przegladarce PDF / CAD jest zablokowany przez Windows - zamiast
+    przerywac cale generowanie zapisujemy obok jako *_NOWY i mowimy o tym wprost.
+    """
+    try:
+        zapis(sciezka)
+        return None
+    except Exception:  # PermissionError z Pythona albo blad systemowy z PyMuPDF
+        p = Path(sciezka)
+        alt = str(p.with_name(p.stem + "_NOWY" + p.suffix))
+        zapis(alt)
+        print(f"UWAGA: {p.name} jest otwarty w innym programie - zapisano {Path(alt).name}")
+        return alt
+
+
 def zapisz(sceny, baza):
     """baza = sciezka bez rozszerzenia. DXF i PNG = arkusz 1, PDF = wszystkie strony."""
     baza = str(baza)
     docs = [do_dxf(s) for s in sceny]
-    docs[0].saveas(baza + ".dxf")
+    _zapisz_bezpiecznie(docs[0].saveas, baza + ".dxf")
     pdf = fitz.open()
     for doc, s in zip(docs, sceny):
         pdf.insert_pdf(fitz.open("pdf", renderuj(doc, s.w, s.h, "pdf")))
-    pdf.save(baza + ".pdf")
-    Path(baza + ".png").write_bytes(renderuj(docs[0], sceny[0].w, sceny[0].h, "png"))
+    _zapisz_bezpiecznie(pdf.save, baza + ".pdf")
+    png = renderuj(docs[0], sceny[0].w, sceny[0].h, "png")
+    _zapisz_bezpiecznie(lambda s: Path(s).write_bytes(png), baza + ".png")
 
 
 def zapisz_csv(katalog, tabele):

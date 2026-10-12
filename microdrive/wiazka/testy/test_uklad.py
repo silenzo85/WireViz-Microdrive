@@ -162,6 +162,34 @@ def test_trasy_sie_nie_nakladaja_dane_projektu():
         sprawdz_trasy(d, ul)
 
 
+def test_odgalezienia_szeregowo_przy_wezle(demo_dir):
+    # Uwaga usera: odgalezienia (C4 przez D1, P1, C2) maja wisiec tuz przy swoim wezle,
+    # a nie schodkami coraz wyzej nad cala reszta wiazki.
+    d, ul = przygotuj(demo_dir)
+    for oid, (rodzic, dziecko) in ul.krawedz.items():
+        trasa = ul.trasy[oid]
+        if len(trasa) > 2:                     # galaz boczna
+            wys = abs(trasa[-1][1] - ul.poz[rodzic][1])
+            assert wys < 80.0, f"{dziecko}: odgalezienie {wys:.0f} mm od wezla {rodzic}"
+
+
+def test_zlacza_jednego_urzadzenia_razem_po_lewej(demo_dir, dopisz, zastap):
+    # Uwaga usera: TTC X1 i X2 to jedno urzadzenie - wtyczki obok siebie po jednej
+    # stronie, a nie jedna "podlaczona" do drugiej przez wezel.
+    zastap(demo_dir, "zlacza.csv", "C1;STEROWNIK-DEMO;", "C1;STEROWNIK-DEMO (X1);")
+    dopisz(demo_dir, "wezly.csv", "C1B;DEMO-1;ZLACZE;;;")
+    dopisz(demo_dir, "zlacza.csv", "C1B;STEROWNIK-DEMO (X2);DEMO;DEMO-6P;6;;;;;;;")
+    dopisz(demo_dir, "odcinki.csv", "O-99;DEMO-1;B1;C1B;0;;")
+    zastap(demo_dir, "przewody.csv", "W13;C4;2;C1;12;", "W13;C4;2;C1B;1;")
+    d, ul = przygotuj(demo_dir)
+    x_b1 = ul.poz["B1"][0]
+    for z in ("C1", "C1B"):
+        assert ul.poz[z][0] < x_b1, f"{z} ma byc po lewej stronie wezla B1"
+        assert ul.bloki[z][2] == -1
+    sprawdz_bloki(d, ul)
+    sprawdz_trasy(d, ul)
+
+
 def test_uklad_csv_nadpisuje(demo_dir):
     (demo_dir / "uklad.csv").write_text("Wezel;X mm;Y mm\nB3;500;-300\n", encoding="utf-8")
     d, ul = przygotuj(demo_dir)
