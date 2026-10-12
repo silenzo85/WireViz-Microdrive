@@ -73,6 +73,11 @@ def bom(d, drzewo, dlugosci):
                 lic.dodaj("Zaslepka", zl.producent, zl.zaslepka, "", wolne)
             if zl.backshell:
                 lic.dodaj("Backshell", zl.producent, zl.backshell, "", 1)
+        elif w.typ == "SPLICE":
+            # tyle spojek, ile roznych nazw w tym miejscu (H, L, GND... albo jedna bez nazwy)
+            nazwy = {gn for z in zyly for wz, gn in ((z.od, z.od_gn), (z.do, z.do_gn))
+                     if wz == w.id}
+            lic.dodaj("Splice", w.producent, w.pn, w.opis, max(len(nazwy), 1))
         elif w.typ in WEZLY_Z_CZESCIA:
             lic.dodaj(w.typ.capitalize(), w.producent, w.pn, w.opis, 1)
 

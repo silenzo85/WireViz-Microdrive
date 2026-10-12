@@ -107,9 +107,9 @@ def _zyly(d):
                 d.dodaj("BLAD", z.zrodlo, f"zyla {z.id}: {wz} jest typu {w.typ}; zyla konczy "
                         "sie tylko na ZLACZE, SPLICE albo ELEMENT", wid)
             elif w.typ == "SPLICE":
-                if gn:
-                    d.dodaj("BLAD", z.zrodlo, f"zyla {z.id}: splice {wz} nie ma gniazd - "
-                            f"kolumna '{strona} gniazdo' ma byc pusta", wid)
+                # gniazdo splice'a = NAZWA spojki w tym miejscu (H, L, GND...);
+                # puste = jedna spojka. Wiele zyl na tej samej nazwie to sens splice'a.
+                pass
             elif not gn:
                 d.dodaj("BLAD", z.zrodlo, f"zyla {z.id}: brak '{strona} gniazdo' dla {wz}", wid)
             else:

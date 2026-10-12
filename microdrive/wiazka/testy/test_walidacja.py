@@ -51,9 +51,20 @@ def test_gniazdo_zajete_dwa_razy(demo_dir, dopisz):
     assert any("C1.1 zajete dwa razy" in t for t in bledy(sprawdz(demo_dir)))
 
 
-def test_splice_z_gniazdem(demo_dir, zastap):
-    zastap(demo_dir, "przewody.csv", "W9;S1;;C3", "W9;S1;1;C3")
-    assert any("splice S1 nie ma gniazd" in t for t in bledy(sprawdz(demo_dir)))
+def test_splice_z_nazwanymi_zlaczami(demo_dir, zastap):
+    # Jeden punkt magistrali = kilka osobnych polaczen (H, L, GND...). Gniazdo splice'a
+    # to NAZWA polaczenia; ta sama nazwa wiele razy = ta sama spojka (to nie blad).
+    zastap(demo_dir, "przewody.csv", "W8;C1;9;S1;", "W8;C1;9;S1;A")
+    zastap(demo_dir, "przewody.csv", "W9;S1;;C3", "W9;S1;A;C3")
+    zastap(demo_dir, "przewody.csv", "W10;S1;;C3", "W10;S1;B;C3")
+    d = sprawdz(demo_dir)
+    assert bledy(d) == []
+    from wiazka.bom import bom
+    from wiazka.topologia import Drzewo, dlugosc_ciecia
+    dr = Drzewo(d, "DEMO-1")
+    dl = {z.id: dlugosc_ciecia(d, dr, z) for z in d.zyly_wiazki("DEMO-1")}
+    spl = [p for p in bom(d, dr, dl) if p.typ == "Splice"][0]
+    assert spl.ilosc == "2"     # dwie spojki w jednym miejscu: A i B
 
 
 def test_zlacze_bez_wiersza(demo_dir, dopisz):
